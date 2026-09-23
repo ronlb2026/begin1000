@@ -173,16 +173,102 @@ button.speak:hover {
   margin-left: 5px;
 }
 
+/* ================= GOOGLE VOICE STYLE ================= */
+
+/* Khung hiển thị trạng thái thu âm */
 .speech-status {
-  margin-top: 8px;
-  font-size: 14px;
-  min-height: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  min-height: 40px;
+  transition: all 0.3s ease;
 }
 
-.speech-status.correct { color: #2e7d32; }
-.speech-status.wrong { color: #c62828; }
-.speech-status.listening { color: #1976d2; font-style: italic; }
+/* 1. Khi đang thu âm (Style Google Voice) */
+.speech-status.listening {
+  background: transparent;
+  padding: 0;
+}
 
+.google-speech-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8f9fa;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Nút Mic tròn đỏ phát sáng tỏa sóng */
+.google-mic-listening {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  background: #ea4335; /* Màu đỏ Google Mic */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(234, 67, 53, 0.4);
+  animation: google-pulse 1.4s infinite ease-out;
+}
+
+@keyframes google-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.speech-text-box {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.listening-label {
+  font-size: 11px;
+  color: #1a73e8; /* Màu xanh Google */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.live-transcript {
+  margin: 2px 0 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #202124;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 2. Kết quả Đúng / Sai sau khi so sánh */
+.speech-status.correct {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 8px 12px;
+  border: 1px solid #c8e6c9;
+  font-size: 14px;
+}
+
+.speech-status.wrong {
+  background: #ffebee;
+  color: #c62828;
+  padding: 8px 12px;
+  border: 1px solid #ffcdd2;
+  font-size: 14px;
+}
+	
 </style>
 </head>
 <body>
@@ -2110,7 +2196,7 @@ function cleanText(str) {
 let globalRecognition = null;
 
 function checkSpeech(targetText, statusId) {
-  // 1. Tắt âm thanh/Video để không lọt tiếng vào Mic
+  // Tắt âm thanh/Video để không lọt tiếng vào Mic
   if (window.speechSynthesis) window.speechSynthesis.cancel();
   const mainVideo = document.getElementById('mainVideoPlayer');
   if (mainVideo) mainVideo.pause();
@@ -2118,7 +2204,6 @@ function checkSpeech(targetText, statusId) {
   const statusDiv = document.getElementById(statusId);
   if (!statusDiv || !targetText) return;
 
-  // 2. Hủy phiên ghi âm cũ nếu người dùng bấm nút liên tục
   if (globalRecognition) {
     try { globalRecognition.abort(); } catch (e) {}
   }
@@ -2130,39 +2215,56 @@ function checkSpeech(targetText, statusId) {
   globalRecognition = recognition;
 
   recognition.lang = 'en-US';
-  recognition.interimResults = true; // Hiện chữ nháp real-time
+  recognition.interimResults = true;
   recognition.maxAlternatives = 1;
 
   let finalTranscript = '';
 
-  // 1. BẤM NÚT -> MỞ MIC
+  // 1. KHI BẤM NÚT -> BẬT MIC KIỂU GOOGLE
   recognition.onstart = function() {
-    statusDiv.innerHTML = `🎙️ <b>Đang nghe... Read: "${targetText}"</b>`;
+    statusDiv.innerHTML = `
+      <div class="google-speech-container">
+        <div class="google-mic-listening">
+          <div class="pulse-ring"></div>
+          <span class="mic-icon">🎙️</span>
+        </div>
+        <div class="speech-text-box">
+          <span class="listening-label">Đang nghe...</span>
+          <p class="live-transcript">"... ${targetText} ..."</p>
+        </div>
+      </div>`;
     statusDiv.className = "speech-status listening";
   };
 
-  // 2. THU ÂM & VIẾT RA CHỮ THEO THỜI GIAN THỰC
+  // 2. HIỆN CHỮ REAL-TIME (KHÔNG TRÔI CHỮ)
   recognition.onresult = function(event) {
-    let currentText = '';
-    
-    for (let i = 0; i < event.results.length; i++) {
-      currentText += event.results[i][0].transcript;
+    let interimTranscript = '';
+
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript;
+      if (event.results[i].isFinal) {
+        finalTranscript += transcript;
+      } else {
+        interimTranscript += transcript;
+      }
     }
 
-    finalTranscript = currentText;
+    const displayText = finalTranscript || interimTranscript;
 
-    // Hiển thị chữ đang thu được ngay lập tức
-    statusDiv.innerHTML = `🎙️ <b>Đang nghe:</b> "${currentText}"`;
-    statusDiv.className = "speech-status listening";
+    if (displayText.trim()) {
+      const transcriptEl = statusDiv.querySelector('.live-transcript');
+      if (transcriptEl) {
+        transcriptEl.innerText = `"${displayText}"`;
+      }
+    }
   };
 
-  // 3. KHI DỪNG NÓI (MIC TẮT) -> TIẾN HÀNH SO SÁNH
+  // 3. TỰ ĐỘNG SO SÁNH KHI DỪNG NÓI
   recognition.onend = function() {
     globalRecognition = null;
 
-    if (!finalTranscript.trim()) return; // Nếu không nói gì thì giữ nguyên/không xử lý
+    if (!finalTranscript.trim()) return;
 
-    // So sánh câu thu được với câu mẫu
     if (cleanText(finalTranscript) === cleanText(targetText)) {
       statusDiv.innerHTML = `🎉 <b>CHÚC MỪNG!</b><br><small>Nghe được: "${finalTranscript}"</small>`;
       statusDiv.className = "speech-status correct";
