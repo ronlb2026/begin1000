@@ -459,24 +459,28 @@ button.speak:hover {
       renderOnlineList(videoArray);
     }
 
-    function renderOnlineList(videoArray) {
-      const listContainer = document.getElementById('videoList');
-      const countDisplay = document.getElementById('videoCount');
+function renderOnlineList(videoArray) {
+  const listContainer = document.getElementById('videoList');
+  const countDisplay = document.getElementById('videoCount');
 
-      countDisplay.innerText = `(${videoArray.length} video)`;
+  countDisplay.innerText = `(${videoArray.length} video)`;
 
-      listContainer.innerHTML = videoArray.map((fileName, index) => {
-        const cleanTitle = fileName.replace(/\.mp4$/i, '');
-        return `
-          <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOnlineVideo('${encodeURIComponent(fileName)}', '${cleanTitle.replace(/'/g, "\\'")}', ${index})">
-            <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
-            <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
-          </label>
-        `;
-      }).join('');
-    }
+  listContainer.innerHTML = videoArray.map((fileName, index) => {
+    const cleanTitle = fileName.replace(/\.mp4$/i, '');
+    // Escape dấu nháy đơn nếu có trong tên file
+    const safeFileName = fileName.replace(/'/g, "\\'");
+    const safeTitle = cleanTitle.replace(/'/g, "\\'");
 
-function playOnlineVideo(encodedFileName, title, index) {
+    return `
+      <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOnlineVideo('${safeFileName}', '${safeTitle}', ${index})">
+        <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
+        <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
+      </label>
+    `;
+  }).join('');
+}
+
+function playOnlineVideo(fileName, title, index) {
   const player = document.getElementById('mainVideoPlayer');
   const source = document.getElementById('videoSource');
   const titleDisplay = document.getElementById('currentVideoTitle');
@@ -484,22 +488,32 @@ function playOnlineVideo(encodedFileName, title, index) {
 
   if (radioBtn) radioBtn.checked = true;
 
-  // Sử dụng đường dẫn ./video/ để khớp với thư mục hiện tại của GitHub Pages
-  const videoUrl = './video/' + encodedFileName;
+  // Mã hóa đúng chuẩn các khoảng trắng và ký tự tiếng Việt trong tên file
+  const encodedName = encodeURIComponent(fileName);
+  const videoUrl = './video/' + encodedName;
   
-  source.src = videoUrl;
+  // Nạp đường dẫn trực tiếp vào player
+  player.src = videoUrl;
   player.load();
 
+  // Bắt lỗi nếu file không tồn tại hoặc sai đường dẫn trên GitHub
   player.onerror = function() {
-    titleDisplay.innerHTML = `<span style="color: red;">❌ Không tìm thấy file: <b>${videoUrl}</b></span><br>
-      <small style="color: #666; font-weight: normal;">Hãy kiểm tra thư mục <b>video/</b> trên GitHub repository <b>begin1000</b>.</small>`;
+    titleDisplay.innerHTML = `<span style="color: red; font-size: 14px;">❌ Không tải được file!</span><br>
+      <small style="color: #d32f2f; font-weight: normal; font-size: 12px;">
+        Đường dẫn gọi file: <code>${videoUrl}</code><br>
+        👉 Hãy kiểm tra lại file <b>${fileName}</b> đã có trong thư mục <b>video/</b> trên GitHub chưa (chú ý chữ HOA/thường).
+      </small>`;
   };
 
-  player.play().then(() => {
-    titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + title + '</span>';
-  }).catch(err => {
-    console.warn('Lỗi phát video:', err);
-  });
+  // Tiến hành phát video
+  const playPromise = player.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + title + '</span>';
+    }).catch(err => {
+      console.warn('Lỗi tự động phát (hoặc cần tương tác):', err);
+    });
+  }
 }
 
     // OFFLINE LOGIC
