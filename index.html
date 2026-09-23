@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1000 English Words</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  color: #17233c;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 1. THANH MENU DỌC BÊN TRÁI */
+header {
+  background: #123d7a;
+  color: white;
+  padding: 18px 14px;
+  width: 280px;
+  min-width: 280px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.tab {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #e9eef7;
+  color: #123d7a;
+  text-align: left;
+  width: 100%;
+}
+
+.tab.active {
+  background: #f28c28;
+  color: white;
+}
+
+/* 2. KHU VỰC NỘI DUNG BÊN PHẢI */
+.main-content {
+  flex: 1;
+  padding: 18px 20px 30px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* DÒNG ĐẦU TIÊN: BỘ ĐIỀU CHỈNH GIỌNG ĐỌC VÀ Ô LỌC */
+.controls {
+  width: 100%;
+  margin: 0 0 14px 0;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 7px #0001;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+select, input[type=range], input[type=text] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.search-box {
+  font-size: 14px;
+  min-width: 200px;
+}
+
+.topic {
+  display: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.topic.active {
+  display: block;
+}
+
+/* DÒNG THỨ HAI: TIÊU ĐỀ TOPIC CHI TIẾT */
+.topic-title {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 0 0 14px 0;
+  box-shadow: 0 2px 8px #0001;
+  font-size: 16px;
+}
+
+/* LƯỚI TỪ VỰNG DỒN SÁT LỀ TRÁI */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 7px #0001;
+}
+
+.num { font-size: 13px; color: #777; }
+.word { font-size: 22px; font-weight: bold; color: #123d7a; margin: 3px 0; }
+.ipa { color: #777; font-size: 14px; }
+.vn { color: #c0392b; font-weight: bold; margin: 6px 0; }
+.sentence { font-size: 14px; line-height: 1.4; min-height: 40px; }
+
+button.speak {
+  border: 0;
+  background: #123d7a;
+  color: white;
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 7px;
+}
+
+button.speak:hover {
+  background: #f28c28;
+}
+
+.note { font-size: 13px; color: #555; }
+
+@media (max-width: 768px) {
+  body { flex-direction: column; }
+  header { width: 100%; height: auto; position: relative; }
+}
+
+.mic {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 5px;
+}
+
+.speech-status {
+  margin-top: 8px;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+.speech-status.correct { color: #2e7d32; }
+.speech-status.wrong { color: #c62828; }
+.speech-status.listening { color: #1976d2; font-style: italic; }
+
+</style>
+</head>
+<body>
+
+<!-- MENU SIDEBAR TRÁI -->
+<header>
+  <h1>1000 ENGLISH WORDS FOR BEGINNERS</h1>
+  <div class="tabs">
+  	<button class="tab active" onclick="showTopic(21,this)">TOPIC A — VERB 100</button>
+	<button class="tab" onclick="showTopic(22,this)">TOPIC B — ADJECTIVE 100</button>
+	<button class="tab" onclick="showTopic(23,this)">TOPIC C — ADVERB 100</button>
+	<button class="tab" onclick="showTopic(30,this)">VIDEO</button>
+    <button class="tab" onclick="showTopic(1,this)">TOPIC 1 — FAMILY & RELATIONSHIPS</button>
+    <button class="tab" onclick="showTopic(2,this)">TOPIC 2 — WORK & OFFICE</button>
+    <button class="tab" onclick="showTopic(3,this)">TOPIC 3 — TRAVEL & TRANSPORATION</button>
+    <button class="tab" onclick="showTopic(4,this)">TOPIC 4 — SHOPPING & FINANCE</button>
+    <button class="tab" onclick="showTopic(5,this)">TOPIC 5 — FOOD & DRINK</button>
+    <button class="tab" onclick="showTopic(6,this)">TOPIC 6 — HEALTH & BODY</button>
+    <button class="tab" onclick="showTopic(7,this)">TOPIC 7 — WEATHER & NATURE</button>
+    <button class="tab" onclick="showTopic(8,this)">TOPIC 8 — EDUCATION & LEARNING</button>
+    <button class="tab" onclick="showTopic(9,this)">TOPIC 9 — ENTERTAINMENT & HOBBIES</button>
+    <button class="tab" onclick="showTopic(10,this)">TOPIC 10 — TECHNOLOGY & INTERNET</button>
+    <button class="tab" onclick="showTopic(11,this)">TOPIC 11 — HOUSING & DAILY LIFE</button>
+    <button class="tab" onclick="showTopic(12,this)">TOPIC 12 — FEELINGS & EMOTIONS</button>
+    <button class="tab" onclick="showTopic(13,this)">TOPIC 13 — APPEARANCE & CLOTHING</button>
+    <button class="tab" onclick="showTopic(14,this)">TOPIC 14 — SPORTS & FITNESS</button>
+    <button class="tab" onclick="showTopic(15,this)">TOPIC 15 — ARTS & CULTURE</button>
+    <button class="tab" onclick="showTopic(16,this)">TOPIC 16 — SOCIAL EVENTS</button>
+    <button class="tab" onclick="showTopic(17,this)">TOPIC 17 — ANIMALS & PETS</button>
+    <button class="tab" onclick="showTopic(18,this)">TOPIC 18 — DESCRIBING PEOPLE & PERSONALITY</button>
+    <button class="tab" onclick="showTopic(19,this)">TOPIC 19 — VERB, ADJECTIVE, ADVERB</button>
+    <button class="tab" onclick="showTopic(20,this)">TOPIC 20 — TIME & DATES</button>
+  </div>
+</header>
+
+<!-- NỘI DUNG BÊN PHẢI -->
+<div class="main-content">
+
+  <!-- DÒNG ĐẦU TIÊN: GIỌNG, TỐC ĐỘ VÀ Ô LỌC -->
+  <div class="controls">
+    <label>Tìm kiếm: 
+      <input type="text" id="searchInput" class="search-box" placeholder="Lọc từ tiếng Việt/Anh..." oninput="filterWords()">
+    </label>
+    <label>Giọng: <select id="voice"></select></label>
+    <label>Tốc độ:
+      <input id="rate" type="range" min="0.5" max="1" step="0.02" value="0.5">
+      <span id="rateVal">0.5×</span>
+    </label>
+    <button class="speak" onclick="stopSpeech()">⏹ Dừng</button>
+    <span class="note">Ưu tiên giọng English US/UK.</span>
+  </div>
+
+  <!-- DÒNG THỨ HAI VÀ CÁC THẺ CARD -->
+  <section id="topic1" class="topic">
+    <div class="topic-title"><b>TOPIC 1 — FAMILY & RELATIONSHIPS</b><br>Gia đình và Mối quan hệ</div>
+    <div class="grid" id="grid1"></div>
+  </section>
+
+  <section id="topic2" class="topic">
+    <div class="topic-title"><b>TOPIC 2 — WORK & OFFICE</b><br>Công việc và Văn phòng</div>
+    <div class="grid" id="grid2"></div>
+  </section>
+
+  <section id="topic3" class="topic">
+    <div class="topic-title"><b>TOPIC 3 — TRAVEL & TRANSPORATION</b><br>Du lịch và Di chuyển</div>
+    <div class="grid" id="grid3"></div>
+  </section>
+
+  <section id="topic4" class="topic">
+    <div class="topic-title"><b>TOPIC 4 — SHOPPING & FINANCE</b><br>Mua sắm và Tài chính</div>
+    <div class="grid" id="grid4"></div>
+  </section>
+
+  <section id="topic5" class="topic">
+    <div class="topic-title"><b>TOPIC 5 — FOOD & DRINK</b><br>Ẩm thực</div>
+    <div class="grid" id="grid5"></div>
+  </section>
+
+  <section id="topic6" class="topic">
+    <div class="topic-title"><b>TOPIC 6 — HEALTH & BODY</b><br>Sức khỏe và Cơ thể</div>
+    <div class="grid" id="grid6"></div>
+  </section>
+
+  <section id="topic7" class="topic">
+    <div class="topic-title"><b>TOPIC 7 — WEATHER & NATURE</b><br>Thời tiết và Thiên nhiên</div>
+    <div class="grid" id="grid7"></div>
+  </section>
+
+  <section id="topic8" class="topic">
+    <div class="topic-title"><b>TOPIC 8 — EDUCATION & LEARNING</b><br>Giáo dục và Học tập</div>
+    <div class="grid" id="grid8"></div>
+  </section>
+
+  <section id="topic9" class="topic">
+    <div class="topic-title"><b>TOPIC 9 — ENTERTAINMENT & HOBBIES</b><br>Giải trí và Sở thích</div>
+    <div class="grid" id="grid9"></div>
+  </section>
+
+  <section id="topic10" class="topic">
+    <div class="topic-title"><b>TOPIC 10 — TECHNOLOGY & INTERNET</b><br>Công nghệ và Internet</div>
+    <div class="grid" id="grid10"></div>
+  </section>
+
+  <section id="topic11" class="topic">
+    <div class="topic-title"><b>TOPIC 11 — HOUSING & DAILY LIFE</b><br>Nhà cửa và Đời sống hằng ngày</div>
+    <div class="grid" id="grid11"></div>
+  </section>
+
+  <section id="topic12" class="topic">
+    <div class="topic-title"><b>TOPIC 12 — FEELINGS & EMOTIONS</b><br>Cảm xúc và Cảm giác</div>
+    <div class="grid" id="grid12"></div>
+  </section>
+
+  <section id="topic13" class="topic">
+    <div class="topic-title"><b>TOPIC 13 — APPEARANCE & CLOTHING</b><br>Ngoại hình và Quần áo</div>
+    <div class="grid" id="grid13"></div>
+  </section>
+
+  <section id="topic14" class="topic">
+    <div class="topic-title"><b>TOPIC 14 — SPORTS & FITNESS</b><br>Thể thao và Thể hình</div>
+    <div class="grid" id="grid14"></div>
+  </section>
+
+  <section id="topic15" class="topic">
+    <div class="topic-title"><b>TOPIC 15 — ARTS & CULTURE</b><br>Nghệ thuật và Văn hóa</div>
+    <div class="grid" id="grid15"></div>
+  </section>
+
+  <section id="topic16" class="topic">
+    <div class="topic-title"><b>TOPIC 16 — SOCIAL EVENTS</b><br>Sự kiện xã hội</div>
+    <div class="grid" id="grid16"></div>
+  </section>
+
+  <section id="topic17" class="topic">
+    <div class="topic-title"><b>TOPIC 17 — ANIMALS & PETS</b><br>Động vật và Thú cưng</div>
+    <div class="grid" id="grid17"></div>
+  </section>
+
+  <section id="topic18" class="topic">
+    <div class="topic-title"><b>TOPIC 18 — DESCRIBING PEOPLE & PERSONALITY</b><br>Mô tả người và Tính cách</div>
+    <div class="grid" id="grid18"></div>
+  </section>
+
+  <section id="topic19" class="topic">
+    <div class="topic-title"><b>TOPIC 19 — VERB, ADJECTIVE, ADVERB</b><br>Động từ, Tính từ, Trạng từ</div>
+    <div class="grid" id="grid19"></div>
+  </section>
+
+  <section id="topic20" class="topic">
+    <div class="topic-title"><b>TOPIC 20 — TIME & DATES</b><br>Thời gian và Ngày tháng</div>
+    <div class="grid" id="grid20"></div>
+  </section>
+  
+  <section id="topic21" class="topic active">
+    <div class="topic-title"><b>TOPIC A — VERB 100</b><br>Động từ</div>
+    <div class="grid" id="grid21"></div>
+  </section>
+  
+  <section id="topic22" class="topic">
+    <div class="topic-title"><b>TOPIC B — ADJECTIVE 100</b><br>Tính từ</div>
+    <div class="grid" id="grid22"></div>
+  </section>
+  
+  <section id="topic23" class="topic">
+    <div class="topic-title"><b>TOPIC C — ADVERB 100</b><br>Trạng từ</div>
+    <div class="grid" id="grid23"></div>
+  </section>
+  
+  <!-- SECTION VIDEO ĐÃ ĐƯỢC THIẾT KẾ GIAO DIỆN -->
+  <section id="topic30" class="topic" style="max-width: 900px; margin: 0 auto;">
+    <div style="font-size: 20px; font-weight: bold; margin-bottom: 12px; color: #123d7a; display: flex; align-items: center; justify-content: space-between;">
+      <span>📹 VIDEO LESSONS</span>
+      <span id="modeBadge" style="font-size: 13px; font-weight: normal; padding: 4px 10px; border-radius: 12px;">⏳ Đang kiểm tra...</span>
+    </div>
+
+    <!-- Thanh thao tác Offline (Tự động ẩn khi ở chế độ Online) -->
+    <div id="offlineBar" style="background: #eef4fc; padding: 12px 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #cce0f5; display: none; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <div style="font-size: 13px; color: #123d7a;">
+        <span id="storageStatus">📱 Đang nạp danh sách từ bộ nhớ...</span>
+      </div>
+      <label style="background: #123d7a; color: white; padding: 8px 15px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: bold;">
+        📁 Chọn thư mục Video
+        <input type="file" id="folderInput" webkitdirectory directory multiple accept="video/mp4" style="display: none;">
+      </label>
+    </div>
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px #0002;">
+      <!-- Khung Trình phát Video bên trái -->
+      <div style="flex: 1.2; min-width: 280px;">
+        <video id="mainVideoPlayer" controls width="100%" style="border-radius: 8px; background: #000; max-height: 380px;">
+          <source id="videoSource" src="" type="video/mp4">
+          Trình duyệt không hỗ trợ xem video.
+        </video>
+        <div id="currentVideoTitle" style="font-weight: bold; margin-top: 12px; font-size: 15px; color: #123d7a;">
+          👉 Bắt đầu bằng cách chọn video ở danh sách
+        </div>
+      </div>
+
+      <!-- Khung Danh sách Video bên phải -->
+      <div style="flex: 1; min-width: 260px; max-height: 380px; overflow-y: auto; border: 1px solid #e1e8ed; border-radius: 8px; padding: 12px; background: #fafbfc;">
+        <div style="font-weight: bold; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #123d7a; display: flex; justify-content: space-between;">
+          <span>Danh sách Video:</span>
+          <span id="videoCount" style="color: #123d7a; font-weight: normal; font-size: 13px;">(0 video)</span>
+        </div>
+        <div id="videoList" style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="color: #777; font-size: 13px; padding: 10px 0;">Đang nạp danh sách...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+    // Danh sách 96 video làm MẶC ĐỊNH DỰ PHÒNG nếu không đọc được file txt trên GitHub
+    const FALLBACK_VIDEOS = ["Agree to disagree - Mỗi người một quan điểm.mp4","Anything is possible - K gì là k thể.mp4","Are you mocking me - Bạn đang chế giễu tôi.mp4","Based on what - Dựa vào cái gì.mp4","Better safe than sorry - Cẩn thận còn hơn xin lỗi.mp4","Cartoon 1.mp4","Cartoon 10.mp4","Cartoon 11.mp4","Cartoon 12.mp4","Cartoon 13.mp4","Cartoon 14.mp4","Cartoon 15.mp4","Cartoon 16.mp4","Cartoon 17.mp4","Cartoon 18.mp4","Cartoon 19.mp4","Cartoon 2.mp4","Cartoon 3.mp4","Cartoon 4.mp4","Cartoon 5.mp4","Cartoon 6.mp4","Cartoon 7.mp4","Cartoon 8.mp4","Cartoon 9.mp4","Catch you later - Gặp bạn sau nhé.mp4","Chill out - Bình tĩnh , thư giãn đi.mp4","Do you know who I am - Bạn biết tôi là ai k.mp4","Dont be a fool - Đừng ngốc thế.mp4","Dont get me wrong - Đừng hiểu sai ý tôi.mp4","Dont let it get to you - Đừng để ảnh hưởng đến bạn.mp4","Dont play dumb with me - Đừng giả vờ với tôi.mp4","Dont tempt me - Đừng dụ tôi.mp4","Easy for you to say - Nói thì dễ lắm.mp4","Forgive and forget - Tha thứ và bỏ qua.mp4","Get off me - Bỏ tôi ra.mp4","Get the picture - Hiểu ý rồi chứ.mp4","Give me a break - Cho tôi nghỉ tí đi, Thôi bớt xạo đi, Thông cảm cho tôi đi.mp4","Go big or go home - Được ăn cả ngã về k.mp4","Have a nice day - Chúc một ngày tốt lành.mp4","Hear is the deal - Thế này nhé.mp4","I cant take it anymore - Tôi k thể chịu đựng thêm nữa.mp4","I do my best - Tôi sẽ cố gắng hết sức.mp4","I dont know for sure - Tôi k biết chắc lắm.mp4","I dont know what came over me - K biết cái gì xảy ra với tôi nữa.mp4","I dont know what to say - Tôi k biết phải nói gì.mp4","I have a lot going on - Tôi có nhiều việc phải làm, tôi bận.mp4","I like this side of you - Tôi thích khía cạnh này của bạn.mp4","I overslept - Tôi ngủ quên.mp4","I ve had enough - Đủ rồi đấy.mp4","I wasnt born yesterday - Tôi đâu có ngây thơ.mp4","Im a newbie - Tôi là người mới.mp4","Im in a hurry - Tôi đang vội.mp4","Im on the phone - Đang nghe điện thoại.mp4","Im over you - Tôi hết tình cảm với bạn rồi.mp4","Im sorry to interrupt - Xin lỗi chen ngang.mp4","Im stuck in traffic - Tôi bị tắc đường rồi.mp4","It doesnt make senses - Nó k hợp lý.mp4","It doesnt work - Nó hư rồi.mp4","It serves you right - Đáng đời.mp4","Its long story - Chuyện dài lắm.mp4","Its now or never - Cơ hội cuối cùng, bây giờ hoặc k.mp4","Its up to you - Tùy bạn.mp4","Just in time - Kịp giờ.mp4","Let me walk you out - Để tôi tiễn bạn ra ngoài.mp4","Lets be frank - Nói thật đi.mp4","Looks can be deceiving - Đừng nhìn mặt bắt hình dong.mp4","Loud and clear - Rất to và rõ, hiểu rõ ràng.mp4","My phone s dead - Điện thoại hư rồi.mp4","Never say never - K gì là k thể.mp4","Nice going - Bạn làm tốt lắm (Tỏ vẻ k hài lòng).mp4","No biggie - K sao đâu.mp4","No comment - K trả lời.mp4","On the count of three - Khi tôi đếm đến ba thì.mp4","Say no more - Hiểu rồi, khỏi nói thêm.mp4","Sleep tight - Ngủ ngon nhé.mp4","Sort of - Đại loại thế.mp4","Stay out of it - Đừng can thiệp vào.mp4","Take your time - K phải vội vàng.mp4","Thanks for nothing - Cám ơn vì k giúp được gì.mp4","Thanks you for having me - Cảm ơn đã đón tiếp tôi.mp4","Thats on you - Đó là lỗi của bạn.mp4","The sooner the better - Càng sớm càng tốt.mp4","viesnap.vn_tiktok_7685399431658720532.mp4","Way to go - Làm tốt lắm.mp4","Whats on your mind - Bạn đang nghĩ gì vậy.mp4","Whats so funny - Có gì mà cười.mp4","Who do you think you are - Bạn nghĩ bạn là ai.mp4","Who is he to you - 2 người có quan hệ gì.mp4","Why the long face - Sao trông buồn vậy.mp4","You are the boss - Bạn quyết định đi.mp4","You got this - Bạn làm được mà.mp4","You lied to me - Bạn lừa dối tôi.mp4","You make me sick - Bạn làm tôi phát bệnh, Ghen tị thật đó.mp4","You re excused - Bạn được phép đi.mp4","You rock - Đỉnh thật.mp4","You stood me up - Bạn cho tôi leo cây.mp4"];
+
+    let activeMode = 'OFFLINE';
+    let offlineVideoFiles = [];
+    const DB_NAME = 'VideoOfflineDB';
+    const STORE_NAME = 'videos';
+
+    const isOnlineEnvironment = window.location.protocol.startsWith('http');
+
+    async function initApp() {
+      const modeBadge = document.getElementById('modeBadge');
+      const offlineBar = document.getElementById('offlineBar');
+
+      if (isOnlineEnvironment) {
+        activeMode = 'ONLINE';
+        modeBadge.innerText = '🌐 Online Auto';
+        modeBadge.style.background = '#e8f5e9';
+        modeBadge.style.color = '#2e7d32';
+        modeBadge.style.border = '1px solid #c8e6c9';
+        
+        offlineBar.style.display = 'none';
+        await loadOnlineVideoList();
+      } else {
+        activeMode = 'OFFLINE';
+        modeBadge.innerText = '📱 Offline Local';
+        modeBadge.style.background = '#fff3e0';
+        modeBadge.style.color = '#e65100';
+        modeBadge.style.border = '1px solid #ffe0b2';
+
+        offlineBar.style.display = 'flex';
+        await loadSavedVideosFromDB();
+      }
+    }
+
+    // ONLINE: THỬ TẢI FILE TXT, NẾU LỖI THÌ TỰ ĐỘNG LẤY DANH SÁCH MẶC ĐỊNH
+    async function loadOnlineVideoList() {
+      const listContainer = document.getElementById('videoList');
+      const countDisplay = document.getElementById('videoCount');
+      let videoArray = null;
+
+      // Thử đọc từ file txt
+      const possiblePaths = ['video-list.txt', './video-list.txt'];
+      for (let path of possiblePaths) {
+        try {
+          const res = await fetch(path + '?v=' + Date.now()); // Thêm cache-buster
+          if (res.ok) {
+            videoArray = await res.json();
+            break;
+          }
+        } catch (e) {
+          console.log('Thử đường dẫn ' + path + ' thất bại');
+        }
+      }
+
+      // Nếu không đọc được file txt, TỰ ĐỘNG DÙNG DANH SÁCH DỰ PHÒNG
+      if (!videoArray || !Array.isArray(videoArray) || videoArray.length === 0) {
+        console.warn('Không tải được video-list.txt, chuyển sang dùng danh sách mặc định.');
+        videoArray = FALLBACK_VIDEOS;
+      }
+
+      renderOnlineList(videoArray);
+    }
+
+    function renderOnlineList(videoArray) {
+      const listContainer = document.getElementById('videoList');
+      const countDisplay = document.getElementById('videoCount');
+
+      countDisplay.innerText = `(${videoArray.length} video)`;
+
+      listContainer.innerHTML = videoArray.map((fileName, index) => {
+        const cleanTitle = fileName.replace(/\.mp4$/i, '');
+        return `
+          <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOnlineVideo('${encodeURIComponent(fileName)}', '${cleanTitle.replace(/'/g, "\\'")}', ${index})">
+            <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
+            <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function playOnlineVideo(encodedFileName, title, index) {
+      const player = document.getElementById('mainVideoPlayer');
+      const source = document.getElementById('videoSource');
+      const titleDisplay = document.getElementById('currentVideoTitle');
+      const radioBtn = document.getElementById('vid-radio-' + index);
+
+      if (radioBtn) radioBtn.checked = true;
+
+      // Giả định các file mp4 nằm trong thư mục video/
+      source.src = 'video/' + encodedFileName;
+      player.load();
+      player.play();
+
+      titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + title + '</span>';
+    }
+
+    // OFFLINE LOGIC
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+          }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function loadSavedVideosFromDB() {
+      const statusText = document.getElementById('storageStatus');
+      try {
+        const db = await openDB();
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.getAll();
+
+        request.onsuccess = () => {
+          const savedData = request.result;
+          if (savedData && savedData.length > 0) {
+            offlineVideoFiles = savedData
+              .map(item => ({ name: item.name, blob: item.blob }))
+              .sort((a, b) => a.name.localeCompare(b.name, 'vi', { numeric: true }));
+
+            statusText.innerHTML = '✅ Đã tự nạp <b>' + offlineVideoFiles.length + ' video</b> từ bộ nhớ';
+            statusText.style.color = '#2e7d32';
+            renderOfflineList(offlineVideoFiles);
+          } else {
+            statusText.innerHTML = '💡 Bấm nút bên cạnh để chọn thư mục video lần đầu';
+            document.getElementById('videoList').innerHTML = '<div style="color: #777; font-size: 13px; padding: 10px 0;">Chưa chọn thư mục. Hãy bấm chọn thư mục!</div>';
+          }
+        };
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('folderInput').addEventListener('change', async function(e) {
+      const files = Array.from(e.target.files);
+      const statusText = document.getElementById('storageStatus');
+
+      const filtered = files
+        .filter(f => f.name.toLowerCase().endsWith('.mp4'))
+        .sort((a, b) => a.name.localeCompare(b.name, 'vi', { numeric: true }));
+
+      if (filtered.length === 0) {
+        alert('Không tìm thấy file .mp4 nào!');
+        return;
+      }
+
+      statusText.innerHTML = '⏳ Đang lưu dữ liệu...';
+      const db = await openDB();
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      await store.clear();
+
+      for (let i = 0; i < filtered.length; i++) {
+        store.put({ id: i, name: filtered[i].name, blob: filtered[i] });
+      }
+
+      offlineVideoFiles = filtered.map(f => ({ name: f.name, blob: f }));
+      statusText.innerHTML = '✅ Đã lưu <b>' + filtered.length + ' video</b>!';
+      statusText.style.color = '#2e7d32';
+
+      renderOfflineList(offlineVideoFiles);
+    });
+
+    function renderOfflineList(items) {
+      const listContainer = document.getElementById('videoList');
+      const countDisplay = document.getElementById('videoCount');
+
+      countDisplay.innerText = `(${items.length} video)`;
+
+      listContainer.innerHTML = items.map((item, index) => {
+        const cleanTitle = item.name.replace(/\.mp4$/i, '');
+        return `
+          <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOfflineVideo(${index})">
+            <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
+            <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function playOfflineVideo(index) {
+      const item = offlineVideoFiles[index];
+      if (!item) return;
+
+      const player = document.getElementById('mainVideoPlayer');
+      const titleDisplay = document.getElementById('currentVideoTitle');
+      const radioBtn = document.getElementById('vid-radio-' + index);
+
+      if (radioBtn) radioBtn.checked = true;
+
+      const cleanTitle = item.name.replace(/\.mp4$/i, '');
+      player.src = URL.createObjectURL(item.blob);
+      player.play();
+
+      titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + cleanTitle + '</span>';
+    }
+
+    initApp();
+  </script>
+
+</div>
+
+<script>
+const data1 = [
+["family","/ˈfæməli/","(n) gia đình","My family is very happy."],
+["parents","/ˈperənts/","(n) ba mẹ","My parents take care of me."],
+["father","/ˈfɑːðər/","(n) ba","My father is a doctor."],
+["mother","/ˈmʌðər/","(n) mẹ","My mother cooks delicious food."],
+["children","/ˈtʃɪldrən/","(n) con cái","Children are a gift from God."],
+["son","/sʌn/","(n) con trai","I have one son."],
+["daughter","/ˈdɔːtər/","(n) con gái","My daughter is very kind."],
+["sibling","/ˈsɪblɪŋ/","(n) anh chị em ruột","I have one sibling."],
+["brother","/ˈbrʌðər/","(n) anh/em trai","My brother plays football."],
+["sister","/ˈsɪstər/","(n) chị/em gái","My sister is a student."],
+["grandparents","/ˈɡrænperənts/","(n) ông bà","I visit my grandparents every Sunday."],
+["grandfather","/ˈɡrænfɑːðər/","(n) ông","My grandfather tells great stories."],
+["grandmother","/ˈɡrænmʌðər/","(n) bà","My grandmother loves flowers."],
+["grandchildren","/ˈɡræntʃɪldrən/","(n) cháu (của ông bà)","Grandchildren bring joy to grandparents."],
+["grandson","/ˈɡrænsʌn/","(n) cháu trai","Her grandson is very smart."],
+["granddaughter","/ˈɡrændɔːtər/","(n) cháu gái","She has a lovely granddaughter."],
+["relative","/ˈrelətɪv/","(n) họ hàng","We have many relatives."],
+["uncle","/ˈʌŋkl/","(n) chú, bác, cậu","My uncle lives in Hanoi."],
+["aunt","/ænt/","(n) cô, dì, bác gái","My aunt is a teacher."],
+["cousin","/ˈkʌzn/","(n) anh chị em họ","My cousin and I play together."],
+["nephew","/ˈnefjuː/","(n) cháu trai (của cô dì chú bác)","This is my nephew."],
+["niece","/niːs/","(n) cháu gái (của cô dì chú bác)","My niece is so cute."],
+["husband","/ˈhʌzbənd/","(n) chồng","My husband is very kind."],
+["wife","/waɪf/","(n) vợ","My wife is beautiful."],
+["spouse","/spaʊs/","(n) vợ/chồng","Respect your spouse."],
+["partner","/ˈpɑːrtnər/","(n) bạn đời, người cộng sự","A good partner shares everything."],
+["marriage","/ˈmærɪdʒ/","(n) hôn nhân","Marriage is a beautiful journey."],
+["wedding","/ˈwedɪŋ/","(n) lễ cưới","They had a wonderful wedding."],
+["relationship","/rɪˈleɪʃnʃɪp/","(n) mối quan hệ","Good relationships take time."],
+["friend","/frend/","(n) bạn bè","He is my best friend."],
+["friendship","/ˈfrendʃɪp/","(n) tình bạn","Friendship makes life better."],
+["colleague","/ˈkɑːliːɡ/","(n) đồng nghiệp","She is my colleague."],
+["neighbor","/ˈneɪbər/","(n) hàng xóm","Our neighbors are very nice."],
+["acquaintance","/əˈkweɪntəns/","(n) người quen","He is just an acquaintance."],
+["love","/lʌv/","(v, n) yêu, tình yêu","Love makes everything better."],
+["care","/ker/","(v, n) quan tâm, sự quan tâm","She always cares about others."],
+["support","/səˈpɔːrt/","(v, n) ủng hộ, sự ủng hộ","Family support is very important."],
+["trust","/trʌst/","(v, n) tin tưởng, sự tin tưởng","Trust is the foundation."],
+["respect","/rɪˈspekt/","(v, n) tôn trọng, sự tôn trọng","Respect everyone."],
+["argue","/ˈɑːrɡjuː/","(v) tranh cãi","They often argue about small things."],
+["forgive","/fərˈɡɪv/","(v) tha thứ","It's important to forgive others."],
+["connect","/kəˈnekt/","(v) kết nối","We connect with our hearts."],
+["communicate","/kəˈmjuːnɪkeɪt/","(v) giao tiếp","Good communication solves problems."],
+["single","/ˈsɪŋɡl/","(adj) độc thân","He is single and happy."],
+["married","/ˈmærɪd/","(adj) đã kết hôn","They have been married for 10 years."],
+["divorced","/dɪˈvɔːrst/","(adj) đã ly hôn","She is divorced and living happily."],
+["engaged","/ɪnˈɡeɪdʒd/","(adj) đã đính hôn","They are engaged to be married."],
+["close","/kloʊs/","(adj) thân thiết","We are very close friends."],
+["loyal","/ˈlɔɪəl/","(adj) trung thành","Be loyal to your family and friends."],
+["generation","/ˌdʒenəˈreɪʃn/","(n) thế hệ","Every generation brings changes."]
+];
+
+const data2 = [
+["job","/dʒɑːb/","(n) công việc","I love my job."],
+["career","/kəˈrɪr/","(n) sự nghiệp","She is building a successful career."],
+["profession","/prəˈfeʃn/","(n) nghề nghiệp chuyên môn","He is a doctor by profession."],
+["company","/ˈkʌmpəni/","(n) công ty","He works for a big company."],
+["office","/ˈɑːfɪs/","(n) văn phòng","I go to the office every day."],
+["employee","/ɪmˈplɔɪiː/","(n) nhân viên","She is a hard-working employee."],
+["employer","/ɪmˈplɔɪər/","(n) người sử dụng lao động","The employer offers a good salary."],
+["boss","/bɔːs/","(n) sếp","My boss is very supportive."],
+["manager","/ˈmænɪdʒər/","(n) người quản lý","The manager leads the team well."],
+["colleague","/ˈkɑːliːɡ/","(n) đồng nghiệp","My colleagues are very friendly."],
+["team","/tiːm/","(n) đội, nhóm","Our team works together."],
+["meeting","/ˈmiːtɪŋ/","(n) cuộc họp","We have a meeting at 10 a.m."],
+["project","/ˈprɑːdʒekt/","(n) dự án","This project is very important."],
+["task","/tæsk/","(n) nhiệm vụ","I have many tasks to do today."],
+["deadline","/ˈdedlaɪn/","(n) hạn chót","The deadline is next Friday."],
+["salary","/ˈsæləri/","(n) lương (tháng, năm)","He gets a good salary."],
+["wage","/weɪdʒ/","(n) lương (giờ, ngày)","He earns an hourly wage."],
+["promotion","/prəˈmoʊʃn/","(n) sự thăng chức","She got a promotion last month."],
+["resume","/ˈrezəmeɪ/","(n) sơ yếu lý lịch (CV)","Send your resume to this email."],
+["interview","/ˈɪntərvjuː/","(n, v) phỏng vấn, cuộc phỏng vấn","I have an interview tomorrow."],
+["contract","/ˈkɑːntrækt/","(n) hợp đồng","Please sign the contract."],
+["department","/dɪˈpɑːrtmənt/","(n) phòng ban","He works in the marketing department."],
+["schedule","/ˈskedʒuːl/","(n, v) lịch trình, lên lịch","Check your schedule for today."],
+["report","/rɪˈpɔːrt/","(n, v) báo cáo","I need to finish the report."],
+["presentation","/ˌpriːzenˈteɪʃn/","(n) bài thuyết trình","He gave an excellent presentation."],
+["email","/ˈiːmeɪl/","(n, v) thư điện tử, gửi thư","I will email you the file."],
+["computer","/kəmˈpjuːtər/","(n) máy tính","I work on my computer."],
+["desk","/desk/","(n) bàn làm việc","My desk is near the window."],
+["chair","/tʃer/","(n) ghế","This chair is very comfortable."],
+["printer","/ˈprɪntər/","(n) máy in","The printer is out of paper."],
+["keyboard","/ˈkiːbɔːrd/","(n) bàn phím","Type using the keyboard."],
+["screen","/skriːn/","(n) màn hình","The screen is too bright."],
+["document","/ˈdɑːkjumənt/","(n) tài liệu","Please read the document carefully."],
+["file","/faɪl/","(n) tệp, hồ sơ","Save the file in the folder."],
+["work","/wɜːrk/","(v, n) làm việc, công việc","I need to work hard."],
+["apply","/əˈplaɪ/","(v) ứng tuyển","She applied for the job."],
+["hire","/ˈhaɪər/","(v) thuê, tuyển dụng","We are hiring new staff."],
+["fire","/ˈfaɪər/","(v) sa thải","He was fired for being late."],
+["quit","/kwɪt/","(v) nghỉ việc","She decided to quit her job."],
+["manage","/ˈmænɪdʒ/","(v) quản lý","He manages a large team."],
+["organize","/ˈɔːrɡənaɪz/","(v) tổ chức, sắp xếp","She organized the files."],
+["cooperate","/koʊˈɑːpəreɪt/","(v) hợp tác","We cooperate to achieve goals."],
+["achieve","/əˈtʃiːv/","(v) đạt được","Hard work helps you achieve success."],
+["full-time","/ˌfʊl ˈtaɪm/","(adj) toàn thời gian","He works full-time as an engineer."],
+["part-time","/ˌpɑːrt ˈtaɪm/","(adj) bán thời gian","She works part-time in a cafe."],
+["busy","/ˈbɪzi/","(adj) bận rộn","I'm busy today."],
+["efficient","/ɪˈfɪʃnt/","(adj) hiệu quả","He is an efficient worker."],
+["professional","/prəˈfeʃənl/","(adj) chuyên nghiệp","She is very professional."],
+["responsible","/rɪˈspɑːnsəbl/","(adj) có trách nhiệm","He is a responsible employee."],
+["successful","/səkˈsesfl/","(adj) thành công","They are very successful."]
+];
+
+const data3 = [
+["travel","/ˈtrævl/","đi du lịch, chuyến đi","I love to travel and see new places."],
+["trip","/trɪp/","chuyến đi (ngắn)","We took a short trip to the beach."],
+["journey","/ˈdʒɜːrni/","hành trình","The journey was long but exciting."],
+["tour","/tʊr/","chuyến du lịch theo tour","We joined a city tour yesterday."],
+["vacation","/veɪˈkeɪʃn/","kỳ nghỉ","We are on vacation this summer."],
+["destination","/ˌdestɪˈneɪʃn/","điểm đến","Paris is our next destination."],
+["tourist","/ˈtʊrɪst/","khách du lịch","Many tourists visit Vietnam every year."],
+["guide","/ɡaɪd/","hướng dẫn viên","Our guide is very friendly and helpful."],
+["map","/mæp/","bản đồ","I checked the map to find the way."],
+["luggage/baggage","/ˈlʌɡɪdʒ/ /ˈbæɡɪdʒ/","hành lý","Please check your baggage."],
+["suitcase","/ˈsuːtkeɪs/","va li","My suitcase is very heavy."],
+["passport","/ˈpæspɔːrt/","hộ chiếu","Don't forget your passport."],
+["visa","/ˈviːzə/","thị thực","You need a visa to enter this country."],
+["ticket","/ˈtɪkɪt/","vé","I bought a train ticket online."],
+["reservation","/ˌrezərˈveɪʃn/","sự đặt chỗ trước","We have a hotel reservation."],
+["booking","/ˈbʊkɪŋ/","việc đặt chỗ","I did the booking last night."],
+["hotel","/hoʊˈtel/","khách sạn","The hotel is very comfortable."],
+["accommodation","/əˌkɑːməˈdeɪʃn/","chỗ ở","We found good accommodation."],
+["check-in","/tʃek ɪn/","làm thủ tục nhận phòng","We checked in at 2 p.m."],
+["check-out","/tʃek aʊt/","làm thủ tục trả phòng","We checked out this morning."],
+["transportation","/ˌtrænspərˈteɪʃn/","phương tiện di chuyển","Public transportation is very convenient."],
+["vehicle","/ˈviːəkl/","xe cộ","This vehicle is environment friendly."],
+["car","/kɑːr/","ô tô","We rented a car for our trip."],
+["bus","/bʌs/","xe buýt","The bus is always crowded."],
+["train","/treɪn/","tàu hỏa","The train ride was very relaxing."],
+["plane/airplane","/pleɪn/ /ˈerpleɪn/","máy bay","The plane takes off in an hour."],
+["flight","/flaɪt/","chuyến bay","Our flight is delayed."],
+["ship/boat","/ʃɪp/ /boʊt/","tàu/thuyền","We took a boat across the river."],
+["subway/underground","/ˈsʌbweɪ/ /ˈʌndərɡraʊnd/","tàu điện ngầm","We use the subway to go downtown."],
+["taxi","/ˈtæksi/","xe taxi","We took a taxi to the airport."],
+["airport","/ˈerpɔːrt/","sân bay","The airport is very busy today."],
+["station","/ˈsteɪʃn/","nhà ga","I will meet you at the train station."],
+["platform","/ˈplæt fɔːrm/","sân ga","The train is arriving at platform 2."],
+["port","/pɔːrt/","cảng","The ship is at the port."],
+["passenger","/ˈpæsɪndʒər/","hành khách","All passengers must wear seat belts."],
+["driver","/ˈdraɪvər/","tài xế","The driver was very polite."],
+["pilot","/ˈpaɪlət/","phi công","The pilot greeted us on the plane."],
+["schedule","/ˈskedʒuːl/","lịch trình","Please check the travel schedule."],
+["departure","/dɪˈpɑːrtʃər/","sự khởi hành","Our departure is at 8 a.m."],
+["arrival","/əˈraɪvl/","sự đến nơi","We are happy about our arrival."],
+["delay","/dɪˈleɪ/","sự trì hoãn, trì hoãn","The train was delayed by 30 minutes."],
+["cancel","/ˈkænsl/","hủy bỏ","The flight was canceled."],
+["pack","/pæk/","đóng gói (hành lý)","I need to pack my bag."],
+["explore","/ɪkˈsplɔːr/","khám phá","Let's explore this beautiful city."],
+["book","/bʊk/","đặt trước","I booked a hotel online."],
+["ride","/raɪd/","đi (xe đạp, xe máy), cưỡi","I like to ride my bike in the morning."],
+["drive","/draɪv/","lái xe","He drives to work every day."],
+["fly","/flaɪ/","bay","Birds can fly in the sky."],
+["souvenir","/ˌsuːvəˈnɪr/","đồ lưu niệm","I bought a souvenir for my friend."],
+["itinerary","/aɪˈtɪnəreri/","lịch trình chi tiết","Here is our travel itinerary."]
+];
+
+const data4 = [
+["shop/store","/ʃɑːp/ /stɔːr/","cửa hàng","There is a new shop near my house."],
+["market","/ˈmɑːrkɪt/","chợ","We buy fresh vegetables at the market."],
+["mall","/mɔːl/","trung tâm thương mại","Let's go to the mall this weekend."],
+["customer","/ˈkʌstəmər/","khách hàng","The customer is always right."],
+["cashier","/kæˈʃɪr/","nhân viên thu ngân","The cashier is very friendly."],
+["product/item","/ˈprɑːdʌkt/ /ˈaɪtəm/","sản phẩm / mặt hàng","This product is very popular."],
+["brand","/brænd/","thương hiệu","Nike is a famous brand."],
+["price","/praɪs/","giá cả","What is the price of this?"],
+["cost","/kɔːst/","chi phí, có giá là","The cost is too high."],
+["sale","/seɪl/","đợt giảm giá","There is a big sale this weekend."],
+["on sale","/ɑːn seɪl/","đang giảm giá","These shoes are on sale."],
+["discount","/ˈdɪskaʊnt/","sự giảm giá","We have a 20% discount today."],
+["receipt","/rɪˈsiːt/","hóa đơn, biên lai","Keep the receipt for return."],
+["money","/ˈmʌni/","tiền","Money is important in our lives."],
+["cash","/kæʃ/","tiền mặt","He paid in cash."],
+["change","/tʃeɪndʒ/","tiền thừa","Here is your change."],
+["credit card","/ˈkredɪt kɑːrd/","thẻ tín dụng","I use a credit card for shopping."],
+["wallet/purse","/ˈwɑːlɪt/ /pɜːrs/","ví","She keeps her cards in her wallet."],
+["shopping cart","/ˈʃɑːpɪŋ kɑːrt/","xe đẩy mua hàng","Please put your items in the cart."],
+["checkout","/ˈtʃekaʊt/","quầy thanh toán","Let's go to the checkout."],
+["size","/saɪz/","kích cỡ","What size do you wear?"],
+["color","/ˈkʌlər/","màu sắc","I like this color very much."],
+["quality","/ˈkwɑːləti/","chất lượng","Good quality is worth the price."],
+["buy/purchase","/baɪ/ /ˈpɜːrtʃəs/","mua","I want to buy this bag."],
+["sell","/sel/","bán","We sell fresh fruits every day."],
+["pay","/peɪ/","trả tiền","You can pay here."],
+["spend","/spend/","tiêu xài","He spends a lot of money."],
+["save","/seɪv/","tiết kiệm","Save money for the future."],
+["afford","/əˈfɔːrd/","có đủ khả năng chi trả","Can you afford this phone?"],
+["return","/rɪˈtɜːrn/","trả lại hàng","You can return it within 7 days."],
+["order","/ˈɔːrdər/","đặt hàng, đơn hàng","I placed an order online."],
+["deliver","/dɪˈlɪvər/","giao hàng","The package will be delivered tomorrow."],
+["finance","/ˈfaɪnæns/","tài chính","Finance is important for every business."],
+["bank","/bæŋk/","ngân hàng","I go to the bank every week."],
+["bank account","/bæŋk əˈkaʊnt/","tài khoản ngân hàng","He has a savings account."],
+["ATM","/ˌeɪ tiː ˈem/","máy rút tiền tự động","You can withdraw money at the ATM."],
+["budget","/ˈbʌdʒɪt/","ngân sách","We need a budget for this month."],
+["income","/ˈɪnkʌm/","thu nhập","His income is good enough."],
+["expense","/ɪkˈspens/","chi phí","Food is a daily expense."],
+["tax","/tæks/","thuế","We have to pay taxes."],
+["debt","/det/","nợ","He is in a lot of debt."],
+["loan","/loʊn/","khoản vay","She took a loan to buy a house."],
+["interest","/ˈɪntrest/","lãi suất","The bank offers low interest rates."],
+["investment","/ɪnˈvestmənt/","sự đầu tư","Invest in your future."],
+["cheap/inexpensive","/tʃiːp/ /ˌɪnɪkˈspensɪv/","rẻ","This is a cheap but good bag."],
+["expensive","/ɪkˈspensɪv/","đắt","This ring is very expensive."],
+["affordable","/əˈfɔːrdəbl/","giá cả phải chăng","The price is affordable."],
+["luxury","/ˈlʌkʃəri/","xa xỉ","They live a luxurious life."],
+["available","/əˈveɪləbl/","có sẵn","This item is available now."],
+["out of stock","/aʊt əv stɑːk/","hết hàng","Sorry, this item is out of stock."]
+];
+
+const data5 = [
+["food","/fuːd/","thức ăn","Healthy food is good for your body."],
+["meal","/miːl/","bữa ăn","We have three meals a day."],
+["breakfast","/ˈbrekfəst/","bữa sáng","I eat breakfast every morning."],
+["lunch","/lʌntʃ/","bữa trưa","Let's have lunch together."],
+["dinner","/ˈdɪnər/","bữa tối","We had a delicious dinner."],
+["snack","/snæk/","đồ ăn vặt","I like snacking while watching TV."],
+["restaurant","/ˈrestrɑːnt/","nhà hàng","This restaurant serves great food."],
+["menu","/ˈmenjuː/","thực đơn","Could I see the menu, please?"],
+["order","/ˈɔːrdər/","gọi món","Are you ready to order?"],
+["chef/cook","/ʃef/ /kʊk/","đầu bếp","The chef prepared a wonderful dish."],
+["waiter/waitress","/ˈweɪtər/ /ˈweɪtrəs/","bồi bàn nam/nữ","The waiter was very polite."],
+["delicious/tasty","/dɪˈlɪʃəs/ /ˈteɪsti/","ngon miệng","This pizza is delicious!"],
+["recipe","/ˈresəpi/","công thức nấu ăn","She shared her favorite recipe."],
+["ingredient","/ɪnˈɡriːdiənt/","nguyên liệu","Fresh ingredients make better food."],
+["kitchen","/ˈkɪtʃɪn/","nhà bếp","He spends hours cooking in the kitchen."],
+["water","/ˈwɔːtər/","nước","Drink plenty of water every day."],
+["coffee","/ˈkɔːfi/","cà phê","I start my day with a cup of coffee."],
+["tea","/tiː/","trà","Would you like some green tea?"],
+["milk","/mɪlk/","sữa","Milk is rich in calcium."],
+["juice","/dʒuːs/","nước ép","Fresh orange juice is healthy."],
+["bread","/bred/","bánh mì","I love warm freshly baked bread."],
+["rice","/raɪs/","cơm, gạo","Rice is a staple food in Asia."],
+["noodle","/ˈnuːdl/","mì, phở","A hot bowl of noodles is satisfying."],
+["meat","/miːt/","thịt","They eat meat twice a week."],
+["vegetable","/ˈvedʒtəbl/","rau củ","Vegetables are full of vitamins."],
+["fruit","/fruːt/","trái cây","Eat fresh fruit for dessert."],
+["apple","/ˈæpl/","quả táo","An apple a day keeps the doctor away."],
+["banana","/bəˈnænə/","quả chuối","Bananas are rich in potassium."],
+["chicken","/ˈtʃɪkɪn/","thịt gà","Grilled chicken is delicious."],
+["fish","/fɪʃ/","cá","Fish is good for memory."],
+["egg","/eɡ/","trứng","Boiled eggs are easy to prepare."],
+["soup","/suːp/","súp, canh","Hot soup is great on a rainy day."],
+["salad","/ˈsæləd/","món xà lách","I ordered a fresh green salad."],
+["dessert","/dɪˈzɜːrt/","món tráng miệng","Ice cream is my favorite dessert."],
+["sweet","/swiːt/","ngọt","This cake is too sweet."],
+["salty","/ˈsɔːlti/","mặn","The soup is a bit salty."],
+["sour","/ˈsaʊər/","chua","Lemons have a sour taste."],
+["bitter","/ˈbɪtər/","đắng","Dark chocolate is slightly bitter."],
+["spicy/hot","/ˈspaɪsi/ /hɑːt/","cay","I love spicy Thai food."],
+["fresh","/freʃ/","tươi ngon","Buy fresh fruits from the market."],
+["frozen","/ˈfroʊzn/","đông lạnh","Store frozen food in the freezer."],
+["boil","/bɔɪl/","luộc, đun sôi","Boil water before drinking."],
+["fry","/fraɪ/","chián, rán","Fry the eggs in olive oil."],
+["bake","/beɪk/","nướng (bánh)","She loves to bake cookies."],
+["grill","/ɡrɪl/","nướng (trên vỉ)","We grilled beef on the weekend."],
+["taste","/teɪst/","nếm, có vị","Taste this soup and see if it needs salt."],
+["hungry","/ˈhʌŋɡri/","đói","I am so hungry right now."],
+["thirsty","/ˈθɜːrsti/","khát","Drink water when you are thirsty."],
+["full","/fʊl/","no","I am full after that large meal."],
+["bill/check","/bɪl/ /tʃek/","hóa đơn thanh toán","Could we get the bill, please?"]
+];
+
+const data6 = [
+["body","/ˈbɑːdi/","(n) cơ thể","Our body is amazing."],
+["head","/hed/","(n) đầu","He has a big head."],
+["face","/feɪs/","(n) khuôn mặt","She has a smiling face."],
+["eye","/aɪ/","(n) mắt","She has beautiful eyes."],
+["ear","/ɪr/","(n) tai","He is listening with his ear."],
+["nose","/noʊz/","(n) mũi","I have a small nose."],
+["mouth","/maʊθ/","(n) miệng","Keep your mouth clean."],
+["arm","/ɑːrm/","(n) cánh tay","He has strong arms."],
+["hand","/hænd/","(n) bàn tay","Wash your hands."],
+["leg","/leɡ/","(n) chân","He has long legs."],
+["foot","/fʊt/","(n) bàn chân","My feet are tired after walking."],
+["heart","/hɑːrt/","(n) tim","The heart pumps blood."],
+["stomach","/ˈstʌmək/","(n) dạ dày, bụng","I feel full after eating."],
+["back","/bæk/","(n) lưng","He has back pain."],
+["health","/helθ/","(n) sức khỏe","Good health is very important."],
+["healthy","/ˈhelθi/","(adj) khỏe mạnh","She eats healthy food."],
+["sick","/sɪk/","(adj) ốm, bệnh","He is sick and staying home."],
+["pain","/peɪn/","(n) cơn đau","He feels pain in his shoulder."],
+["ache","/eɪk/","(n, v) đau (âm ỉ)","My legs ache after running."],
+["headache","/ˈhedeɪk/","(n) đau đầu","I have a headache."],
+["stomachache","/ˈstʌməkeɪk/","(n) đau bụng","I have a stomachache."],
+["fever","/ˈfiːvər/","(n) sốt","He has a high fever."],
+["cough","/kɔːf/","(n, v) ho, cơn ho","She has a bad cough."],
+["cold","/koʊld/","(n) cảm lạnh","He has a cold and runny nose."],
+["flu","/fluː/","(n) cảm cúm","She has the flu and feels awful."],
+["disease","/dɪˈziːz/","(n) bệnh tật","Many diseases are contagious."],
+["symptom","/ˈsɪmptəm/","(n) triệu chứng","Cough is a common symptom."],
+["injury","/ˈɪndʒəri/","(n) vết thương","He got an injury while playing."],
+["doctor","/ˈdɑːktər/","(n) bác sĩ","The doctor is very kind."],
+["nurse","/nɜːrs/","(n) y tá","The nurse takes care of patients."],
+["patient","/ˈpeɪʃnt/","(n) bệnh nhân","The patient is in room 12."],
+["hospital","/ˈhɑːspɪtl/","(n) bệnh viện","He is in the hospital."],
+["pharmacy","/ˈfɑːrməsi/","(n) hiệu thuốc","I bought medicine at the pharmacy."],
+["medicine","/ˈmedsn/","(n) thuốc","Take this medicine twice a day."],
+["prescription","/prɪˈskrɪpʃn/","(n) đơn thuốc","Don't forget your prescription."],
+["appointment","/əˈpɔɪntmənt/","(n) cuộc hẹn","I have a doctor appointment tomorrow."],
+["treatment","/ˈtriːtmənt/","(n) sự điều trị","The treatment is working well."],
+["check-up","/ˈtʃek ʌp/","(n) buổi khám sức khỏe","He goes for a check-up every year."],
+["surgery","/ˈsɜːrdʒəri/","(n) phẫu thuật","The surgery was successful."],
+["exercise","/ˈeksərsaɪz/","(v, n) tập thể dục","Exercise keeps your body strong."],
+["sleep","/sliːp/","(v, n) ngủ, giấc ngủ","I sleep 8 hours every night."],
+["rest","/rest/","(v, n) nghỉ ngơi","You should rest when tired."],
+["breathe","/briːð/","(v) thở","Take a deep breath."],
+["feel","/fiːl/","(v) cảm thấy","I feel much better now."],
+["hurt","/hɜːrt/","(v) làm đau, bị đau","He hurt his knee."],
+["tired","/ˈtaɪərd/","(adj) mệt mỏi","I am tired after a long day."],
+["weak","/wiːk/","(adj) yếu","He feels weak today."],
+["strong","/strɔːŋ/","(adj) khỏe","Milk makes your bones strong."],
+["well","/wel/","(adv, adj) tốt, khỏe","I wish you all the best!"],
+["diet","/ˈdaɪət/","(n) chế độ ăn uống","A healthy diet is important."]
+];
+
+const data7 = [
+["weather","/ˈweðər/","thời tiết","The weather is good today."],
+["forecast","/ˈfɔːrkæst/","dự báo","The forecast says it will rain tomorrow."],
+["temperature","/ˈtemprətʃər/","nhiệt độ","The temperature is 25 degrees today."],
+["degree","/dɪˈɡriː/","độ (nhiệt độ)","The water is 30 degrees."],
+["sun","/sʌn/","mặt trời","The sun gives us light and warmth."],
+["sunny","/ˈsʌni/","có nắng","It's a sunny day."],
+["cloud","/klaʊd/","mây","There are white clouds in the sky."],
+["cloudy","/ˈklaʊdi/","có mây","It's cloudy today."],
+["rain","/reɪn/","mưa","It may rain tomorrow."],
+["rainy","/ˈreɪni/","có mưa","It's rainy outside."],
+["wind","/wɪnd/","gió","The wind is blowing."],
+["windy","/ˈwɪndi/","có gió","It's windy today."],
+["snow","/snoʊ/","tuyết","It snowed last night."],
+["snowy","/ˈsnoʊi/","có tuyết","The mountains are snowy."],
+["storm","/stɔːrm/","bão","A big storm is coming."],
+["stormy","/ˈstɔːrmi/","có bão","The weather is stormy."],
+["fog","/fɑːɡ/","sương mù","The road is covered with fog."],
+["foggy","/ˈfɑːɡi/","có sương mù","It's foggy in the morning."],
+["hot","/hɑːt/","nóng","It's very hot in summer."],
+["warm","/wɔːrm/","ấm áp","The weather is warm and pleasant."],
+["cool","/kuːl/","mát mẻ","It's cool in the evening."],
+["cold","/koʊld/","lạnh","It's cold in winter."],
+["wet","/wet/","ẩm ướt","The ground is wet."],
+["dry","/draɪ/","khô ráo","The clothes are dry now."],
+["clear","/klɪr/","quang đãng, trong","The sky is clear and blue."],
+["season","/ˈsiːzən/","mùa","There are four seasons in a year."],
+["spring","/sprɪŋ/","mùa xuân","Spring is full of flowers."],
+["summer","/ˈsʌmər/","mùa hè","Summer is hot and sunny."],
+["autumn/fall","/ˈɔːtəm/ /fɔːl/","mùa thu","Leaves turn yellow in autumn."],
+["winter","/ˈwɪntər/","mùa đông","It often snows in winter."],
+["nature","/ˈneɪtʃər/","thiên nhiên","We should protect nature."],
+["sky","/skaɪ/","bầu trời","The sky is so beautiful."],
+["earth","/ɜːrθ/","trái đất","Earth is our home."],
+["mountain","/ˈmaʊntən/","núi","Mountains are often very high."],
+["hill","/hɪl/","đồi","There is a small hill near my house."],
+["valley","/ˈvæli/","thung lũng","The valley is very beautiful."],
+["forest","/ˈfɔːrɪst/","rừng","The forest is full of trees."],
+["tree","/triː/","cây","Trees give us oxygen."],
+["flower","/ˈflaʊər/","hoa","This flower is very pretty."],
+["river","/ˈrɪvər/","sông","The river flows through the town."],
+["lake","/leɪk/","hồ","We had a picnic by the lake."],
+["ocean/sea","/ˈoʊʃən/ /siː/","đại dương/biển","The ocean is very deep."],
+["beach","/biːtʃ/","bãi biển","We love to relax on the beach."],
+["island","/ˈaɪlənd/","hòn đảo","This island is full of beauty."],
+["star","/stɑːr/","ngôi sao","Stars shine in the night."],
+["moon","/muːn/","mặt trăng","The moon looks bright tonight."],
+["air","/er/","không khí","We need clean air to live."],
+["climate","/ˈklaɪmət/","khí hậu","The climate here is tropical."],
+["environment","/ɪnˈvaɪrənmənt/","môi trường","We must protect our environment."],
+["sunrise/sunset","/ˈsʌnraɪz/ /ˈsʌnset/","bình minh/hoàng hôn","The sunrise is amazing."]
+];
+
+const data8 = [
+["education","/ˌedʒuˈkeɪʃn/","(n) giáo dục","Education is the key to a better future."],
+["school","/skuːl/","(n) trường học","I go to school every day."],
+["university","/ˌjuːnɪˈvɜːrsəti/","(n) trường đại học","She studies at a university."],
+["college","/ˈkɑːlɪdʒ/","(n) trường cao đẳng","He is going to college next year."],
+["student","/ˈstuːdnt/","(n) học sinh, sinh viên","She is a hard-working student."],
+["teacher","/ˈtiːtʃər/","(n) giáo viên","The teacher explains the lesson clearly."],
+["professor","/prəˈfesər/","(n) giáo sư","The professor gave an interesting lecture."],
+["classroom","/ˈklæsruːm/","(n) phòng học","Our classroom is clean and bright."],
+["library","/ˈlaɪbreri/","(n) thư viện","I often go to the library to read books."],
+["subject","/ˈsʌbdʒɪkt/","(n) môn học","Math is my favorite subject."],
+["course","/kɔːrs/","(n) khóa học","She takes an online English course."],
+["lesson","/ˈlesn/","(n) bài học","Today's lesson is very useful."],
+["class","/klæs/","(n) lớp học","We have English class at 8 a.m."],
+["homework","/ˈhoʊmwɜːrk/","(n) bài tập về nhà","I finished my homework early."],
+["assignment","/əˈsaɪnmənt/","(n) bài tập lớn","The assignment is due next Monday."],
+["project","/ˈprɑːdʒekt/","(n) dự án","We are working on a science project."],
+["exam","/ɪɡˈzæm/","(n) kỳ thi/bài kiểm tra","The exam is tomorrow morning."],
+["grade","/ɡreɪd/","(n) điểm số","She got an A in the test."],
+["result","/rɪˈzʌlt/","(n) kết quả","We are waiting for the results."],
+["knowledge","/ˈnɑːlɪdʒ/","(n) kiến thức","Knowledge helps us grow."],
+["skill","/skɪl/","(n) kỹ năng","Communication is an important skill."],
+["degree","/dɪˈɡriː/","(n) bằng cấp","He has a bachelor's degree."],
+["diploma","/dɪˈploʊmə/","(n) văn bằng, chứng chỉ","She framed her diploma."],
+["certificate","/sərˈtɪfɪkət/","(n) giấy chứng nhận","He received a certificate."],
+["textbook","/ˈtekstbʊk/","(n) sách giáo khoa","This is our new textbook."],
+["notebook","/ˈnoʊtbʊk/","(n) vở ghi","I take notes in my notebook."],
+["pen","/pen/","(n) bút mực/bút chì","Write neatly with a blue pen."],
+["research","/ˈriːsɜːrtʃ/","(n, v) nghiên cứu","She is researching for her paper."],
+["study","/ˈstʌdi/","(v) học, nghiên cứu","We study hard for a better future."],
+["learn","/lɜːrn/","(v) học hỏi","I love to learn new things."],
+["teach","/tiːtʃ/","(v) dạy","She loves to teach children."],
+["read","/riːd/","(v) đọc","Reading books is a good habit."],
+["write","/raɪt/","(v) viết","Please write your name here."],
+["listen","/ˈlɪsn/","(v) nghe","Listen carefully to the teacher."],
+["speak","/spiːk/","(v) nói","Practice speaking English every day."],
+["understand","/ˌʌndərˈstænd/","(v) hiểu","I understand the lesson now."],
+["explain","/ɪkˈspleɪn/","(v) giải thích","Can you explain that again?"],
+["ask","/æsk/","(v) hỏi","Don't be shy to ask questions."],
+["answer","/ˈænsər/","(v, n) trả lời, câu trả lời","Please answer the question."],
+["pass","/pæs/","(v) đỗ, vượt qua","She passed the final exam."],
+["fail","/feɪl/","(v) trượt, thất bại","Don't give up if you fail."],
+["attend","/əˈtend/","(v) tham dự","She attends classes regularly."],
+["graduate","/ˈɡrædʒueɪt/","(v) tốt nghiệp","He graduated from university last year."],
+["difficult","/ˈdɪfɪkəlt/","(adj) khó","This math problem is very difficult."],
+["easy","/ˈiːzi/","(adj) dễ","This lesson is really easy."],
+["smart","/smɑːrt/","(adj) thông minh","She is a smart student."],
+["semester","/səˈmestər/","(n) học kỳ","The semester starts next week."],
+["schedule","/ˈskedʒuːl/","(n) thời khóa biểu","Check your class schedule."],
+["topic","/ˈtɑːpɪk/","(n) chủ đề","Today's topic is environment."],
+["information","/ˌinfərˈmeɪʃn/","(n) thông tin","Information is very important."]
+];
+
+const data9 = [
+["entertainment","/ˌentərˈteɪnmənt/","(n) sự giải trí","We need more entertainment."],
+["hobby","/ˈhɑːbi/","(n) sở thích","Reading is my hobby."],
+["fun","/fʌn/","(n, adj) niềm vui, vui vẻ","We had so much fun today!"],
+["game","/ɡeɪm/","(n) trò chơi","Let's play a video game."],
+["sport","/spɔːrt/","(n) thể thao","He plays football every weekend."],
+["music","/ˈmjuːzɪk/","(n) âm nhạc","Music makes me happy."],
+["song","/sɔːŋ/","(n) bài hát","This song is so beautiful."],
+["movie","/ˈmuːvi/","(n) phim","We watched a nice movie."],
+["television","/ˈtelɪvɪʒn/","(n) truyền hình","They are watching TV now."],
+["show","/ʃoʊ/","(n) chương trình","This show is very interesting."],
+["book","/bʊk/","(n) sách","I love reading books."],
+["magazine","/ˈmæɡəziːn/","(n) tạp chí","She reads fashion magazines."],
+["art","/ɑːrt/","(n) nghệ thuật","Art makes life more colorful."],
+["painting","/ˈpeɪntɪŋ/","(n) hội họa, bức tranh","This painting is wonderful."],
+["drawing","/ˈdrɔːɪŋ/","(n) vẽ","She is good at drawing."],
+["dance","/dæns/","(n, v) nhảy, điệu nhảy","She loves to dance."],
+["party","/ˈpɑːrti/","(n) bữa tiệc","We had a birthday party last night."],
+["concert","/ˈkɑːnsərt/","(n) buổi hòa nhạc","The concert was amazing!"],
+["festival","/ˈfestɪvl/","(n) lễ hội","We enjoy the Spring Festival."],
+["theater","/ˈθiːətər/","(n) nhà hát/rạp chiếu phim","They went to the cinema."],
+["museum","/mjuˈziːəm/","(n) viện bảo tàng","We visited the history museum."],
+["park","/pɑːrk/","(n) công viên","Let's go to the park this afternoon."],
+["play","/pleɪ/","(v) chơi","The kids are playing outside."],
+["watch","/wɑːtʃ/","(v) xem","I like to watch movies."],
+["listen to","/ˈlɪsn tuː/","(v) nghe","I listen to music every day."],
+["read","/riːd/","(v) đọc","Reading books improves knowledge."],
+["sing","/sɪŋ/","(v) hát","She can sing very well."],
+["paint","/peɪnt/","(v) sơn, vẽ (bằng sơn)","He loves to paint pictures."],
+["draw","/drɔː/","(v) vẽ (bằng bút)","I like to draw in my notebook."],
+["cook","/kʊk/","(v) nấu ăn","She enjoys cooking."],
+["travel","/ˈtrævl/","(v) du lịch","Traveling is my favorite hobby."],
+["hike","/haɪk/","(v) đi bộ đường dài","We went hiking in the mountains."],
+["swim","/swɪm/","(v) bơi","Swimming is good exercise."],
+["collect","/kəˈlekt/","(v) sưu tầm","He collects stamps."],
+["go out","/ɡoʊ aʊt/","(v) đi chơi","We went out for dinner."],
+["hang out","/hæŋ aʊt/","(v) đi chơi, tụ tập","We like to hang out on weekends."],
+["relax","/rɪˈlæks/","(v) thư giãn","I relax by listening to music."],
+["interesting","/ˈɪntrestɪŋ/","(adj) thú vị","This book is very interesting."],
+["exciting","/ɪkˈsaɪtɪŋ/","(adj) hứng khởi, sôi động","The match was very exciting."],
+["boring","/ˈbɔːrɪŋ/","(adj) nhàm chán","The movie was boring."],
+["relaxing","/rɪˈlæksɪŋ/","(adj) thư giãn","A walk in the park is so relaxing."],
+["favorite","/ˈfeɪvərɪt/","(adj) yêu thích","This is my favorite song."],
+["team","/tiːm/","(n) đội","Our team won the game."],
+["player","/ˈpleɪər/","(n) người chơi","He is a good basketball player."],
+["instrument","/ˈɪnstrəmənt/","(n) nhạc cụ","She plays the guitar."],
+["photography","/fəˈtɑːɡrəfi/","(n) nhiếp ảnh","Photography is my passion."],
+["camera","/ˈkæmrə/","(n) máy ảnh","He bought a new camera."],
+["actor","/ˈæktər/","(n) diễn viên nam/nữ","She wants to be an actress."],
+["singer","/ˈsɪŋər/","(n) ca sĩ","He is a famous singer."],
+["artist","/ˈɑːrtɪst/","(n) nghệ sĩ","He is a talented artist."]
+];
+
+const data10 = [
+["technology","/tekˈnɑːlədʒi/","(n) công nghệ","Technology makes our life easier."],
+["internet","/ˈɪntərnet/","(n) mạng internet","The internet connects people worldwide."],
+["online","/ˌɑːnˈlaɪn/","(adj, adv) trực tuyến","She is online every day."],
+["offline","/ˌɔːfˈlaɪn/","(adj, adv) ngoại tuyến","The game works offline."],
+["website","/ˈwebsaɪt/","(n) trang web","You can visit our website for more info."],
+["link","/lɪŋk/","(n) đường link, liên kết","Click the link to learn more."],
+["computer","/kəmˈpjuːtər/","(n) máy tính","I use a computer to study."],
+["laptop","/ˈlæptɑːp/","(n) máy tính xách tay","He is working on his laptop."],
+["smartphone","/ˈsmɑːrtfoʊn/","(n) điện thoại thông minh","I always carry my smartphone."],
+["device","/dɪˈvaɪs/","(n) thiết bị","This device is very useful."],
+["screen","/skriːn/","(n) màn hình","The screen is very clear."],
+["keyboard","/ˈkiːbɔːrd/","(n) bàn phím","Type using the keyboard."],
+["mouse","/maʊs/","(n) chuột máy tính","Move the mouse to click."],
+["software","/ˈsɔːftwer/","(n) phần mềm","We need good software to work."],
+["application","/ˌæplɪˈkeɪʃn/","(n) ứng dụng","This app is very helpful."],
+["program","/ˈproʊɡræm/","(n) chương trình","This program helps us edit photos."],
+["file","/faɪl/","(n) tệp, tập tin","Please send me the file."],
+["folder","/ˈfoʊldər/","(n) thư mục","Save the file in the folder."],
+["data","/ˈdeɪtə/","(n) dữ liệu","Data is important for analysis."],
+["email","/ˈiːmeɪl/","(n, v) thư điện tử, gửi thư","Check your email for updates."],
+["message","/ˈmesɪdʒ/","(n) tin nhắn","She sent me a message."],
+["password","/ˈpæswɜːrd/","(n) mật khẩu","Keep your password secret."],
+["account","/əˈkaʊnt/","(n) tài khoản","Create an account to sign up."],
+["user","/ˈjuːzər/","(n) người dùng","This system has many users."],
+["social media","/ˌsoʊʃl ˈmiːdiə/","(n) mạng xã hội","Social media connects us with friends."],
+["network","/ˈnetwɜːrk/","(n) mạng lưới","Our company has a wide network."],
+["connection","/kəˈnekʃn/","(n) kết nối","The connection is very stable."],
+["Wi-Fi","/ˈwaɪ faɪ/","(n) mạng không dây","Wi-Fi is available here."],
+["digital","/ˈdɪdʒɪtl/","(adj) kỹ thuật số","We live in a digital world."],
+["modern","/ˈmɑːdərn/","(adj) hiện đại","Technology makes life modern."],
+["connect","/kəˈnekt/","(v) kết nối","Let's connect to the Wi-Fi."],
+["disconnect","/ˌdɪskəˈnekt/","(v) ngắt kết nối","Please disconnect before you leave."],
+["search","/sɜːrtʃ/","(v) tìm kiếm","Search this topic on Google."],
+["browse","/braʊz/","(v) lướt (web)","I like to browse the internet."],
+["click","/klɪk/","(v) nhấp chuột","Click the button to continue."],
+["download","/ˌdaʊnˈloʊd/","(v) tải xuống","Download the file from the site."],
+["upload","/ˌʌpˈloʊd/","(v) tải lên","Upload your photo to the cloud."],
+["install","/ɪnˈstɔːl/","(v) cài đặt","Install the app on your phone."],
+["delete","/dɪˈliːt/","(v) xóa","Delete the unwanted files."],
+["save","/seɪv/","(v) lưu","Don't forget to save your work."],
+["open","/ˈoʊpən/","(v) mở","Open the file to view it."],
+["close","/kloʊz/","(v) đóng","Close the window when done."],
+["log in","/lɔːɡ ɪn/","(v) đăng nhập","Log in to your account."],
+["log out","/lɔːɡ aʊt/","(v) đăng xuất","Log out after you finish."],
+["type","/taɪp/","(v) gõ, đánh máy","Type your name on the keyboard."],
+["text","/tekst/","(v, n) nhắn tin, tin nhắn","I'll text you later."],
+["call","/kɔːl/","(v, n) gọi điện, cuộc gọi","I will call you this evening."],
+["post","/poʊst/","(v, n) đăng bài, bài đăng","She posted a photo on Instagram."],
+["share","/ʃer/","(v) chia sẻ","Share this article with your friends."],
+["update","/ˌʌpˈdeɪt/","(v, n) cập nhật","Please update the software regularly."]
+];
+
+const data11 = [
+["house","/haʊs/","(n) nhà ở","My house is big and beautiful."],
+["home","/hoʊm/","(n) nhà, mái ấm","Home is where the heart is."],
+["apartment","/əˈpɑːrtmənt/","(n) căn hộ","We live in a nice apartment."],
+["room","/ruːm/","(n) phòng","This room is very clean."],
+["living room","/ˈlɪvɪŋ ruːm/","(n) phòng khách","We watch TV in the living room."],
+["bedroom","/ˈbedruːm/","(n) phòng ngủ","She sleeps in the bedroom."],
+["kitchen","/ˈkɪtʃɪn/","(n) nhà bếp","I cook meals in the kitchen."],
+["bathroom","/ˈbæθruːm/","(n) phòng tắm","Take a shower in the bathroom."],
+["dining room","/ˈdaɪnɪŋ ruːm/","(n) phòng ăn","We have dinner in the dining room."],
+["garden","/ˈɡɑːrdn/","(n) vườn/sân","They have a beautiful garden."],
+["garage","/ɡəˈrɑːʒ/","(n) nhà để xe","He parks his car in the garage."],
+["door","/dɔːr/","(n) cửa ra vào","Please close the door."],
+["window","/ˈwɪndoʊ/","(n) cửa sổ","Open the window for some air."],
+["floor","/flɔːr/","(n) sàn nhà, tầng","The floor is made of wood."],
+["wall","/wɔːl/","(n) tường","The picture is on the wall."],
+["roof","/ruːf/","(n) mái nhà","The roof protects us from rain."],
+["furniture","/ˈfɜːrnɪtʃər/","(n) đồ nội thất","We bought new furniture."],
+["table","/ˈteɪbl/","(n) bàn","We eat at the table."],
+["chair","/tʃer/","(n) ghế","Sit on the chair, please."],
+["bed","/bed/","(n) giường","I have a soft bed."],
+["sofa","/ˈsoʊfə/","(n) ghế số pha","The sofa is very comfortable."],
+["lamp","/læmp/","(n) đèn","Turn on the lamp at night."],
+["television","/ˈtelɪvɪʒn/","(n) tivi","We enjoy watching TV in the evening."],
+["refrigerator","/rɪˈfrɪdʒəreɪtər/","(n) tủ lạnh","Put the food in the fridge."],
+["key","/kiː/","(n) chìa khóa","I lost my house key."],
+["daily","/ˈdeɪli/","(adj) hàng ngày","I read English daily."],
+["routine","/ruːˈtiːn/","(n) thói quen, lịch trình","A good routine is important."],
+["wake up","/weɪk ʌp/","(v) thức dậy","I wake up early every day."],
+["get up","/ɡet ʌp/","(v) ra khỏi giường","He gets up at 6 a.m."],
+["sleep","/sliːp/","(v, n) ngủ","I need 8 hours of sleep every night."],
+["eat","/iːt/","(v) ăn","We eat three meals a day."],
+["cook","/kʊk/","(v) nấu ăn","She cooks dinner every evening."],
+["clean","/kliːn/","(v, adj) dọn dẹp, sạch sẽ","Keep your room clean."],
+["wash","/wɑːʃ/","(v) giặt, rửa","I wash my clothes on weekends."],
+["work","/wɜːrk/","(v) làm việc","He works in an office."],
+["study","/ˈstʌdi/","(v) học","Students study hard for exams."],
+["relax","/rɪˈlæks/","(v) thư giãn","I relax by listening to music."],
+["go to bed","/ɡoʊ tu bed/","(v) đi ngủ","Go to bed early for good health."],
+["rent","/rent/","(v, n) thuê, tiền thuê nhà","They rent an apartment."],
+["own","/oʊn/","(v) sở hữu","They own a big house."],
+["neighbor","/ˈneɪbər/","(n) hàng xóm","Our neighbor is very friendly."],
+["neighborhood","/ˈneɪbərhʊd/","(n) khu phố","This neighborhood is quiet and safe."],
+["address","/ˈædres/","(n) địa chỉ","What is your address?"],
+["comfortable","/ˈkʌmftəbl/","(adj) thoải mái","This sofa is very comfortable."],
+["convenient","/kənˈviːniənt/","(adj) tiện lợi","The location is very convenient."],
+["modern","/ˈmɑːdərn/","(adj) hiện đại","This is a modern house."],
+["spacious","/ˈspeɪʃəs/","(adj) rộng rãi","This room is very spacious."],
+["tidy","/ˈtaɪdi/","(adj) gọn gàng","She keeps her room tidy."],
+["messy","/ˈmesi/","(adj) bừa bộn","My room is a little messy."],
+["chore","/tʃɔːr/","(n) việc vặt trong nhà","Doing chores keeps the house clean."]
+];
+
+const data12 = [
+["feeling","/ˈfiːlɪŋ/","cảm giác","I have a strange feeling."],
+["emotion","/ɪˈmoʊʃn/","cảm xúc","Emotions can be strong."],
+["happy","/ˈhæpi/","vui vẻ, hạnh phúc","She is happy today."],
+["sad","/sæd/","buồn","He feels sad when it rains."],
+["angry","/ˈæŋɡri/","tức giận","Don't get angry so quickly."],
+["excited","/ɪkˈsaɪtɪd/","hào hứng, phấn khích","I'm excited about the trip."],
+["surprised","/sərˈpraɪzd/","ngạc nhiên","I was surprised by the news."],
+["scared/afraid","/skerd/ /əˈfreɪd/","sợ hãi","She is afraid of darkness."],
+["worried","/ˈwɜːrid/","lo lắng","I'm worried about my exam."],
+["nervous","/ˈnɜːrvəs/","lo lắng, bồn chồn","He is nervous before the interview."],
+["tired","/ˈtaɪərd/","mệt mỏi","I'm tired after work."],
+["bored","/bɔːrd/","chán nản","The movie is so boring."],
+["lonely","/ˈloʊnli/","cô đơn","He feels lonely sometimes."],
+["proud","/praʊd/","tự hào","I'm proud of you."],
+["calm","/kɑːm/","bình tĩnh","Stay calm and think clearly."],
+["relaxed","/rɪˈlækst/","thư giãn","I feel relaxed after the bath."],
+["comfortable","/ˈkʌmftəbl/","thoải mái, dễ chịu","This sofa is very comfortable."],
+["confident","/ˈkɑːnfɪdənt/","tự tin","She is confident in her ability."],
+["shy","/ʃaɪ/","nhút nhát, e thẹn","He is shy around new people."],
+["embarrassed","/ɪmˈbærəst/","xấu hổ, ngượng","She felt embarrassed in front of everyone."],
+["confused","/kənˈfjuːzd/","bối rối, khó hiểu","I'm confused about the instructions."],
+["disappointed","/ˌdɪsəˈpɔɪntɪd/","thất vọng","I'm disappointed with the result."],
+["jealous","/ˈdʒeləs/","ghen tị","He feels jealous of his brother."],
+["interested","/ˈɪntrestɪd/","quan tâm, hứng thú","I'm interested in learning English."],
+["love","/lʌv/","tình yêu, yêu","I love my family very much."],
+["hate","/heɪt/","ghét","He hates waking up early."],
+["like","/laɪk/","thích","I like ice cream very much."],
+["enjoy","/ɪnˈdʒɔɪ/","tận hưởng, thích thú","We enjoy watching movies."],
+["hope","/hoʊp/","hy vọng","I hope everything goes well."],
+["wish","/wɪʃ/","ước","I wish I could fly like a bird."],
+["cry","/kraɪ/","khóc","She started to cry."],
+["laugh","/læf/","cười","He always makes me laugh."],
+["smile","/smaɪl/","mỉm cười, nụ cười","Her smile is so beautiful."],
+["feel","/fiːl/","cảm thấy","I feel much better now."],
+["mood","/muːd/","tâm trạng","My mood is good today."],
+["happiness","/ˈhæpinəs/","niềm hạnh phúc","Happiness comes from within."],
+["sadness","/ˈsædnəs/","nỗi buồn","Sadness is a normal feeling."],
+["anger","/ˈæŋɡər/","sự tức giận","He couldn't control his anger."],
+["fear","/fɪr/","nỗi sợ","Fear can stop us from trying."],
+["joy","/dʒɔɪ/","niềm vui","The joy on her face is clear."],
+["positive","/ˈpɑːzətɪv/","tích cực","Stay positive in every situation."],
+["negative","/ˈneɡətɪv/","tiêu cực","Try not to think negative."],
+["grateful","/ˈɡreɪtfl/","biết ơn","I'm grateful for your help."],
+["curious","/ˈkjʊriəs/","tò mò","He is curious about everything."],
+["satisfied","/ˈsætɪsfaɪd/","hài lòng","I'm satisfied with the service."],
+["upset","/ʌpˈset/","buồn bã, khó chịu","She is upset about what happened."],
+["anxious","/ˈæŋkʃəs/","lo âu","He feels anxious before the test."],
+["energetic","/ˌenərˈdʒetɪk/","tràn đầy năng lượng","She is always full of energy."],
+["emotional","/ɪˈmoʊʃənl/","đa cảm, dễ xúc động","He gets emotional easily."],
+["peaceful","/ˈpiːsfl/","yên bình","I enjoy the peaceful life in the countryside."]
+];
+
+const data13 = [
+["appearance","/əˈpɪrəns/","ngoại hình, vẻ bề ngoài","First impressions matter in appearance."],
+["beautiful","/ˈbjuːtɪfəl/","xinh đẹp (cho nữ)","She is a beautiful woman."],
+["handsome","/ˈhænsəm/","đẹp trai","He is a handsome young man."],
+["pretty","/ˈprɪti/","xinh xắn","She has a pretty smile."],
+["attractive","/əˈtræktɪv/","hấp dẫn, lôi cuốn","He is very attractive."],
+["cute","/kjuːt/","dễ thương","The baby is so cute!"],
+["tall","/tɔːl/","cao","He is taller than me."],
+["short","/ʃɔːrt/","thấp, lùn","She is shorter than her sister."],
+["thin/slim","/θɪn/ /slɪm/","gầy/mảnh mai","She is slim and healthy."],
+["young","/jʌŋ/","trẻ","They are still young."],
+["old","/oʊld/","già","My grandfather is old."],
+["hair","/her/","tóc","She has long black hair."],
+["long","/lɔːŋ/","dài","She has long hair."],
+["short","/ʃɔːrt/","ngắn","He has short hair."],
+["straight","/streɪt/","thẳng","She has straight hair."],
+["curly","/ˈkɜːrli/","xoăn","He has curly hair."],
+["eye","/aɪ/","mắt","She has big brown eyes."],
+["clothes","/kloʊðz/","quần áo","I bought new clothes."],
+["clothing","/ˈkloʊðɪŋ/","quần áo (trang trọng hơn)","Clothing affects how we feel."],
+["shirt","/ʃɜːrt/","áo sơ mi","He is wearing a blue shirt."],
+["T-shirt","/ˈtiː ʃɜːrt/","áo phông","He likes to wear T-shirts."],
+["pants/trousers","/pænts/ /ˈtraʊzərz/","quần dài","He is wearing long pants."],
+["jeans","/dʒiːnz/","quần bò","Jeans are very popular."],
+["shorts","/ʃɔːrts/","quần soóc","He wears shorts in summer."],
+["dress","/dres/","váy liền","She looks beautiful in that dress."],
+["skirt","/skɜːrt/","chân váy","She is wearing a skirt."],
+["jacket","/ˈdʒækɪt/","áo khoác","It's cold, so I wear a jacket."],
+["coat","/koʊt/","áo choàng","He put on a warm coat."],
+["sweater","/ˈswetər/","áo len","This sweater is very warm."],
+["suit","/suːt/","bộ com-lê","He wears a suit to work."],
+["shoes","/ʃuːz/","giày","These shoes are very comfortable."],
+["boots","/buːts/","bốt","She wears boots in winter."],
+["hat","/hæt/","mũ","Don't forget your hat."],
+["glasses","/ˈɡlæsɪz/","kính","He needs glasses to see clearly."],
+["watch","/wɑːtʃ/","đồng hồ","He bought a new watch."],
+["bag","/bæɡ/","túi xách","She carries a bag every day."],
+["belt","/belt/","thắt lưng","He wears a leather belt."],
+["wear","/wer/","mặc, đeo","I wear a uniform to school."],
+["put on","/pʊt ɑːn/","mặc vào","Put on your coat before you go out."],
+["take off","/teɪk ɔːf/","cởi ra","Take off your shoes at home."],
+["fit","/fɪt/","vừa vặn","This dress fits me perfectly."],
+["match","/mætʃ/","hợp với","This tie matches his shirt."],
+["size","/saɪz/","kích cỡ","What size do you wear?"],
+["color","/ˈkʌlər/","màu sắc","Blue is my favorite color."],
+["style","/staɪl/","phong cách","She has a unique style."],
+["fashion","/ˈfæʃən/","thời trang","Fashion is always changing."],
+["fashionable","/ˈfæʃənəbəl/","hợp thời trang","She is very fashionable."],
+["casual","/ˈkæʒuəl/","thông thường, thường ngày","He wears casual clothes on weekends."],
+["formal","/ˈfɔːrməl/","trang trọng","We need formal clothes for the event."],
+["accessory","/əkˈsesəri/","phụ kiện","A watch is a useful accessory."]
+];
+
+const data14 = [
+["sport","/spɔːrt/","môn thể thao","I enjoy watching many sports."],
+["fitness","/ˈfɪtnəs/","thể dục thể hình","Fitness is important for good health."],
+["exercise","/ˈeksərsaɪz/","bài tập, tập thể dục","I exercise every morning."],
+["game","/ɡeɪm/","trận đấu, trò chơi","We played an exciting game."],
+["match","/mætʃ/","trận đấu (tennis, bóng đá)","The match was very close."],
+["team","/tiːm/","đội","Our team won the game."],
+["player","/ˈpleɪər/","người chơi, cầu thủ","He is a great player."],
+["coach","/koʊtʃ/","huấn luyện viên","The coach gives us good advice."],
+["fan","/fæn/","người hâm mộ","The fans cheered for their team."],
+["stadium","/ˈsteɪdiəm/","sân vận động","The stadium is very big."],
+["gym","/dʒɪm/","phòng tập gym","I go to the gym after work."],
+["workout","/ˈwɜːrkaʊt/","buổi tập luyện","I had a hard workout today."],
+["football/soccer","/ˈfʊtbɔːl/ /ˈsɑːkər/","bóng đá","Football is the most popular sport."],
+["basketball","/ˈbæskɪtbɔːl/","bóng rổ","He plays basketball every weekend."],
+["tennis","/ˈtenɪs/","quần vợt","She is good at tennis."],
+["swimming","/ˈswɪmɪŋ/","bơi lội","Swimming is great for your health."],
+["running","/ˈrʌnɪŋ/","chạy bộ","I go running every morning."],
+["cycling","/ˈsaɪklɪŋ/","đạp xe","Cycling is fun and healthy."],
+["yoga","/ˈjoʊɡə/","yoga","Yoga helps me relax."],
+["ball","/bɔːl/","quả bóng","He kicked the ball hard."],
+["goal","/ɡoʊl/","khung thành, bàn thắng","He scored a beautiful goal."],
+["score","/skɔːr/","điểm số, ghi bàn","They scored two goals."],
+["win","/wɪn/","thắng","Our team won the match."],
+["lose","/luːz/","thua","They lost the game."],
+["play","/pleɪ/","chơi","Let's play football."],
+["run","/rʌn/","chạy","He runs fast."],
+["swim","/swɪm/","bơi","She can swim very well."],
+["watch","/wɑːtʃ/","xem","I like to watch sports on TV."],
+["practice","/ˈpræktɪs/","luyện tập","Practice makes perfect."],
+["train","/treɪn/","huấn luyện, rèn luyện","He trains hard every day."],
+["join","/dʒɔɪn/","tham gia","I want to join the team."],
+["compete","/kəmˈpiːt/","thi đấu","They will compete in the race."],
+["competition","/ˌkɑːmpəˈtɪʃn/","cuộc thi","The competition was very tough."],
+["race","/reɪs/","cuộc đua, đua","He won the 100-meter race."],
+["champion","/ˈtʃæmpiən/","nhà vô địch","She is the champion!"],
+["medal","/ˈmedl/","huy chương","He won a gold medal."],
+["rule","/ruːl/","luật lệ","We must follow the rules."],
+["healthy","/ˈhelθi/","khỏe mạnh","Eating healthy food keeps you healthy."],
+["active","/ˈæktɪv/","năng động","He is an active person."],
+["strong","/strɔːŋ/","khỏe","She is very strong."],
+["weak","/wiːk/","yếu","He is feeling weak today."],
+["fit","/fɪt/","cân đối, khỏe mạnh","He is very fit."],
+["tired","/ˈtaɪərd/","mệt","I'm tired after the workout."],
+["warm-up","/ˈwɔːrm ʌp/","khởi động","Always warm up before exercise."],
+["cool-down","/ˈkuːl daʊn/","thả lỏng (sau tập)","Cool down after your workout."],
+["equipment","/ɪˈkwɪpmənt/","thiết bị, dụng cụ","We need good equipment."],
+["weight","/weɪt/","tạ, cân nặng","He lifted heavy weights."],
+["track","/træk/","đường chạy","He runs on the track."],
+["court","/kɔːrt/","sân (tennis, bóng rổ)","They played on the court."],
+["field","/fiːld/","sân (bóng đá)","The players are on the field."]
+];
+
+const data15 = [
+["art","/ɑːrt/","nghệ thuật","Art makes our life more beautiful."],
+["artist","/ˈɑːrtɪst/","nghệ sĩ","She is a talented artist."],
+["culture","/ˈkʌltʃər/","văn hóa","Every country has its own culture."],
+["tradition","/trəˈdɪʃn/","truyền thống","We should respect our traditions."],
+["museum","/mjuˈziːəm/","viện bảo tàng","We visited the history museum."],
+["gallery","/ˈɡæləri/","phòng trưng bày","The gallery shows modern art."],
+["exhibition","/ˌeksɪˈbɪʃn/","triển lãm","There is an art exhibition today."],
+["painting","/ˈpeɪntɪŋ/","bức tranh, hội họa","The painting is very colorful."],
+["drawing","/ˈdrɔːɪŋ/","bức vẽ, nghệ thuật vẽ","She loves drawing in her free time."],
+["sculpture","/ˈskʌlptʃər/","điêu khắc","The sculpture is made of stone."],
+["photograph","/ˈfoʊtəɡræf/","bức ảnh","He took a beautiful photograph."],
+["photography","/fəˈtɑːɡrəfi/","nhiếp ảnh","Photography is my hobby."],
+["music","/ˈmjuːzɪk/","âm nhạc","Music can touch our hearts."],
+["musician","/mjuˈzɪʃn/","nhạc sĩ","He is a great musician."],
+["singer","/ˈsɪŋər/","ca sĩ","She is a popular singer."],
+["song","/sɔːŋ/","bài hát","This song is very touching."],
+["concert","/ˈkɑːnsərt/","buổi hòa nhạc","The concert was amazing!"],
+["instrument","/ˈɪnstrəmənt/","nhạc cụ","He plays many instruments."],
+["dance","/dæns/","điệu nhảy, khiêu vũ","They are dancing together."],
+["theater","/ˈθiːətər/","nhà hát","We watched a play at the theater."],
+["play","/pleɪ/","vở kịch","The play was very interesting."],
+["actor/actress","/ˈæktər/ /ˈæktrəs/","diễn viên nam/nữ","They are famous actors."],
+["movie/film","/ˈmuːvi/ /fɪlm/","phim","We watched an exciting movie."],
+["director","/daɪˈrektər/","đạo diễn","He is a talented director."],
+["cinema","/ˈsɪnəmə/","rạp chiếu phim","We go to the cinema on weekends."],
+["literature","/ˈlɪtrətʃʊr/","văn học","Literature helps us understand life."],
+["book","/bʊk/","sách","Reading books is a good habit."],
+["author/writer","/ˈɔːθər/ /ˈraɪtər/","tác giả, nhà văn","J.K. Rowling is a great author."],
+["novel","/ˈnɑːvl/","tiểu thuyết","This novel is very engaging."],
+["poem","/ˈpoʊəm/","bài thơ","The poem is full of beautiful words."],
+["poetry","/ˈpoʊətri/","thơ ca","Poetry expresses deep feelings."],
+["story","/ˈstɔːri/","câu chuyện","He told an interesting story."],
+["performance","/pərˈfɔːrməns/","buổi biểu diễn","The performance was outstanding."],
+["audience","/ˈɔːdiəns/","khán giả","The audience clapped loudly."],
+["stage","/steɪdʒ/","sân khấu","The actors are on the stage."],
+["create","/kriˈeɪt/","sáng tạo","You can create amazing things."],
+["perform","/pərˈfɔːrm/","biểu diễn","She performs very well."],
+["design","/dɪˈzaɪn/","thiết kế","He designs beautiful logos."],
+["express","/ɪkˈspres/","thể hiện, biểu đạt","Art helps us express our feelings."],
+["creative","/kriˈeɪtɪv/","sáng tạo","He has a very creative mind."],
+["beautiful","/ˈbjuːtɪfl/","đẹp","The sunset is beautiful."],
+["modern","/ˈmɑːdərn/","hiện đại","This is a modern artwork."],
+["classic/classical","/ˈklæsɪk/ /ˈklæsɪkl/","cổ điển, kinh điển","Beethoven is a classic composer."],
+["famous","/ˈfeɪməs/","nổi tiếng","The Mona Lisa is very famous."],
+["popular","/ˈpɑːpjələr/","phổ biến","This song is very popular."],
+["cultural","/ˈkʌltʃərəl/","thuộc về văn hóa","We joined a cultural exchange program."],
+["style","/staɪl/","phong cách","She has a unique style."],
+["character","/ˈkærəktər/","nhân vật","Harry Potter is a famous character."],
+["masterpiece","/ˈmæstərpiːs/","kiệt tác","This painting is a true masterpiece."],
+["festival","/ˈfestɪvl/","lễ hội","We enjoy the lantern festival."]
+];
+
+const data16 = [
+["event","/ɪˈvent/","(n) sự kiện","The event was a huge success."],
+["party","/ˈpɑːrti/","(n) bữa tiệc","We had a great party last night."],
+["birthday","/ˈbɜːrθdeɪ/","(n) sinh nhật","Happy birthday to you!"],
+["wedding","/ˈwedɪŋ/","(n) lễ cưới","They had a beautiful wedding ceremony."],
+["anniversary","/ˌænɪˈvɜːrsəri/","(n) lễ kỷ niệm","They celebrated their 10th anniversary."],
+["celebration","/ˌselɪˈbreɪʃn/","(n) sự kỷ niệm, lễ ăn mừng","Let's join the celebration!"],
+["holiday","/ˈhɑːlədeɪ/","(n) ngày lễ","We have a holiday tomorrow."],
+["festival","/ˈfestɪvl/","(n) lễ hội","The festival is full of fun activities."],
+["meeting","/ˈmiːtɪŋ/","(n) cuộc họp","We have a meeting at 9 a.m."],
+["conference","/ˈkɑːnfərəns/","(n) hội nghị","He attended an international conference."],
+["ceremony","/ˈserəmoʊni/","(n) buổi lễ","The award ceremony was exciting."],
+["graduation","/ˌɡrædʒuˈeɪʃn/","(n) lễ tốt nghiệp","She graduated from university."],
+["funeral","/ˈfjuːnərəl/","(n) lễ tang","We attended the funeral yesterday."],
+["barbecue (BBQ)","/ˈbɑːrbɪkjuː/","(n) tiệc nướng","They had a BBQ in the backyard."],
+["picnic","/ˈpɪknɪk/","(n) chuyến d picnic","We went on a picnic by the lake."],
+["guest","/ɡest/","(n) khách","The guests arrived early."],
+["host","/hoʊst/","(n) chủ nhà","The host welcomed everyone warmly."],
+["invitation","/ˌɪnvɪˈteɪʃn/","(n) lời mời, thiệp mời","I received an invitation."],
+["invite","/ɪnˈvaɪt/","(v) mời","Don't forget to invite your friends."],
+["attend","/əˈtend/","(v) tham dự","He will attend the wedding."],
+["celebrate","/ˈselɪbreɪt/","(v) kỷ niệm, ăn mừng","We celebrate New Year every year."],
+["organize","/ˈɔːrɡənaɪz/","(v) tổ chức/lên kế hoạch","She is organizing a party."],
+["gift","/ɡɪft/","(n) quà","He gave me a beautiful gift."],
+["decoration","/ˌdekəˈreɪʃn/","(n) đồ trang trí","The decorations look amazing."],
+["food","/fuːd/","(n) đồ ăn","The food was delicious."],
+["drink","/drɪŋk/","(n) đồ uống","We served juice and soda."],
+["music","/ˈmjuːzɪk/","(n) âm nhạc","The music was fantastic."],
+["dance","/dæns/","(v, n) nhảy","They danced all night."],
+["conversation","/ˌkɑːnvərˈseɪʃn/","(n) cuộc trò chuyện","We had a nice conversation."],
+["chat","/tʃæt/","(v) nói chuyện","Let's talk over a cup of coffee."],
+["meet","/miːt/","(v) gặp gỡ","It's nice to meet you."],
+["socialize","/ˈsoʊʃəlaɪz/","(v) giao lưu, xã giao","He likes to socialize with new people."],
+["speech","/spiːtʃ/","(n) bài phát biểu","His speech was very inspiring."],
+["toast","/toʊst/","(n, v) lời chúc rượu, nâng ly","Let's raise our glasses for him."],
+["date","/deɪt/","(n) ngày, hẹn hò","They went on a date."],
+["appointment","/əˈpɔɪntmənt/","(n) cuộc hẹn","I have a doctor appointment."],
+["gathering","/ˈɡæðərɪŋ/","(n) buổi tụ họp","We had a family gathering."],
+["reunion","/ˌriːˈjuːniən/","(n) buổi sum họp","The reunion was very joyful."],
+["atmosphere","/ˈætməsfɪr/","(n) không khí","The atmosphere was wonderful."],
+["fun","/fʌn/","(n) niềm vui","We had so much fun together!"],
+["formal","/ˈfɔːrml/","(adj) trang trọng","The event is very formal."],
+["casual","/ˈkæʒuəl/","(adj) thân mật, không trang trọng","Let's keep it casual."],
+["public","/ˈpʌblɪk/","(adj) công cộng","This is a public event."],
+["private","/ˈpraɪvət/","(adj) riêng tư","It's a private dinner."],
+["special","/ˈspeʃl/","(adj) đặc biệt","It's a special occasion."],
+["memorable","/ˈmemərəbl/","(adj) đáng nhớ","It was a truly memorable day."],
+["crowded","/ˈkraʊdɪd/","(adj) đông đúc","The festival was very crowded."],
+["welcome","/ˈwelkəm/","(v, n) chào mừng","You are always welcome here."],
+["congratulations","/kənˌɡrætʃuˈleɪʃnz/","(n) lời chúc mừng","Congratulations on your success!"],
+["schedule","/ˈskedʒuːl/","(v, n) lên lịch, lịch trình","Please check the schedule."]
+];
+
+const data17 = [
+["animal","/ˈænɪml/","động vật","Animals are our friends."],
+["pet","/pet/","thú cưng","I have a pet at home."],
+["dog","/dɔːɡ/","con chó","The dog is very loyal."],
+["cat","/kæt/","con mèo","The cat is sleeping."],
+["bird","/bɜːrd/","con chim","The bird can fly in the sky."],
+["fish","/fɪʃ/","con cá","The fish is swimming."],
+["rabbit","/ˈræbɪt/","con thỏ","The rabbit has long ears."],
+["hamster","/ˈhæmstər/","chuột hamster","The hamster is very cute."],
+["horse","/hɔːrs/","con ngựa","The horse runs very fast."],
+["cow","/kaʊ/","con bò","The cow gives us milk."],
+["pig","/pɪɡ/","con lợn","The pig is pink and fat."],
+["chicken","/ˈtʃɪkɪn/","con gà","The chicken lays eggs."],
+["sheep","/ʃiːp/","con cừu","The sheep has soft wool."],
+["lion","/ˈlaɪən/","sư tử","The lion is the king."],
+["tiger","/ˈtaɪɡər/","con hổ","The tiger has stripes."],
+["bear","/ber/","con gấu","The bear is very big."],
+["elephant","/ˈelɪfənt/","con voi","The elephant has a long trunk."],
+["monkey","/ˈmʌŋki/","con khỉ","Monkeys are very smart."],
+["snake","/sneɪk/","con rắn","The snake can crawl."],
+["insect","/ˈɪnsekt/","côn trùng","Insects are small creatures."],
+["wild","/waɪld/","hoang dã","Wild animals live in the forest."],
+["domestic","/dəˈmestɪk/","thuần hóa, nuôi trong nhà","Dogs are domestic animals."],
+["farm","/fɑːrm/","nông trại","They live on the farm."],
+["zoo","/zuː/","sở thú","We went to the zoo."],
+["nature","/ˈneɪtʃər/","thiên nhiên","Nature is beautiful and peaceful."],
+["wildlife","/ˈwaɪldlaɪf/","động vật hoang dã","We should protect wildlife."],
+["tail","/teɪl/","đôi đuôi","The dog is wagging its tail."],
+["fur","/fɜːr/","lông (thú)","The cat has soft fur."],
+["paw","/pɔː/","chân (có móng vuốt)","The cat's paw is very soft."],
+["wing","/wɪŋ/","cánh","Birds have two wings."],
+["feed","/fiːd/","cho ăn","I feed my cat every day."],
+["walk","/wɔːk/","dắt đi dạo","I walk my dog in the park."],
+["play with","/pleɪ wɪð/","chơi với","Children love to play with pets."],
+["take care of","/teɪk ker əv/","chăm sóc","We take good care of our pets."],
+["adopt","/əˈdɑːpt/","nhận nuôi","They adopted a puppy."],
+["habitat","/ˈhæbɪtæt/","môi trường sống","The forest is the habitat of many animals."],
+["species","/ˈspiːʃiːz/","loài","There are many animal species."],
+["endangered","/ɪnˈdeɪndʒərd/","có nguy cơ tuyệt chủng","The tiger is an endangered species."],
+["cute","/kjuːt/","dễ thương","This puppy is so cute!"],
+["friendly","/ˈfrendli/","thân thiện","Golden Retrievers are very friendly."],
+["loyal","/ˈlɔɪəl/","trung thành","Dogs are known for being loyal."],
+["dangerous","/ˈdeɪndʒərəs/","nguy hiểm","You should stay away from dangerous animals."],
+["intelligent","/ɪnˈtelɪdʒənt/","thông minh","Dolphins are very intelligent."],
+["bark","/bɑːrk/","sủa, tiếng sủa","The dog started to bark."],
+["meow","/miˈaʊ/","kêu meo meo","The cat meowed loudly."],
+["roar","/rɔːr/","gầm, tiếng gầm","The lion let out a loud roar."],
+["cage","/keɪdʒ/","cái lồng","The birds are in the cage."],
+["vet","/vet/","bác sĩ thú y","We took our dog to the vet."],
+["breed","/briːd/","giống, nòi","This dog breed is very popular."],
+["owner","/ˈoʊnər/","người chủ","The owner loves his pets."]
+];
+
+const data18 = [
+["personality","/ˌpɜːrsəˈnæləti/","tính cách","Her personality is very warm."],
+["character","/ˈkærəktər/","tính cách, phẩm chất","He has a strong character."],
+["trait","/treɪt/","nét, đặc điểm","Honesty is an important trait."],
+["kind","/kaɪnd/","tốt bụng","She is kind to everyone."],
+["friendly","/ˈfrendli/","thân thiện","He is friendly and easy to talk to."],
+["nice","/naɪs/","tốt, tử tế","You are very nice."],
+["funny","/ˈfʌni/","vui tính, hài hước","He is very funny and makes me laugh."],
+["serious","/ˈsɪriəs/","nghiêm túc","She is serious about her work."],
+["smart/intelligent","/smɑːrt/ /ɪnˈtelɪdʒənt/","thông minh","He is a smart student."],
+["honest","/ˈɑːnɪst/","thật thà, trung thực","He is honest and trustworthy."],
+["dishonest","/dɪsˈɑːnɪst/","không trung thực","He told a lie. It was dishonest."],
+["generous","/ˈdʒenərəs/","hào phóng","She is generous and helps others."],
+["selfish","/ˈselfɪʃ/","ích kỷ","He only thinks about himself."],
+["brave","/breɪv/","dũng cảm","He is brave enough to try."],
+["shy","/ʃaɪ/","nhút nhát","She is shy with strangers."],
+["confident","/ˈkɑːnfɪdənt/","tự tin","She is confident in herself."],
+["outgoing/sociable","/ˈaʊtɡoʊɪŋ/ /ˈsoʊʃəbl/","cởi mở, hòa đồng","He is outgoing and makes friends easily."],
+["talkative","/ˈtɔːkətɪv/","nói nhiều","She is very talkative."],
+["quiet","/ˈkwaɪət/","ít nói, trầm tính","He is quiet but very thoughtful."],
+["calm","/kɑːm/","điềm tĩnh","He stayed calm during the test."],
+["cheerful/happy","/ˈtʃɪrfl/ /ˈhæpi/","vui vẻ","Her cheerful smile brightens the room."],
+["optimistic","/ˌɑːptɪˈmɪstɪk/","lạc quan","He is always optimistic."],
+["pessimistic","/ˌpesɪˈmɪstɪk/","bi quan","He is too pessimistic."],
+["polite","/pəˈlaɪt/","lịch sự","He is polite to everyone."],
+["rude","/ruːd/","thô lỗ","His rude words hurt others."],
+["patient","/ˈpeɪʃnt/","kiên nhẫn","She is patient with children."],
+["impatient","/ɪmˈpeɪʃnt/","thiếu kiên nhẫn","He gets impatient when waiting."],
+["lazy","/ˈleɪzi/","lười biếng","He is lazy and doesn't study."],
+["hardworking","/ˌhɑːrdˈwɜːrkɪŋ/","chăm chỉ","She is hardworking and always tries her best."],
+["creative","/kriˈeɪtɪv/","sáng tạo","He is very creative."],
+["practical","/ˈpræktɪkl/","thực tế","He is practical in solving problems."],
+["reliable/responsible","/rɪˈlaɪəbl/ /rɪˈspɑːnsəbl/","đáng tin cậy / có trách nhiệm","She is reliable and responsible."],
+["organized","/ˈɔːrɡənaɪzd/","có tổ chức, ngăn nắp","He is organized and tidy."],
+["messy","/ˈmesi/","bừa bộn","His room is always messy."],
+["loyal","/ˈlɔɪəl/","trung thành","A dog is very loyal to its owner."],
+["independent","/ˌɪndɪˈpendənt/","độc lập","She is independent and can decide for herself."],
+["sensitive","/ˈsensətɪv/","nhạy cảm","He is sensitive to others' feelings."],
+["strong","/strɔːŋ/","mạnh mẽ","He is strong in body and mind."],
+["gentle","/ˈdʒentl/","dịu dàng","She is gentle with children and animals."],
+["stubborn","/ˈstʌbərn/","bướng bỉnh","He is too stubborn to accept advice."],
+["curious","/ˈkjʊriəs/","tò mò","She is curious about everything."],
+["adventurous","/ədˈventʃərəs/","thích phiêu lưu","He is adventurous and loves exploring."],
+["ambitious","/æmˈbɪʃəs/","tham vọng","She is ambitious and wants to succeed."],
+["modest/humble","/ˈmɑːdɪst/ /ˈhʌmbl/","khiêm tốn","He is modest about his achievements."],
+["arrogant","/ˈærəɡənt/","kiêu ngạo","His arrogant attitude annoys people."],
+["describe","/dɪˈskraɪb/","miêu tả","Can you describe him to me?"],
+["seem","/siːm/","có vẻ, hình như","He seems tired today."],
+["act","/ækt/","hành động, cư xử","Please act politely in public."],
+["sense of humor","/sens əv ˈhjuːmər/","khiếu hài hước","He has a great sense of humor."],
+["attitude","/ˈætɪtuːd/","thái độ","Your attitude determines your life."]
+];
+
+const data19 = [
+["be (am, is, are)","/bi:/","thì, là, ở","I am a student."],
+["have","/hæv/","có","I have a book."],
+["do","/du:/","làm","I do my homework."],
+["say","/seɪ/","nói","She says hello."],
+["go","/ɡəʊ/","đi","He goes to school."],
+["get","/ɡet/","có được, nhận được","I got a gift."],
+["make","/meɪk/","làm, tạo ra","She makes a cake."],
+["know","/nəʊ/","biết","I know the answer."],
+["think","/θɪŋk/","nghĩ","I think it's good."],
+["see","/si:/","thấy, nhìn","I see a bird."],
+["come","/kʌm/","đến","She comes here."],
+["want","/wɒnt/","muốn","I want some ice cream."],
+["use","/juːz/","sử dụng","I use my phone."],
+["find","/faɪnd/","tìm thấy","I found my keys."],
+["give","/ɡɪv/","cho, đưa","He gives a gift."],
+["Wake up","/weɪk ʌp/","Thức dậy","I wake up at 6 AM every day."],
+["Get up","/ɡɛt ʌp/","Ra khỏi giường","She gets up immediately after waking up."],
+["Brush teeth","/brʌʃ/","Đánh răng","I brush my teeth twice a day."],
+["Wash face","/wɒʃ/","Rửa mặt","He washes his face with cold water."],
+["Cook","/kʊk/","Nấu ăn","My mom cooks breakfast for the family."],
+//["Work","/wɜːk/","Làm việc","They work from 9 AM to 5 PM."],
+["Study","/ˈstʌdi/","Học tập","He studies English in the evening."],
+["Eat","/iːt/","Ăn","eat lunch at 12 PM."],
+["Drink","/drɪŋk/","Uống","She drinks a cup of coffee every morning."],
+["Clean","/kliːn/","Dọn dẹp","I clean my room on weekends."],
+["Read","/riːd/","Đọc sách","He likes to read books before sleeping."],
+["Watch","/wɒtʃ/","Xem TV, phim","We watch the news together."],
+["Relax","/rɪˈlæks/","Thư giãn","I relax by listening to music."],
+["Sleep","/sliːp/","Ngủ","She sleeps for 8 hours a night."],
+["tell","/tel/","nói, kể","Tell me a story."],
+["work","/wɜːk/","làm việc","He works hard."],
+["need","/niːd/","cần","I need some help."],
+["become","/bɪˈkʌm/","trở nên, trở thành","She became a teacher."],
+["try","/traɪ/","cố gắng, thử","Try your best."],
+["good","/ɡʊd/","tốt","This is good."],
+["bad","/bæd/","tối, tệ","That was a bad idea."],
+["new","/njuː/","mới","It's a new car."],
+["old","/əʊld/","cũ, già","This is an old house."],
+["big","/bɪɡ/","to, lớn","It's a big elephant."],
+["small","/smɔːl/","nhỏ","It's a small ball."],
+["great","/ɡreɪt/","tuyệt vời","It's a great movie!"],
+["important","/ɪmˈpɔːtnt/","quan trọng","This is important."],
+["different","/ˈdɪfrənt/","khác biệt","They are different."],
+["same","/seɪm/","giống nhau","They are the same."],
+["high","/haɪ/","cao","The building is high."],
+["low","/ləʊ/","thấp","The price is low."],
+["easy","/ˈiːzi/","dễ","It's easy."],
+["difficult","/ˈdɪfɪkəlt/","khó","It's difficult."],
+["right","/raɪt/","đúng","Your answer is right."],
+["wrong","/rɒŋ/","sai","That is wrong."],
+["very","/ˈveri/","rất","I am very happy."],
+["really","/ˈrɪəli/","thực sự","I really like it."],
+["always","/ˈɔːlweɪz/","luôn luôn","I always get up early."],
+["never","/ˈnevər/","không bao giờ","I never eat junk food."],
+["sometimes","/ˈsʌmtaɪmz/","thỉnh thoảng","Sometimes I feel tired."],
+["usually","/ˈjuːʒuəli/","thường xuyên","I usually walk to school."],
+["well","/wel/","tốt, giỏi","She sings well."],
+["badly","/ˈbædli/","tồi, tệ","He plays badly."],
+["quickly/fast","/ˈkwɪkli/ /fɑːst/","nhanh","He runs quickly."],
+["slowly","/ˈsləʊli/","chậm","The turtle moves slowly."],
+["here","/hɪər/","ở đây","Come here, please."],
+["there","/ðeər/","ở đó","Look over there."],
+["now","/naʊ/","bây giờ","It's time to go now."],
+["today","/təˈdeɪ/","hôm nay","Today is a great day."]
+];
+
+const data20 = [
+["time","/taɪm/","thời gian","Time is precious."],
+["clock","/klɑːk/","đồng hồ","The clock is on the wall."],
+["second","/ˈsekənd/","giây","It only takes a few seconds."],
+["minute","/ˈmɪnɪt/","phút","Please wait a minute."],
+["hour","/ˈaʊər/","giờ","The meeting starts in one hour."],
+["day","/deɪ/","ngày","A new day brings new hope."],
+["week","/wiːk/","tuần","I go to the gym three times a week."],
+["month","/mʌnθ/","tháng","This course lasts for six months."],
+["year","/jɪr/","năm","We moved here last year."],
+["Monday","/ˈmʌndeɪ/","Thứ Hai","Mondays are often busy."],
+["Tuesday","/ˈtuːzdeɪ/","Thứ Ba","I have class every Tuesday."],
+["Wednesday","/ˈwenzdeɪ/","Thứ Tư","We have a quiz on Wednesdays."],
+["Thursday","/ˈθɜːrzdeɪ/","Thứ Năm","Thursday is almost Friday!"],
+["Friday","/ˈfraɪdeɪ/","Thứ Sáu","I'm looking forward to Friday."],
+["Saturday","/ˈsætərdeɪ/","Thứ Bảy","We will go hiking on Saturday."],
+["Sunday","/ˈsʌndeɪ/","Chủ Nhật","Sunday is my day to relax."],
+["January","/ˈdʒænjueri/","Tháng Một","January is the first month."],
+["February","/ˈfebrueri/","Tháng Hai","February has 28 days."],
+["March","/mɑːrtʃ/","Tháng Ba","Spring usually starts in March."],
+["April","/ˈeɪprəl/","Tháng Tư","April showers bring May flowers."],
+["May","/meɪ/","Tháng Năm","May is a beautiful month."],
+["June","/dʒuːn/","Tháng Sáu","Summer begins in June."],
+["July","/dʒuˈlaɪ/","Tháng Bảy","July is the seventh month."],
+["August","/ˈɔːɡəst/","Tháng Tám","August is perfect for vacations."],
+["September","/sepˈtembər/","Tháng Chín","Students return to school in Sept."],
+["October","/ɑːkˈtoʊbər/","Tháng Mười","October is the 10th month."],
+["November","/noʊˈvembər/","Tháng Mười Một","It gets colder in November."],
+["December","/dɪˈsembər/","Tháng Mười Hai","We celebrate holidays in Dec."],
+["today","/təˈdeɪ/","hôm nay","I will finish it today."],
+["tomorrow","/təˈmɑːroʊ/","ngày mai","Tomorrow will be yet?"],
+["yesterday","/ˈjestərdeɪ/","hôm qua","Yesterday was very tiring."],
+["weekend","/ˈwiːkend/","cuối tuần","We plan to travel this weekend."],
+["weekday","/ˈwiːkdeɪ/","ngày trong tuần","I work on weekdays."],
+["morning","/ˈmɔːrnɪŋ/","buổi sáng","I like the quiet of the morning."],
+["afternoon","/ˌæftərˈnuːn/","buổi chiều","Let's meet in the afternoon."],
+["evening","/ˈiːvnɪŋ/","buổi tối","We had dinner in the evening."],
+["night","/naɪt/","ban đêm","The stars shine at night."],
+["midnight","/ˈmɪdnaɪt/","nửa đêm","He reads books at midnight."],
+["noon","/nuːn/","buổi trưa","The sun is highest at noon."],
+["soon","/suːn/","sớm thôi","I'll be back soon."],
+["already","/ɔːlˈredi/","đã rồi","I have already eaten."],
+["yet","/jet/","chưa","Have you finished yet?"],
+["still","/stɪl/","vẫn còn","She is still sleeping."],
+["recently","/ˈriːsntli/","gần đây","He has been busy recently."],
+["immediately","/ɪˈmiːdiətli/","ngay lập tức","Call me immediately."],
+["future","/ˈfjuːtʃər/","tương lai","He dreams about his future."],
+["past","/pæst/","quá khứ","The past cannot be changed."],
+["century","/ˈsentʃəri/","thế kỷ","The building is over a century old."],
+["decade","/ˈdekeɪd/","thập kỷ","The 1990s were ten years."],
+["era","/ˈɪrə/","thời đại","We live in the digital era."]
+];
+
+const data21 = [
+["Be","/biː/","thì, là, ở","I am a student. (Tôi là một học sinh.)"],
+["Have","/hæv/","có","They have a big house. (Họ có một ngôi nhà lớn.)"],
+["Do","/duː/","làm","I do my homework every day. (Tôi làm bài tập về nhà mỗi ngày.)"],
+["Say","/seɪ/","nói","What do you say? (Bạn vừa nói gì cơ?)"],
+["Get","/ɡet/","lấy, nhận, được","She gets a letter from her friend. (Cô ấy nhận được một bức thư từ bạn mình.)"],
+["Make","/meɪk/","làm, chế tạo","My mom makes delicious cakes. (Mẹ tôi làm những chiếc bánh rất ngon.)"],
+["Go","/ɡoʊ/","đi","We go to school by bus. (Chúng tôi đi học bằng xe buýt.)"],
+["See","/siː/","nhìn thấy","I see a bird on the tree. (Tôi thấy một con chim trên cây.)"],
+["Know","/noʊ/","biết","Do you know the answer? (Bạn có biết câu trả lời không?)"],
+["Take","/teɪk/","cầm, lấy, mang","Please take this umbrella with you. (Làm ơn hãy mang theo chiếc ô này.)"],
+["Come","/kʌm/","đến, đi tới","Come here, please! (Làm ơn lại đây!)"],
+["Think","/θɪŋk/","suy nghĩ","I think it will rain today. (Tôi nghĩ hôm nay trời sẽ mưa.)"],
+["Look","/lʊk/","nhìn, trông","Look at the blackboard. (Hãy nhìn lên bảng.)"],
+["Want","/wɑːnt/","muốn","I want to drink some water. (Tôi muốn uống một chút nước.)"],
+["Give","/ɡɪv/","cho, đưa","Can you give me that book? (Bạn có thể đưa cho tôi cuốn sách kia không?)"],
+["Use","/juːz/","sử dụng","May I use your phone? (Tôi có thể dùng điện thoại của bạn không?)"],
+["Find","/faɪnd/","tìm thấy","I can't find my keys. (Tôi không tìm thấy chìa khóa của mình.)"],
+["Tell","/tel/","kể, bảo","Tell me the truth. (Hãy nói cho tôi sự thật.)"],
+["Ask","/æsk/","hỏi, yêu cầu","Don't be afraid to ask questions. (Đừng ngại đặt câu hỏi.)"],
+["Work","/wɜːrk/","làm việc","He works in a hospital. (Anh ấy làm việc ở bệnh viện.)"],
+["Seem","/siːm/","có vẻ như","You seem tired today. (Hôm nay trông bạn có vẻ mệt mỏi.)"],
+["Feel","/fiːl/","cảm thấy","I feel very happy right now. (Bây giờ tôi cảm thấy rất hạnh phúc.)"],
+["Try","/traɪ/","cố gắng, thử","I will try my best. (Tôi sẽ cố gắng hết sức.)"],
+["Leave","/liːv/","rời đi, để lại","The train leaves at 8 AM. (Tàu rời ga lúc 8 giờ sáng.)"],
+["Keep","/kiːp/","giữ","Please keep silent. (Làm ơn hãy giữ im lặng.)"],
+["Lose","/luːz/","mất, thua","Don't lose your keys. (Đừng để mất chìa khóa nhé.)"],
+["Understand","/ˌʌndərˈstænd/","hiểu","I don't understand this word. (Tôi không hiểu từ này.)"],
+["Follow","/ˈfɑːloʊ/","theo sau, tuân theo","Follow the rules. (Hãy tuân theo luật lệ.)"],
+["Remember","/rɪˈmembər/","nhớ","I remember your face. (Tôi nhớ khuôn mặt của bạn.)"],
+["Love","/lʌv/","yêu","I love English. (Tôi yêu tiếng Anh.)"],
+["Consider","/kənˈsɪdər/","cân nhắc, xem xét","Please consider my offer. (Xin hãy cân nhắc lời đề nghị của tôi.)"],
+["Appear","/əˈpɪr/","xuất hiện","A star appears in the sky. (Một ngôi sao xuất hiện trên bầu trời.)"],
+["Expect","/ɪkˈspekt/","mong đợi","We expect you to win. (Chúng tôi mong đợi bạn sẽ thắng.)"],
+["Remain","/rɪˈmeɪn/","còn lại, duy trì","The temperature remains high. (Nhiệt độ vẫn duy trì ở mức cao.)"],
+["Suggest","/səˈdʒest/","gợi ý","I suggest going out for lunch. (Tôi gợi ý đi ra ngoài ăn trưa.)"],
+["Decide","/dɪˈsaɪd/","quyết định","They decided to move to Hanoi. (Họ đã quyết định chuyển đến Hà Nội.)"],
+["Hope","/hoʊp/","hy vọng","I hope to see you soon. (Tôi hy vọng sớm được gặp lại bạn.)"],
+["Agree","/əˈɡriː/","đồng ý","I agree with your plan. (Tôi đồng ý với kế hoạch của bạn.)"],
+["Call","/kɔːl/","gọi","Call me when you arrive. (Gọi cho tôi khi bạn đến nơi nhé.)"],
+["Provide","/prəˈvaɪd/","cung cấp","Trees provide oxygen. (Cây xanh cung cấp oxy.)"],
+["Bring","/brɪŋ/","mang lại, đem theo","Bring me a glass of water, please. (Làm ơn mang cho tôi một cốc nước.)"],
+["Pay","/peɪ/","trả","I will pay for the dinner. (Tôi sẽ trả tiền cho bữa tối.)"],
+["Meet","/miːt/","gặp gỡ","Nice to meet you. (Rất vui được gặp bạn.)"],
+["Include","/ɪnˈkluːd/","bao gồm","The price includes breakfast. (Giá tiền đã bao gồm bữa sáng.)"],
+["Continue","/kənˈtɪnjuː/","tiếp tục","Let's continue the meeting. (Hãy tiếp tục cuộc họp nào.)"],
+["Lead","/liːd/","dẫn dắt","She leads a large team. (Cô ấy dẫn dắt một đội ngũ lớn.)"],
+["Watch","/wɑːtʃ/","xem, theo dõi","I like to watch movies. (Tôi thích xem phim.)"],
+["Stop","/stɑːp/","dừng lại","Please stop talking. (Làm ơn hãy ngừng nói chuyện.)"],
+["Speak","/spiːk/","nói","Can you speak English? (Bạn có biết nói tiếng Anh không?)"],
+["Allow","/əˈlaʊ/","cho phép","Smoking is not allowed here. (Hút thuốc không được cho phép ở đây.)"],
+["Offer","/ˈɔːfər/","đề nghị, cung cấp","They offered him a new job. (Họ đã đề nghị cho anh ấy một công việc mới.)"],
+["Serve","/sɜːrv/","phục vụ","This restaurant serves Italian food. (Nhà hàng này phục vụ món ăn Ý.)"],
+["Send","/send/","gửi","I will send you an email. (Tôi sẽ gửi cho bạn một email.)"],
+["Require","/rɪˈkwaɪər/","yêu cầu","This job requires experience. (Công việc này yêu cầu kinh nghiệm.)"],
+["Report","/rɪˈpɔːrt/","báo cáo","You need to report the results today. (Bạn cần báo cáo kết quả trong hôm nay.)"],
+["Explain","/ɪkˈspleɪn/","giải thích","Can you explain this grammar rule? (Bạn có thể giải thích cấu trúc ngữ pháp này không?)"],
+["Hold","/hoʊld/","cầm, nắm, giữ","Hold my hand. (Hãy nắm lấy tay tôi.)"],
+["Turn","/tɜːrn/","quay, xoay, chuyển","Turn left at the corner. (Hãy rẽ trái ở góc đường.)"],
+["Start","/stɑːrt/","bắt đầu","The movie starts at 7 PM. (Bộ phim bắt đầu lúc 7 giờ tối.)"],
+["Happen","/ˈhæpən/","xảy ra","What happened? (Chuyện gì đã xảy ra thế?)"],
+["Write","/raɪt/","viết","Write your name here. (Hãy viết tên bạn vào đây.)"],
+["Sit","/sɪt/","ngồi","Please sit down. (Làm ơn hãy ngồi xuống.)"],
+["Stand","/stænd/","đứng","He is standing near the door. (Anh ấy đang đứng gần cửa.)"],
+["Set","/set/","đặt, để","Set the table for dinner. (Hãy dọn bàn cho bữa tối.)"],
+["Learn","/lɜːrn/","học","I want to learn Japanese. (Tôi muốn học tiếng Nhật.)"],
+["Change","/tʃeɪndʒ/","thay đổi","Weather can change quickly. (Thời tiết có thể thay đổi nhanh chóng.)"],
+["Create","/kriˈeɪt/","tạo ra","Artists create beautiful things. (Các nghệ sĩ tạo ra những thứ đẹp đẽ.)"],
+["Read","/riːd/","đọc","I read books every night. (Tôi đọc sách mỗi đêm.)"],
+["Add","/æd/","thêm vào","Add some sugar to the tea. (Hãy thêm một chút đường vào trà.)"],
+["Spend","/spend/","tiêu xài, dành","I spend two hours studying English. (Tôi dành hai tiếng để học tiếng Anh.)"],
+["Grow","/ɡroʊ/","lớn lên, phát triển","Plants grow fast in summer. (Cây cối lớn nhanh vào mùa hè.)"],
+["Open","/ˈoʊpən/","mở","Please open the window. (Làm ơn hãy mở cửa sổ.)"],
+["Walk","/wɔːk/","đi bộ","Let's walk to the park. (Hãy đi bộ ra công viên nào.)"],
+["Win","/wɪn/","chiến thắng","Our team won the match. (Đội của chúng tôi đã thắng trận đấu.)"],
+["Buy","/baɪ/","mua","Where did you buy that dress? (Bạn đã mua chiếc váy đó ở đâu thế?)"],
+["Wait","/weɪt/","chờ đợi","Wait for me! (Chờ tôi với!)"],
+["Die","/daɪ/","chết","The flowers will die without water. (Hoa sẽ héo chết nếu không có nước.)"],
+["Build","/bɪld/","xây dựng","They are building a new school. (Họ đang xây dựng một ngôi trường mới.)"],
+["Stay","/steɪ/","ở lại","Stay here with me. (Hãy ở lại đây với tôi.)"],
+["Fall","/fɔːl/","rơi, ngã","Leaves fall in autumn. (Lá rơi vào mùa thu.)"],
+["Cut","/kʌt/","cắt","She cuts the paper with scissors. (Cô ấy cắt giấy bằng kéo.)"],
+["Reach","/riːtʃ/","với tới, đạt được","I can't reach the top shelf. (Tôi không với tới cái kệ trên cùng.)"],
+["Kill","/kɪl/","giết","Smoking can kill you. (Hút thuốc có thể giết chết bạn.)"],
+["Raise","/reɪz/","nâng lên, nuôi nấng","Raise your hand if you know. (Hãy giơ tay nếu bạn biết.)"],
+["Pass","/pæs/","vượt qua, đưa cho","Can you pass me the salt? (Bạn có thể đưa cho tôi lọ muối không?)"],
+["Sell","/sel/","bán","They sell fresh vegetables here. (Họ bán rau tươi ở đây.)"],
+["Pull","/pʊl/","kéo","Don't pull my hair. (Đừng kéo tóc tôi.)"],
+["Return","/rɪˈtɜːrn/","quay lại, trả lại","I will return your book tomorrow. (Tôi sẽ trả lại sách cho bạn vào ngày mai.)"],
+["Carry","/ˈkæri/","mang, vác","Heavy bags are hard to carry. (Túi nặng thì rất khó mang vác.)"],
+["Break","/breɪk/","làm vỡ, bẻ gãy","Be careful not to break the glass. (Cẩn thận kẻo làm vỡ ly thủy tinh.)"],
+["Play","/pleɪ/","chơi","Children love to play football. (Trẻ em rất thích chơi bóng đá.)"],
+["Catch","/kætʃ/","bắt, tóm lấy","Catch the ball! (Bắt lấy bóng đi!)"],
+["Eat","/iːt/","ăn","What do you want to eat? (Bạn muốn ăn gì?)"],
+["Drink","/drɪŋk/","uống","Remember to drink enough water. (Hãy nhớ uống đủ nước.)"],
+["Sleep","/sliːp/","ngủ","I usually sleep 8 hours a day. (Tôi thường ngủ 8 tiếng một ngày.)"],
+["Drive","/draɪv/","lái xe","He drives to work every morning. (Anh ấy lái xe đi làm mỗi sáng.)"],
+["Fly","/flaɪ/","bay","Birds can fly high. (Chim có thể bay cao.)"],
+["Cook","/kʊk/","nấu ăn","My father loves to cook. (Bố tôi rất thích nấu ăn.)"],
+["Clean","/kliːn/","dọn dẹp, làm sạch","You need to clean your room. (Bạn cần dọn dẹp phòng của mình.)"]
+];
+
+const data22 = [
+["Good","/ɡʊd/","tốt, giỏi","He is a good person. (Anh ấy là một người tốt.)"],
+["Bad","/bæd/","xấu, tồi tệ","I had a bad dream last night. (Đêm qua tôi đã có một giấc mơ tồi tệ.)"],
+["Happy","/ˈhæpi/","hạnh phúc","She looks so happy today. (Hôm nay trông cô ấy thật hạnh phúc.)"],
+["Sad","/sæd/","buồn bã","Why are you so sad? (Sao bạn lại buồn thế?)"],
+["Angry","/ˈæŋɡri/","tức giận","He was angry with his brother. (Anh ấy đã tức giận với em trai mình.)"],
+["Tired","/ˈtaɪərd/","mệt mỏi","I am tired after work. (Tôi mệt mỏi sau giờ làm việc.)"],
+["Bored","/bɔːrd/","buồn chán","I feel bored with this movie. (Tôi thấy chán bộ phim này.)"],
+["Excited","/ɪkˈsaɪtɪd/","hào hứng","The kids are excited about the trip. (Lũ trẻ rất hào hứng về chuyến đi.)"],
+["Afraid","/əˈfreɪd/","sợ hãi","Don't be afraid of the dog. (Đừng sợ con chó đó.)"],
+["Proud","/praʊd/","tự hào","My parents are proud of me. (Bố mẹ tự hào về tôi.)"],
+["Kind","/kaɪnd/","tử tế","Thank you for your kind words. (Cảm ơn vì những lời tử tế của bạn.)"],
+["Nice","/naɪs/","tốt, đẹp","Have a nice day! (Chúc một ngày tốt lành!)"],
+["Friendly","/ˈfrendli/","thân thiện","People here are very friendly. (Người dân ở đây rất thân thiện.)"],
+["Funny","/ˈfʌni/","khôi hài","He told a funny story. (Anh ấy đã kể một câu chuyện buồn cười.)"],
+["Smart","/smɑːrt/","thông minh","She is a smart student. (Cô ấy là một học sinh thông minh.)"],
+["Lazy","/ˈleɪzi/","lười biếng","Get up, don't be lazy! (Dậy đi, đừng lười biếng thế!)"],
+["Busy","/ˈbɪzi/","bận rộn","I'm busy right now. (Bây giờ tôi đang bận.)"],
+["Careful","/ˈkerfl/","cẩn thận","Be careful with the glass! (Hãy cẩn thận với cái ly thủy tinh!)"],
+["Honest","/ˈɑːnɪst/","trung thực","Give me your honest opinion. (Hãy cho tôi ý kiến trung thực của bạn.)"],
+["Brave","/breɪv/","dũng cảm","The brave soldier saved the boy. (Người lính dũng cảm đã cứu cậu bé.)"],
+["Big","/bɪɡ/","to, lớn","They live in a big house. (Họ sống trong một ngôi nhà lớn.)"],
+["Small","/smɔːl/","nhỏ, bé","This cat is very small. (Con mèo này rất nhỏ.)"],
+["Large","/lɑːrdʒ/","rộng lớn","A large number of people attended. (Một lượng lớn người đã tham dự.)"],
+["Little","/ˈlɪtl/","nhỏ nhắn","Look at that little bird. (Hãy nhìn con chim nhỏ kia kìa.)"],
+["Long","/lɔːŋ/","dài","She has long hair. (Cô ấy có mái tóc dài.)"],
+["Short","/ʃɔːrt/","ngắn, thấp","The winter days are short. (Những ngày mùa đông thì ngắn.)"],
+["Tall","/tɔːl/","cao","He is the tallest boy in class. (Cậu ấy là người cao nhất lớp.)"],
+["High","/haɪ/","cao (vị trí)","The mountain is very high. (Ngọn núi này rất cao.)"],
+["Low","/loʊ/","thấp","The price is quite low. (Giá cả khá thấp.)"],
+["Deep","/diːp/","sâu","The river is very deep. (Con sông này rất sâu.)"],
+["Shallow","/ˈʃæloʊ/","nông, cạn","Swim in the shallow water. (Hãy bơi ở vùng nước nông.)"],
+["Thick","/θɪk/","dày","This is a thick book. (Đây là một cuốn sách dày.)"],
+["Thin","/θɪn/","mỏng, gầy","He wears a thin jacket. (Anh ấy mặc một chiếc áo khoác mỏng.)"],
+["Fat","/fæt/","béo, mập","The fat cat is sleeping. (Con mèo mập đang ngủ.)"],
+["Heavy","/ˈhevi/","nặng","This box is too heavy to lift. (Cái hộp này quá nặng để nhấc lên.)"],
+["Light","/laɪt/","nhẹ","Aluminum is a light metal. (Nhôm là một kim loại nhẹ.)"],
+["Wide","/waɪd/","rộng","They are crossing a wide street. (Họ đang băng qua một con đường rộng.)"],
+["Narrow","/ˈnæroʊ/","hẹp","The path is too narrow for cars. (Con đường quá hẹp cho ô tô.)"],
+["Round","/raʊnd/","tròn","The earth is round. (Trái đất hình tròn.)"],
+["Square","/skwer/","vuông","He has a square box. (Anh ấy có một chiếc hộp hình vuông.)"],
+["New","/nuː/","mới","I bought a new car. (Tôi đã mua một chiếc xe ô tô mới.)"],
+["Old","/oʊld/","cũ, già","This is an old book. (Đây là một cuốn sách cũ.)"],
+["Young","/jʌŋ/","trẻ","She is still young. (Cô ấy vẫn còn trẻ.)"],
+["Hot","/hɑːt/","nóng","The coffee is too hot. (Cà phê nóng quá.)"],
+["Cold","/koʊld/","lạnh","Today is a cold day. (Hôm nay là một ngày lạnh.)"],
+["Warm","/wɔːrm/","ấm áp","I like warm weather. (Tôi thích thời tiết ấm áp.)"],
+["Cool","/kuːl/","mát mẻ","Autumn has cool breezes. (Mùa thu có những cơn gió mát.)"],
+["Dry","/draɪ/","khô ráo","The clothes are finally dry. (Quần áo cuối cùng cũng khô rồi.)"],
+["Wet","/wet/","ướt","Don't sit on the wet grass. (Don't sit on the wet grass.)"],
+["Clean","/kliːn/","sạch sẽ","Keep your hands clean. (Hãy giữ tay sạch sẽ.)"],
+["Dirty","/ˈdɜːrti/","bẩn thỉu","His shoes were dirty. (Giày của anh ấy bị bẩn.)"],
+["Fast","/fæst/","nhanh","He is a fast runner. (Anh ấy là một người chạy nhanh.)"],
+["Slow","/sloʊ/","chậm","Traffic was very slow. (Giao thông diễn ra rất chậm.)"],
+["Beautiful","/ˈbjuːtɪfl/","đẹp","What a beautiful flower! (Bông hoa đẹp làm sao!)"],
+["Ugly","/ˈʌɡli/","xấu xí","The ugly duckling became a swan. (Vịt con xấu xí đã biến thành thiên nga.)"],
+["Easy","/ˈiːzi/","dễ dàng","The test was very easy. (Bài kiểm tra rất dễ.)"],
+["Difficult","/ˈdɪfɪkəlt/","khó khăn","This math problem is difficult. (Bài toán này thật khó.)"],
+["Hard","/hɑːrd/","cứng, khó","Diamond is a hard material. (Kim cương là một vật liệu cứng.)"],
+["Soft","/sɔːft/","mềm mại","The pillow is very soft. (Cái gối này rất mềm.)"],
+["Strong","/strɔːŋ/","mạnh mẽ","He is strong enough to carry this. (Anh ấy đủ khỏe để mang cái này.)"],
+["Weak","/wiːk/","yếu ớt","I feel weak after being sick. (Tôi cảm thấy yếu sau khi bị ốm.)"],
+["Rich","/rɪtʃ/","giàu có","He dreams of becoming rich. (Anh ấy mơ ước trở nên giàu có.)"],
+["Poor","/pʊr/","nghèo","They help poor children. (Họ giúp đỡ trẻ em nghèo.)"],
+["Safe","/seɪf/","an toàn","Is it safe to walk here at night? (Đi bộ ở đây vào ban đêm có an toàn không?)"],
+["Dangerous","/ˈdeɪndʒərəs/","nguy hiểm","It's dangerous to drive too fast. (Lái xe quá nhanh rất nguy hiểm.)"],
+["Full","/fʊl/","đầy, no","The glass is full of milk. (Cái ly đầy sữa.)"],
+["Empty","/ˈempti/","trống rỗng","The room was completely empty. (Căn phòng hoàn toàn trống rỗng.)"],
+["Perfect","/ˈpɜːrfɪkt/","hoàn hảo","Practice makes perfect. (Có công mài sắt có ngày nên kim.)"],
+["Wrong","/rɔːŋ/","sai","I chose the wrong answer. (Tôi đã chọn câu trả lời sai.)"],
+["Right","/raɪt/","đúng","You are absolutely right. (Bạn hoàn toàn đúng.)"],
+["Important","/ɪmˈpɔːrtnt/","quan trọng","Water is important for life. (Nước rất quan trọng đối với sự sống.)"],
+["Main","/meɪn/","chính","What is the main idea? (Ý chính là gì?)"],
+["Special","/ˈspeʃl/","đặc biệt","Today is a special day for her. (Hôm nay là một ngày đặc biệt đối với cô ấy.)"],
+["Clear","/klɪr/","rõ ràng","The sky is clear today. (Bầu trời hôm nay rất trong.)"],
+["Common","/ˈkɑːmən/","phổ biến","Smith is a common name. (“Smith” là một cái tên phổ biến.)"],
+["Different","/ˈdɪfrənt/","khác biệt","My opinion is different from yours. (Ý kiến của tôi khác với của bạn.)"],
+["Same","/seɪm/","giống nhau","We go to the same school. (Chúng tôi học cùng trường.)"],
+["Public","/ˈpʌblɪk/","công cộng","I use public transport. (Tôi sử dụng phương tiện giao thông công cộng.)"],
+["Private","/ˈpraɪvət/","riêng tư","This is private property. (Đây là tài sản riêng.)"],
+["Real","/ˈriːəl/","có thật","Is that real gold? (Đó có phải là vàng thật không?)"],
+["FALSE","/fɔːls/","sai, giả","The statement is false. (Lời tuyên bố đó là sai.)"],
+["TRUE","/truː/","đúng, thật","Her dream came true. (Giấc mơ của cô ấy đã thành hiện thực.)"],
+["Free","/friː/","tự do, miễn phí","The tickets are free. (Vé được miễn phí.)"],
+["Cheap","/tʃiːp/","rẻ tiền","This shirt is very cheap. (Chiếc áo sơ mi này rất rẻ.)"],
+["Expensive","/ɪkˈspensɪv/","đắt tiền","Houses are very expensive here. (Nhà cửa ở đây rất đắt.)"],
+["Modern","/ˈmɑːdərn/","hiện đại","They live in a modern apartment. (Họ sống trong một căn hộ hiện đại.)"],
+["Traditional","/trəˈdɪʃənl/","truyền thống","Ao dai is a traditional dress. (Áo dài là trang phục truyền thống.)"],
+["Simple","/ˈsɪmpl/","đơn giản","The rules are very simple. (Các quy tắc rất đơn giản.)"],
+["Complex","/kəmˈpleks/","phức tạp","It is a complex problem. (Đó là một vấn đề phức tạp.)"],
+["Delicious","/dɪˈlɪʃəs/","ngon miệng","This soup is delicious. (Món súp này rất ngon.)"],
+["Black","/blæk/","màu đen","She is wearing a black dress. (Cô ấy đang mặc một chiếc váy màu đen.)"],
+["White","/waɪt/","màu trắng","I have a white cat. (Tôi có một con mèo màu trắng.)"],
+["Red","/red/","màu đỏ","He bought a red apple. (Anh ấy đã mua một quả táo màu đỏ.)"],
+["Blue","/bluː/","màu xanh dương","The sky is blue. (Bầu trời màu xanh.)"],
+["Green","/ɡriː/","màu xanh lá cây","The grass is green. (Cỏ màu xanh lá.)"],
+["Yellow","/ˈjeloʊ/","màu vàng","Bananas are yellow. (Chuối có màu vàng.)"],
+["Orange","/ˈɔːrɪndʒ/","màu cam","She has an orange bag. (Cô ấy có một chiếc túi màu cam.)"],
+["Pink","/pɪŋk/","màu hồng","My sister loves pink flowers. (Em gái tôi thích hoa màu hồng.)"],
+["Grey","/ɡreɪ/","màu xám","It is a grey rainy day. (Đó là một ngày mưa xám xịt.)"],
+["Brown","/braʊn/","màu nâu","He wears a brown belt. (Anh ấy thắt một chiếc thắt lưng màu nâu.)"]
+];
+
+const data23 = [
+["Always","/ˈɔːlweɪz/","luôn luôn","I always wake up at 6 AM. (Tôi luôn luôn thức dậy lúc 6 giờ sáng.)"],
+["Usually","/ˈjuːʒuəli/","thường xuyên","We usually have rice for lunch. (Chúng tôi thường ăn cơm trưa.)"],
+["Normally","/ˈnɔːrməli/","thông thường","I normally walk to work. (Thông thường tôi đi bộ đi làm.)"],
+["Often","/ˈɔːfn/","thường","She often goes to the gym. (Cô ấy thường xuyên đến phòng tập.)"],
+["Sometimes","/ˈsʌmtaɪmz/","thỉnh thoảng","Sometimes I stay up late. (Thỉnh thoảng tôi thức khuya.)"],
+["Occasionally","/əˈkeɪʒnəli/","đôi khi","We occasionally eat out. (Đôi khi chúng tôi đi ăn ngoài.)"],
+["Seldom","/ˈseldəm/","ít khi","He seldom watches TV. (Anh ấy ít khi xem tivi.)"],
+["Rarely","/ˈrerli/","hiếm khi","I rarely drink alcohol. (Tôi hiếm khi uống đồ có cồn.)"],
+["Hardly ever","/ˈhɑːrdli ˈevər/","hầu như không bao giờ","She hardly ever smiles. (Cô ấy hầu như không bao giờ cười.)"],
+["Never","/ˈnevər/","không bao giờ","I never lie to you. (Tôi không bao giờ nói dối bạn.)"],
+["Now","/naʊ/","bây giờ","I am studying English now. (Bây giờ tôi đang học tiếng Anh.)"],
+["Then","/ðen/","sau đó, lúc đó","He finished his work, then left. (Anh ấy làm xong việc, sau đó rời đi.)"],
+["Today","/təˈdeɪ/","hôm nay","Today is a beautiful day. (Hôm nay là một ngày đẹp trời.)"],
+["Yesterday","/ˈjestərdeɪ/","hôm qua","I saw her yesterday. (Tôi đã thấy cô ấy ngày hôm qua.)"],
+["Tomorrow","/təˈmɔːroʊ/","ngày mai","We will meet tomorrow. (Chúng ta sẽ gặp nhau ngày mai.)"],
+["Tonight","/təˈnaɪt/","tối nay","Are you free tonight? (Tối nay bạn có rảnh không?)"],
+["Soon","/suːn/","sớm","See you soon! (Hẹn gặp lại bạn sớm nhé!)"],
+["Late","/leɪt/","muộn, trễ","Don't arrive late for the meeting. (Đừng đến cuộc họp muộn.)"],
+["Early","/ˈɜːrli/","sớm","He loves to get up early. (Anh ấy thích dậy sớm.)"],
+["Before","/bɪˈfɔːr/","trước đây","I have met him before. (Trước đây tôi đã từng gặp anh ấy.)"],
+["Afterwards","/ˈæftərwərdz/","sau đó","We had dinner, and afterwards went for a walk. (Chúng tôi ăn tối, và sau đó đi dạo.)"],
+["Already","/ɔːlˈredi/","đã... rồi","I have already finished my homework. (Tôi đã làm xong bài tập rồi.)"],
+["Yet","/jet/","chưa","I hasn't arrived yet. (Anh ấy vẫn chưa đến.)"],
+["Still","/stɪl/","vẫn","It is still raining. (Trời vẫn đang mưa.)"],
+["Recently","/ˈriːsntli/","gần đây","I haven't seen him recently. (Gần đây tôi không gặp anh ấy.)"],
+["Lately","/ˈleɪtli/","dạo này","Dạo này bạn thế nào? How have you been lately?"],
+["Just","/dʒʌst/","vừa mới","She has just left the room. (Cô ấy vừa mới rời khỏi phòng.)"],
+["Finally","/ˈfaɪnəli/","cuối cùng thì","Finally, the train arrived. (Cuối cùng thì tàu cũng đến.)"],
+["Suddenly","/ˈsʌdənli/","đột nhiên","Suddenly, the lights went out. (Đột nhiên đèn tắt.)"],
+["Immediately","/ɪˈmiːdiətli/","ngay lập tức","Please call me immediately. (Làm ơn hãy gọi cho tôi ngay lập tức.)"],
+["Very","/ˈveri/","rất","This coffee is very hot. (Cà phê này rất nóng.)"],
+["So","/soʊ/","quá, như vậy","I am so tired today. (Hôm nay tôi quá mệt mỏi.)"],
+["Too","/tuː/","quá (vượt mức mong muốn)","This shirt is too big for me. (Chiếc áo này quá rộng so với tôi.)"],
+["Really","/ˈriːəli/","thực sự","I really like this book. (Tôi thực sự thích cuốn sách này.)"],
+["Quite","/kwaɪt/","khá","The test was quite easy. (Bài kiểm tra khá là dễ.)"],
+["Rather","/ˈræðər/","khá là (thường mang nghĩa tiêu cực)","It's rather cold today. (Hôm nay trời khá là lạnh.)"],
+["Pretty","/ˈprɪti/","khá, tương đối","I am pretty sure about it. (Tôi khá chắc chắn về điều đó.)"],
+["Extremely","/ɪkˈstriːmli/","cực kỳ","The weather is extremely hot. (Thời tiết cực kỳ nóng.)"],
+["Absolutely","/ˌæbsəˈluːtli/","hoàn toàn","You are absolutely right. (Bạn hoàn toàn đúng.)"],
+["Completely","/kəmˈpliːtli/","hoàn toàn","I completely forgot about the meeting. (Tôi hoàn toàn quên mất cuộc họp.)"],
+["Totally","/ˈtoʊtəli/","toàn bộ, hoàn toàn","I totally agree with you. (Tôi hoàn toàn đồng ý với bạn.)"],
+["Almost","/ˈɔːlmoʊst/","gần như, suýt nữa","I almost dropped my phone. (Tôi suýt nữa thì làm rơi điện thoại.)"],
+["Nearly","/ˈnɪrli/","gần như","It is nearly midnight. (Trời gần như đã nửa đêm.)"],
+["Hardly","/ˈhɑːrdli/","hầu như không","I can hardly hear you. (Tôi hầu như không thể nghe thấy bạn.)"],
+["Scarcely","/ˈskersli/","vừa mới, hiếm khi","There was scarcely any food left. (Hầu như chẳng còn lại chút thức ăn nào.)"],
+["Slightly","/ˈslaɪtli/","một chút, nhẹ","Prices rose slightly this month. (Giá cả tăng nhẹ trong tháng này.)"],
+["Enough","/ɪˈnʌf/","đủ","He is old enough to drive. (Anh ấy đủ tuổi để lái xe.)"],
+["Perfectly","/ˈpɜːrfɪktli/","hoàn hảo","She speaks English perfectly. (Cô ấy nói tiếng Anh một cách hoàn hảo.)"],
+["Deeply","/ˈdiːpli/","sâu sắc","I am deeply sorry. (Tôi vô cùng xin lỗi.)"],
+["Partly","/ˈpɑːrtli/","một phần","The story is partly true. (Câu chuyện đó đúng một phần.)"],
+["Here","/hɪr/","ở đây","Please sit here. (Làm ơn hãy ngồi ở đây.)"],
+["There","/ðer/","ở kia, ở đó","Put the box over there. (Hãy đặt cái hộp ở đằng kia.)"],
+["Everywhere","/ˈevriwer/","khắp mọi nơi","I looked everywhere for my keys. (Tôi đã tìm chìa khóa ở khắp mọi nơi.)"],
+["Nowhere","/ˈnoʊwer/","không nơi nào","There is nowhere to hide. (Không có nơi nào để trốn cả.)"],
+["Somewhere","/ˈsʌmwer/","một nơi nào đó","Let's go somewhere quiet. (Hãy đi đến nơi nào đó yên tĩnh đi.)"],
+["Anywhere","/ˈeniwer/","bất kỳ nơi đâu","You can sit anywhere. (Bạn có thể ngồi bất kỳ chỗ nào.)"],
+["Inside","/ˌɪnˈsaɪd/","bên trong","It's raining, let's go inside. (Trời mưa rồi, chúng ta hãy vào bên trong đi.)"],
+["Outside","/ˌaʊtˈsaɪd/","bên ngoài","The kids are playing outside. (Lũ trẻ đang chơi bên ngoài.)"],
+["Upstairs","/ˌʌpˈsterz/","trên tầng, lên lầu","She is sleeping upstairs. (Cô ấy đang ngủ trên tầng.)"],
+["Downstairs","/ˌdaʊnˈsterz/","dưới tầng, xuống lầu","Go downstairs to open the door. (Hãy xuống lầu để mở cửa.)"],
+["Away","/əˈweɪ/","xa, đi xa","Go away! (Đi ra chỗ khác đi!)"],
+["Nearby","/ˌnɪrˈbaɪ/","gần đây","My friend lives nearby. (Bạn tôi sống ở gần đây.)"],
+["Abroad","/əˈbrɔːd/","nước ngoài","He wants to study abroad. (Anh ấy muốn đi du học nước ngoài.)"],
+["Home","/hoʊm/","về nhà","I want to go home. (Tôi muốn đi về nhà.)"],
+["Back","/bæk/","lùi lại, quay lại","Come back soon. (Hãy sớm quay lại nhé.)"],
+["Quickly","/ˈkwɪkli/","nhanh chóng","Run quickly! (Chạy nhanh lên!)"],
+["Slowly","/ˈsloʊli/","chậm chạp","Speak slowly, please. (Làm ơn hãy nói chậm lại.)"],
+["Well","/wel/","tốt, giỏi","He plays football very well. (Cậu ấy chơi bóng đá rất giỏi.)"],
+["Badly","/ˈbædli/","tồi tệ","The team played badly today. (Đội bóng đã chơi rất tồi tệ hôm nay.)"],
+["Carefully","/ˈkerfəli/","cẩn thận","Drive carefully. (Hãy lái xe cẩn thận.)"],
+["Carelessly","/ˈkerləsli/","cẩu thả","He wrote the report carelessly. (Anh ấy đã viết bài báo cáo một cách cẩu thả.)"],
+["Happily","/ˈhæpɪli/","hạnh phúc, vui vẻ","They lived happily ever after. (Họ sống hạnh phúc mãi mãi về sau.)"],
+["Sadly","/ˈsædli/","buồn bã","He sadly shook his head. (Anh ấy buồn bã lắc đầu.)"],
+["Quietly","/ˈkwaɪətli/","lặng lẽ, khẽ khàng","She quietly closed the door. (Cô ấy lặng lẽ đóng cửa lại.)"],
+["Loudly","/ˈlaʊdli/","ầm ĩ, to tiếng","Don't talk so loudly. (Đừng nói chuyện to tiếng như vậy.)"],
+["Softly","/ˈsɔːftli/","nhẹ nhàng","She spoke softly to the baby. (Cô ấy nói chuyện nhẹ nhàng với đứa bé.)"],
+["Easily","/ˈiːzəli/","dễ dàng","I can easily pass this exam. (Tôi có thể dễ dàng vượt qua kỳ thi này.)"],
+["Angrily","/ˈæŋɡrəli/","giận dữ","He shouted angrily at me. (Anh ấy đã hét lên một cách giận dữ với tôi.)"],
+["Politely","/pəˈlaɪtli/","lịch sự","Always answer politely. (Hãy luôn trả lời một cách lịch sự.)"],
+["Rudely","/ˈruːdli/","thô lỗ","He behaved rudely to the waiter. (Anh ấy cư xử thô lỗ với người bồi bàn.)"],
+["Safely","/ˈseɪfli/","an toàn","They arrived home safely. (Họ đã về đến nhà an toàn.)"],
+["Beautifully","/ˈbjuːtɪfli/","đẹp đẽ","She sings beautifully. (Cô ấy hát rất đẹp/hay.)"],
+["Fluently","/ˈfluːəntli/","trôi chảy","He speaks French fluently. (Anh ấy nói tiếng Pháp trôi chảy.)"],
+["Fast","/fæst/","nhanh","Don't drive so fast. (Đừng lái xe nhanh thế.)"],
+["Hard","/hɑːrd/","chăm chỉ","You need to work hard. (Bạn cần phải làm việc chăm chỉ.)"],
+["Therefore","/ˈðerfɔːr/","vì vậy, do đó","I think, therefore I am. (Tôi tư duy, nên tôi tồn tại.)"],
+["However","/haʊˈevər/","tuy nhiên","I like the dress. However, it's too expensive. (Tôi thích chiếc váy đó. Tuy nhiên, nó đắt quá.)"],
+["Moreover","/mɔːrˈoʊvər/","hơn nữa","He is smart; moreover, he is rich. (Anh ấy thông minh; hơn nữa, anh ấy còn giàu.)"],
+["Furthermore","/ˌfɜːrðərˈmɔːr/","thêm vào đó","Smoking is bad for health; furthermore, it costs money. (Hút thuốc có hại cho sức khỏe; thêm vào đó, nó lại tốn tiền.)"],
+["Instead","/ɪnˈsted/","thay vào đó","I didn't go out; instead, I stayed home. (Tôi đã không đi chơi; thay vào đó, tôi ở nhà.)"],
+["Otherwise","/ˈʌðərwaɪz/","nếu không thì","Hurry up, otherwise you'll miss the train. (Nhanh lên, nếu không bạn sẽ lỡ tàu.)"],
+["Luckily","/ˈlʌkɪli/","may mắn thay","Luckily, it didn't rain. (May mắn thay, trời đã không mưa.)"],
+["Unfortunately","/ʌnˈfɔːrtʃənətli/","thật không may","Unfortunately, I lost my wallet. (Thật không may, tôi đã mất ví.)"],
+["Fortunately","/ˈfɔːrtʃənətli/","may mắn thay","Fortunately, the doctor arrived in time. (May mắn thay, bác sĩ đã đến kịp lúc.)"],
+["Probably","/ˈprɑːbəbli/","có lẽ, có khả năng","He will probably come tonight. (Có lẽ anh ấy sẽ đến tối nay.)"],
+["Maybe","/ˈmeɪbi/","có thể","Maybe we can go tomorrow. (Có thể chúng ta sẽ đi vào ngày mai.)"],
+["Perhaps","/pərˈhæps/","có lẽ","Perhaps you are right. (Có lẽ bạn đúng.)"],
+["Certainly","/ˈsɜːrtnli/","chắc chắn","I will certainly help you. (Tôi chắc chắn sẽ giúp bạn.)"],
+["Obviously","/ˈɑːbviəsli/","rõ ràng là","She is obviously lying. (Rõ ràng là cô ấy đang nói dối.)"],
+["Naturally","/ˈnætʃrəli/","tự nhiên, tất nhiên","Naturally, he was happy to win. (Tất nhiên, anh ấy rất vui khi chiến thắng.)"]
+];
+// Mảng chứa dữ liệu các chủ đề
+
+const allData = [
+	data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
+	data11, data12, data13, data14, data15, data16, data17, data18, data19, data20,
+	data21, data22, data23
+];
+
+// 1. Hàm render giao diện (Đã sửa ID status không trùng lặp & truyền chuỗi an toàn)
+function render(id, data, topicIdx){
+  const container = document.getElementById(id);
+  if (!container) return;
+
+  container.innerHTML = data.map((x, i) => {
+    // Tạo ID duy nhất cho từng card (Ví dụ: status-0-1, status-0-2...)
+    const statusId = `status-${topicIdx}-${i}`;
+
+    return `
+    <div class="card">
+      <div class="num">${i+1}</div>
+      <div class="word">${x[0]}</div>
+      <div class="ipa">${x[1]}</div>
+      <div class="vn">${x[2]}</div>
+      <div class="sentence">${x[3]}</div>
+      <button class="speak" onclick="speakWord('${esc(x[0])}')">🔊 Đọc từ</button>
+      <button class="speak" onclick="speakWord('${esc(x[3])}')">🔊 Đọc câu</button>
+      <button class="mic" onclick="checkSpeech('${esc(x[0])}', '${statusId}')">🎤 Kiểm tra đọc</button>
+      <div id="${statusId}" class="speech-status"></div>
+    </div>`;
+  }).join('');
+}
+
+function esc(s){ 
+  if (!s) return '';
+  return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/`/g,'\\`'); 
+}
+
+function renderAll(){
+  allData.forEach((data, index) => {
+    render(`grid${index + 1}`, data, index);
+  });
+}
+renderAll();
+
+// Hàm lọc từ theo tiếng Việt hoặc tiếng Anh
+function filterWords() {
+  const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+
+  allData.forEach((data, index) => {
+    const filtered = data.filter(item => 
+      item[0].toLowerCase().includes(keyword) || // Tìm theo từ tiếng Anh
+      item[2].toLowerCase().includes(keyword)    // Tìm theo nghĩa tiếng Việt
+    );
+    render(`grid${index + 1}`, filtered, index);
+  });
+}
+
+function showTopic(n, btn){
+  document.querySelectorAll('.topic').forEach(x => x.classList.remove('active'));
+  document.getElementById('topic' + n).classList.add('active');
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  btn.classList.add('active');
+  stopSpeech();
+}
+
+const voiceSelect = document.getElementById('voice');
+function loadVoices(){
+  const voices = speechSynthesis.getVoices();
+  voiceSelect.innerHTML = '';
+  voices.filter(v => /^en(-|_)/i.test(v.lang)).sort((a, b) => {
+    const au = /US|GB|AU|CA|IE|NZ/i.test(a.lang) ? 0 : 1;
+    const bu = /US|GB|AU|CA|IE|NZ/i.test(b.lang) ? 0 : 1;
+    return au - bu;
+  }).forEach((v, i) => {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = v.name + ' — ' + v.lang;
+    o.dataset.name = v.name;
+    o.dataset.lang = v.lang;
+    voiceSelect.appendChild(o);
+  });
+}
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+function speakWord(text){
+  stopSpeech();
+  const match = text.match(/^[^.?]*[.?]/);
+  const cleanTextStr = match ? match[0] : text;
+
+  const u = new SpeechSynthesisUtterance(cleanTextStr);
+  const voices = speechSynthesis.getVoices().filter(v => /^en(-|_)/i.test(v.lang));
+  const selected = voices[voiceSelect.selectedIndex];
+  if(selected) u.voice = selected;
+  u.lang = selected ? selected.lang : 'en-US';
+  u.rate = parseFloat(document.getElementById('rate').value);
+  u.pitch = 1;
+  speechSynthesis.speak(u);
+}
+
+// Chuẩn hóa chuỗi để so sánh
+function cleanText(str) {
+  if (!str) return "";
+  return str.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()"'?]/g, "").trim();
+}
+
+// 2. Hàm Kiểm tra đọc (Nhận trực tiếp câu tiếng Anh & ID khung trạng thái duy nhất)
+function checkSpeech(targetText, statusId) {
+  // 1. TẮT TẤT CẢ GIỌNG ĐỌC MÁY ĐANG PHÁT (Tránh xung đột mic)
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+
+  const statusDiv = document.getElementById(statusId);
+  if (!statusDiv) return;
+  
+  // Kiểm tra an toàn nếu targetText rỗng
+  if (!targetText) {
+    statusDiv.innerHTML = "❌ Không tìm thấy câu mẫu để so sánh!";
+    statusDiv.className = "speech-status wrong";
+    return;
+  }
+
+  // 2. Hiện chữ "Đang nghe..."
+  statusDiv.innerHTML = `🎙️ <b>Listening... Read! "${targetText}"</b>`;
+  statusDiv.className = "speech-status listening";
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    statusDiv.innerHTML = "❌ Trình duyệt không hỗ trợ Web Speech API!";
+    statusDiv.className = "speech-status wrong";
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  // Khi có kết quả
+  recognition.onresult = function(event) {
+    if (!event.results || !event.results[0]) return;
+    
+    const spokenText = event.results[0][0].transcript;
+	if (cleanText(spokenText) === cleanText(targetText)) {
+      statusDiv.innerHTML = `🎉 <b>CHÚC MỪNG!</b><br><small>Nghe được: "${spokenText}"</small>`;
+      statusDiv.className = "speech-status correct";
+    } else {
+      statusDiv.innerHTML = `❌ <b>ĐỌC SAI RỒI!</b><br><small>Nghe được: "${spokenText}"</small>`;
+      statusDiv.className = "speech-status wrong";
+    }
+  };
+
+  // Bắt lỗi
+  recognition.onerror = function(event) {
+    // Nếu bị aborted do bấm liên tục thì bỏ qua, không báo lỗi đỏ
+    if (event.error === 'aborted') {
+      return; 
+    }
+    
+    if (event.error === 'no-speech') {
+      statusDiv.innerHTML = "❌ Chưa nghe thấy giọng bạn, hãy bấm và đọc lại nhé!";
+    } else if (event.error === 'not-allowed') {
+      statusDiv.innerHTML = "❌ Bị chặn Micro! Hãy bật lại quyền trên thanh địa chỉ.";
+    } else {
+      statusDiv.innerHTML = `❌ Lỗi Micro: ${event.error}`;
+    }
+    statusDiv.className = "speech-status wrong";
+  };
+
+  try {
+    recognition.start();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function stopSpeech(){ speechSynthesis.cancel(); }
+
+document.getElementById('rate').oninput = function(){
+  document.getElementById('rateVal').textContent = this.value + '×';
+};
+</script>
+</body>
+</html>
