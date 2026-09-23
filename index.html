@@ -394,13 +394,15 @@ button.speak:hover {
     </div>
   </section>
 
-  <script>
+<script>
+    // Danh sách 96 video làm MẶC ĐỊNH DỰ PHÒNG nếu không đọc được file txt trên GitHub
+    const FALLBACK_VIDEOS = ["Agree to disagree - Mỗi người một quan điểm.mp4","Anything is possible - K gì là k thể.mp4","Are you mocking me - Bạn đang chế giễu tôi.mp4","Based on what - Dựa vào cái gì.mp4","Better safe than sorry - Cẩn thận còn hơn xin lỗi.mp4","Cartoon 1.mp4","Cartoon 10.mp4","Cartoon 11.mp4","Cartoon 12.mp4","Cartoon 13.mp4","Cartoon 14.mp4","Cartoon 15.mp4","Cartoon 16.mp4","Cartoon 17.mp4","Cartoon 18.mp4","Cartoon 19.mp4","Cartoon 2.mp4","Cartoon 3.mp4","Cartoon 4.mp4","Cartoon 5.mp4","Cartoon 6.mp4","Cartoon 7.mp4","Cartoon 8.mp4","Cartoon 9.mp4","Catch you later - Gặp bạn sau nhé.mp4","Chill out - Bình tĩnh , thư giãn đi.mp4","Do you know who I am - Bạn biết tôi là ai k.mp4","Dont be a fool - Đừng ngốc thế.mp4","Dont get me wrong - Đừng hiểu sai ý tôi.mp4","Dont let it get to you - Đừng để ảnh hưởng đến bạn.mp4","Dont play dumb with me - Đừng giả vờ với tôi.mp4","Dont tempt me - Đừng dụ tôi.mp4","Easy for you to say - Nói thì dễ lắm.mp4","Forgive and forget - Tha thứ và bỏ qua.mp4","Get off me - Bỏ tôi ra.mp4","Get the picture - Hiểu ý rồi chứ.mp4","Give me a break - Cho tôi nghỉ tí đi, Thôi bớt xạo đi, Thông cảm cho tôi đi.mp4","Go big or go home - Được ăn cả ngã về k.mp4","Have a nice day - Chúc một ngày tốt lành.mp4","Hear is the deal - Thế này nhé.mp4","I cant take it anymore - Tôi k thể chịu đựng thêm nữa.mp4","I do my best - Tôi sẽ cố gắng hết sức.mp4","I dont know for sure - Tôi k biết chắc lắm.mp4","I dont know what came over me - K biết cái gì xảy ra với tôi nữa.mp4","I dont know what to say - Tôi k biết phải nói gì.mp4","I have a lot going on - Tôi có nhiều việc phải làm, tôi bận.mp4","I like this side of you - Tôi thích khía cạnh này của bạn.mp4","I overslept - Tôi ngủ quên.mp4","I ve had enough - Đủ rồi đấy.mp4","I wasnt born yesterday - Tôi đâu có ngây thơ.mp4","Im a newbie - Tôi là người mới.mp4","Im in a hurry - Tôi đang vội.mp4","Im on the phone - Đang nghe điện thoại.mp4","Im over you - Tôi hết tình cảm với bạn rồi.mp4","Im sorry to interrupt - Xin lỗi chen ngang.mp4","Im stuck in traffic - Tôi bị tắc đường rồi.mp4","It doesnt make senses - Nó k hợp lý.mp4","It doesnt work - Nó hư rồi.mp4","It serves you right - Đáng đời.mp4","Its long story - Chuyện dài lắm.mp4","Its now or never - Cơ hội cuối cùng, bây giờ hoặc k.mp4","Its up to you - Tùy bạn.mp4","Just in time - Kịp giờ.mp4","Let me walk you out - Để tôi tiễn bạn ra ngoài.mp4","Lets be frank - Nói thật đi.mp4","Looks can be deceiving - Đừng nhìn mặt bắt hình dong.mp4","Loud and clear - Rất to và rõ, hiểu rõ ràng.mp4","My phone s dead - Điện thoại hư rồi.mp4","Never say never - K gì là k thể.mp4","Nice going - Bạn làm tốt lắm (Tỏ vẻ k hài lòng).mp4","No biggie - K sao đâu.mp4","No comment - K trả lời.mp4","On the count of three - Khi tôi đếm đến ba thì.mp4","Say no more - Hiểu rồi, khỏi nói thêm.mp4","Sleep tight - Ngủ ngon nhé.mp4","Sort of - Đại loại thế.mp4","Stay out of it - Đừng can thiệp vào.mp4","Take your time - K phải vội vàng.mp4","Thanks for nothing - Cám ơn vì k giúp được gì.mp4","Thanks you for having me - Cảm ơn đã đón tiếp tôi.mp4","Thats on you - Đó là lỗi của bạn.mp4","The sooner the better - Càng sớm càng tốt.mp4","viesnap.vn_tiktok_7685399431658720532.mp4","Way to go - Làm tốt lắm.mp4","Whats on your mind - Bạn đang nghĩ gì vậy.mp4","Whats so funny - Có gì mà cười.mp4","Who do you think you are - Bạn nghĩ bạn là ai.mp4","Who is he to you - 2 người có quan hệ gì.mp4","Why the long face - Sao trông buồn vậy.mp4","You are the boss - Bạn quyết định đi.mp4","You got this - Bạn làm được mà.mp4","You lied to me - Bạn lừa dối tôi.mp4","You make me sick - Bạn làm tôi phát bệnh, Ghen tị thật đó.mp4","You re excused - Bạn được phép đi.mp4","You rock - Đỉnh thật.mp4","You stood me up - Bạn cho tôi leo cây.mp4"];
+
     let activeMode = 'OFFLINE';
     let offlineVideoFiles = [];
     const DB_NAME = 'VideoOfflineDB';
     const STORE_NAME = 'videos';
 
-    // KIỂM TRA MÔI TRƯỜNG TỰ ĐỘNG
     const isOnlineEnvironment = window.location.protocol.startsWith('http');
 
     async function initApp() {
@@ -408,61 +410,70 @@ button.speak:hover {
       const offlineBar = document.getElementById('offlineBar');
 
       if (isOnlineEnvironment) {
-        // --- CHẾ ĐỘ ONLINE (GitHub Pages) ---
         activeMode = 'ONLINE';
         modeBadge.innerText = '🌐 Online Auto';
         modeBadge.style.background = '#e8f5e9';
         modeBadge.style.color = '#2e7d32';
         modeBadge.style.border = '1px solid #c8e6c9';
         
-        offlineBar.style.display = 'none'; // Ẩn hoàn toàn thanh chọn thư mục
+        offlineBar.style.display = 'none';
         await loadOnlineVideoList();
       } else {
-        // --- CHẾ ĐỘ OFFLINE (Mở file trực tiếp trên điện thoại/PC) ---
         activeMode = 'OFFLINE';
         modeBadge.innerText = '📱 Offline Local';
         modeBadge.style.background = '#fff3e0';
         modeBadge.style.color = '#e65100';
         modeBadge.style.border = '1px solid #ffe0b2';
 
-        offlineBar.style.display = 'flex'; // Hiện thanh chọn thư mục
+        offlineBar.style.display = 'flex';
         await loadSavedVideosFromDB();
       }
     }
 
-    // ------------------------------------------------------------------
-    // 1. XỬ LÝ ONLINE: TỰ ĐỘNG TẢI DỰA VÀO VIDEO-LIST.TXT TRÊN GITHUB
-    // ------------------------------------------------------------------
+    // ONLINE: THỬ TẢI FILE TXT, NẾU LỖI THÌ TỰ ĐỘNG LẤY DANH SÁCH MẶC ĐỊNH
     async function loadOnlineVideoList() {
       const listContainer = document.getElementById('videoList');
       const countDisplay = document.getElementById('videoCount');
+      let videoArray = null;
 
-      try {
-        const response = await fetch('video-list.txt');
-        if (!response.ok) throw new Error('Không tìm thấy file video-list.txt');
-
-        const videoArray = await response.json();
-        if (!Array.isArray(videoArray) || videoArray.length === 0) {
-          listContainer.innerHTML = '<div style="padding:10px; color:red; font-size:13px;">❌ Danh sách trong video-list.txt bị rỗng!</div>';
-          return;
+      // Thử đọc từ file txt
+      const possiblePaths = ['video-list.txt', './video-list.txt'];
+      for (let path of possiblePaths) {
+        try {
+          const res = await fetch(path + '?v=' + Date.now()); // Thêm cache-buster
+          if (res.ok) {
+            videoArray = await res.json();
+            break;
+          }
+        } catch (e) {
+          console.log('Thử đường dẫn ' + path + ' thất bại');
         }
-
-        countDisplay.innerText = `(${videoArray.length} video)`;
-
-        listContainer.innerHTML = videoArray.map((fileName, index) => {
-          const cleanTitle = fileName.replace(/\.mp4$/i, '');
-          return `
-            <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOnlineVideo('${encodeURIComponent(fileName)}', '${cleanTitle.replace(/'/g, "\\'")}', ${index})">
-              <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
-              <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
-            </label>
-          `;
-        }).join('');
-
-      } catch (err) {
-        console.error(err);
-        listContainer.innerHTML = '<div style="padding:10px; color:red; font-size:13px;">❌ Không nạp được video-list.txt! Kiểm tra lại file trên GitHub.</div>';
       }
+
+      // Nếu không đọc được file txt, TỰ ĐỘNG DÙNG DANH SÁCH DỰ PHÒNG
+      if (!videoArray || !Array.isArray(videoArray) || videoArray.length === 0) {
+        console.warn('Không tải được video-list.txt, chuyển sang dùng danh sách mặc định.');
+        videoArray = FALLBACK_VIDEOS;
+      }
+
+      renderOnlineList(videoArray);
+    }
+
+    function renderOnlineList(videoArray) {
+      const listContainer = document.getElementById('videoList');
+      const countDisplay = document.getElementById('videoCount');
+
+      countDisplay.innerText = `(${videoArray.length} video)`;
+
+      listContainer.innerHTML = videoArray.map((fileName, index) => {
+        const cleanTitle = fileName.replace(/\.mp4$/i, '');
+        return `
+          <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOnlineVideo('${encodeURIComponent(fileName)}', '${cleanTitle.replace(/'/g, "\\'")}', ${index})">
+            <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
+            <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
+          </label>
+        `;
+      }).join('');
     }
 
     function playOnlineVideo(encodedFileName, title, index) {
@@ -473,6 +484,7 @@ button.speak:hover {
 
       if (radioBtn) radioBtn.checked = true;
 
+      // Giả định các file mp4 nằm trong thư mục video/
       source.src = 'video/' + encodedFileName;
       player.load();
       player.play();
@@ -480,9 +492,7 @@ button.speak:hover {
       titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + title + '</span>';
     }
 
-    // ------------------------------------------------------------------
-    // 2. XỬ LÝ OFFLINE: CHỌN THƯ MỤC & TỰ ĐỘNG NẠP QUA INDEXEDDB
-    // ------------------------------------------------------------------
+    // OFFLINE LOGIC
     function openDB() {
       return new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, 1);
@@ -549,7 +559,7 @@ button.speak:hover {
       }
 
       offlineVideoFiles = filtered.map(f => ({ name: f.name, blob: f }));
-      statusText.innerHTML = '✅ Đã lưu <b>' + filtered.length + ' video</b>! Lần sau mở sẽ tự có danh sách.';
+      statusText.innerHTML = '✅ Đã lưu <b>' + filtered.length + ' video</b>!';
       statusText.style.color = '#2e7d32';
 
       renderOfflineList(offlineVideoFiles);
@@ -589,7 +599,6 @@ button.speak:hover {
       titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + cleanTitle + '</span>';
     }
 
-    // Chạy tự động kiểm tra môi trường ngay khi nạp trang
     initApp();
   </script>
 
