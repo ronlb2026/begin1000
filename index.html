@@ -194,6 +194,7 @@ button.speak:hover {
   	<button class="tab active" onclick="showTopic(21,this)">TOPIC A — VERB 100</button>
 	<button class="tab" onclick="showTopic(22,this)">TOPIC B — ADJECTIVE 100</button>
 	<button class="tab" onclick="showTopic(23,this)">TOPIC C — ADVERB 100</button>
+	<button class="tab" onclick="showTopic(30,this)">VIDEO</button>
     <button class="tab" onclick="showTopic(1,this)">TOPIC 1 — FAMILY & RELATIONSHIPS</button>
     <button class="tab" onclick="showTopic(2,this)">TOPIC 2 — WORK & OFFICE</button>
     <button class="tab" onclick="showTopic(3,this)">TOPIC 3 — TRAVEL & TRANSPORATION</button>
@@ -349,6 +350,248 @@ button.speak:hover {
     <div class="topic-title"><b>TOPIC C — ADVERB 100</b><br>Trạng từ</div>
     <div class="grid" id="grid23"></div>
   </section>
+  
+  <!-- SECTION VIDEO ĐÃ ĐƯỢC THIẾT KẾ GIAO DIỆN -->
+  <section id="topic30" class="topic" style="max-width: 900px; margin: 0 auto;">
+    <div style="font-size: 20px; font-weight: bold; margin-bottom: 12px; color: #123d7a; display: flex; align-items: center; justify-content: space-between;">
+      <span>📹 VIDEO LESSONS</span>
+      <span id="modeBadge" style="font-size: 13px; font-weight: normal; padding: 4px 10px; border-radius: 12px;">⏳ Đang kiểm tra...</span>
+    </div>
+
+    <!-- Thanh thao tác Offline (Tự động ẩn khi ở chế độ Online) -->
+    <div id="offlineBar" style="background: #eef4fc; padding: 12px 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #cce0f5; display: none; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+      <div style="font-size: 13px; color: #123d7a;">
+        <span id="storageStatus">📱 Đang nạp danh sách từ bộ nhớ...</span>
+      </div>
+      <label style="background: #123d7a; color: white; padding: 8px 15px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: bold;">
+        📁 Chọn thư mục Video
+        <input type="file" id="folderInput" webkitdirectory directory multiple accept="video/mp4" style="display: none;">
+      </label>
+    </div>
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px #0002;">
+      <!-- Khung Trình phát Video bên trái -->
+      <div style="flex: 1.2; min-width: 280px;">
+        <video id="mainVideoPlayer" controls width="100%" style="border-radius: 8px; background: #000; max-height: 380px;">
+          <source id="videoSource" src="" type="video/mp4">
+          Trình duyệt không hỗ trợ xem video.
+        </video>
+        <div id="currentVideoTitle" style="font-weight: bold; margin-top: 12px; font-size: 15px; color: #123d7a;">
+          👉 Bắt đầu bằng cách chọn video ở danh sách
+        </div>
+      </div>
+
+      <!-- Khung Danh sách Video bên phải -->
+      <div style="flex: 1; min-width: 260px; max-height: 380px; overflow-y: auto; border: 1px solid #e1e8ed; border-radius: 8px; padding: 12px; background: #fafbfc;">
+        <div style="font-weight: bold; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #123d7a; display: flex; justify-content: space-between;">
+          <span>Danh sách Video:</span>
+          <span id="videoCount" style="color: #123d7a; font-weight: normal; font-size: 13px;">(0 video)</span>
+        </div>
+        <div id="videoList" style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="color: #777; font-size: 13px; padding: 10px 0;">Đang nạp danh sách...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let activeMode = 'OFFLINE';
+    let offlineVideoFiles = [];
+    const DB_NAME = 'VideoOfflineDB';
+    const STORE_NAME = 'videos';
+
+    // KIỂM TRA MÔI TRƯỜNG TỰ ĐỘNG
+    const isOnlineEnvironment = window.location.protocol.startsWith('http');
+
+    async function initApp() {
+      const modeBadge = document.getElementById('modeBadge');
+      const offlineBar = document.getElementById('offlineBar');
+
+      if (isOnlineEnvironment) {
+        // --- CHẾ ĐỘ ONLINE (GitHub Pages) ---
+        activeMode = 'ONLINE';
+        modeBadge.innerText = '🌐 Online Auto';
+        modeBadge.style.background = '#e8f5e9';
+        modeBadge.style.color = '#2e7d32';
+        modeBadge.style.border = '1px solid #c8e6c9';
+        
+        offlineBar.style.display = 'none'; // Ẩn hoàn toàn thanh chọn thư mục
+        await loadOnlineVideoList();
+      } else {
+        // --- CHẾ ĐỘ OFFLINE (Mở file trực tiếp trên điện thoại/PC) ---
+        activeMode = 'OFFLINE';
+        modeBadge.innerText = '📱 Offline Local';
+        modeBadge.style.background = '#fff3e0';
+        modeBadge.style.color = '#e65100';
+        modeBadge.style.border = '1px solid #ffe0b2';
+
+        offlineBar.style.display = 'flex'; // Hiện thanh chọn thư mục
+        await loadSavedVideosFromDB();
+      }
+    }
+
+    // ------------------------------------------------------------------
+    // 1. XỬ LÝ ONLINE: TỰ ĐỘNG TẢI DỰA VÀO VIDEO-LIST.TXT TRÊN GITHUB
+    // ------------------------------------------------------------------
+    async function loadOnlineVideoList() {
+      const listContainer = document.getElementById('videoList');
+      const countDisplay = document.getElementById('videoCount');
+
+      try {
+        const response = await fetch('video-list.txt');
+        if (!response.ok) throw new Error('Không tìm thấy file video-list.txt');
+
+        const videoArray = await response.json();
+        if (!Array.isArray(videoArray) || videoArray.length === 0) {
+          listContainer.innerHTML = '<div style="padding:10px; color:red; font-size:13px;">❌ Danh sách trong video-list.txt bị rỗng!</div>';
+          return;
+        }
+
+        countDisplay.innerText = `(${videoArray.length} video)`;
+
+        listContainer.innerHTML = videoArray.map((fileName, index) => {
+          const cleanTitle = fileName.replace(/\.mp4$/i, '');
+          return `
+            <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOnlineVideo('${encodeURIComponent(fileName)}', '${cleanTitle.replace(/'/g, "\\'")}', ${index})">
+              <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
+              <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
+            </label>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error(err);
+        listContainer.innerHTML = '<div style="padding:10px; color:red; font-size:13px;">❌ Không nạp được video-list.txt! Kiểm tra lại file trên GitHub.</div>';
+      }
+    }
+
+    function playOnlineVideo(encodedFileName, title, index) {
+      const player = document.getElementById('mainVideoPlayer');
+      const source = document.getElementById('videoSource');
+      const titleDisplay = document.getElementById('currentVideoTitle');
+      const radioBtn = document.getElementById('vid-radio-' + index);
+
+      if (radioBtn) radioBtn.checked = true;
+
+      source.src = 'video/' + encodedFileName;
+      player.load();
+      player.play();
+
+      titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + title + '</span>';
+    }
+
+    // ------------------------------------------------------------------
+    // 2. XỬ LÝ OFFLINE: CHỌN THƯ MỤC & TỰ ĐỘNG NẠP QUA INDEXEDDB
+    // ------------------------------------------------------------------
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+          }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function loadSavedVideosFromDB() {
+      const statusText = document.getElementById('storageStatus');
+      try {
+        const db = await openDB();
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.getAll();
+
+        request.onsuccess = () => {
+          const savedData = request.result;
+          if (savedData && savedData.length > 0) {
+            offlineVideoFiles = savedData
+              .map(item => ({ name: item.name, blob: item.blob }))
+              .sort((a, b) => a.name.localeCompare(b.name, 'vi', { numeric: true }));
+
+            statusText.innerHTML = '✅ Đã tự nạp <b>' + offlineVideoFiles.length + ' video</b> từ bộ nhớ';
+            statusText.style.color = '#2e7d32';
+            renderOfflineList(offlineVideoFiles);
+          } else {
+            statusText.innerHTML = '💡 Bấm nút bên cạnh để chọn thư mục video lần đầu';
+            document.getElementById('videoList').innerHTML = '<div style="color: #777; font-size: 13px; padding: 10px 0;">Chưa chọn thư mục. Hãy bấm chọn thư mục!</div>';
+          }
+        };
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('folderInput').addEventListener('change', async function(e) {
+      const files = Array.from(e.target.files);
+      const statusText = document.getElementById('storageStatus');
+
+      const filtered = files
+        .filter(f => f.name.toLowerCase().endsWith('.mp4'))
+        .sort((a, b) => a.name.localeCompare(b.name, 'vi', { numeric: true }));
+
+      if (filtered.length === 0) {
+        alert('Không tìm thấy file .mp4 nào!');
+        return;
+      }
+
+      statusText.innerHTML = '⏳ Đang lưu dữ liệu...';
+      const db = await openDB();
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      await store.clear();
+
+      for (let i = 0; i < filtered.length; i++) {
+        store.put({ id: i, name: filtered[i].name, blob: filtered[i] });
+      }
+
+      offlineVideoFiles = filtered.map(f => ({ name: f.name, blob: f }));
+      statusText.innerHTML = '✅ Đã lưu <b>' + filtered.length + ' video</b>! Lần sau mở sẽ tự có danh sách.';
+      statusText.style.color = '#2e7d32';
+
+      renderOfflineList(offlineVideoFiles);
+    });
+
+    function renderOfflineList(items) {
+      const listContainer = document.getElementById('videoList');
+      const countDisplay = document.getElementById('videoCount');
+
+      countDisplay.innerText = `(${items.length} video)`;
+
+      listContainer.innerHTML = items.map((item, index) => {
+        const cleanTitle = item.name.replace(/\.mp4$/i, '');
+        return `
+          <label style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; background: white; border: 1px solid #eee; cursor: pointer;" onclick="playOfflineVideo(${index})">
+            <input type="radio" name="videoSelect" id="vid-radio-${index}" style="cursor: pointer;">
+            <span style="font-size: 14px; font-weight: 500; color: #17233c;">${index + 1}. ${cleanTitle}</span>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function playOfflineVideo(index) {
+      const item = offlineVideoFiles[index];
+      if (!item) return;
+
+      const player = document.getElementById('mainVideoPlayer');
+      const titleDisplay = document.getElementById('currentVideoTitle');
+      const radioBtn = document.getElementById('vid-radio-' + index);
+
+      if (radioBtn) radioBtn.checked = true;
+
+      const cleanTitle = item.name.replace(/\.mp4$/i, '');
+      player.src = URL.createObjectURL(item.blob);
+      player.play();
+
+      titleDisplay.innerHTML = '▶️ Đang phát: <span style="color: #f28c28;">' + cleanTitle + '</span>';
+    }
+
+    // Chạy tự động kiểm tra môi trường ngay khi nạp trang
+    initApp();
+  </script>
 
 </div>
 
