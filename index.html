@@ -2130,28 +2130,29 @@ function checkSpeech(targetText, statusId) {
   globalRecognition = recognition;
 
   recognition.lang = 'en-US';
-  recognition.interimResults = false;
+  
+  // ⚡ BẬT TÍNH NĂNG GHI NHẬN THỜI GIAN THỰC (Không lo nghe không kịp)
+  recognition.interimResults = true; 
   recognition.maxAlternatives = 1;
 
-  // BƯỚC 1: BẤM NÚT -> MỞ MIC THU ÂM
+  // 1. BẤM NÚT -> MỞ MIC
   recognition.onstart = function() {
-    statusDiv.innerHTML = `🎙️ <b>Listening... Nói đi bạn!</b>`;
+    statusDiv.innerHTML = `🎙️ <b>Đang nghe... Nói đi bạn!</b>`;
     statusDiv.className = "speech-status listening";
   };
 
-  // BƯỚC 2 & 3: CHUYỂN ÂM THANH THÀNH CHỮ VÀ IN RA MÀN HÌNH
+  // 2. VỪA NÓI LÀ CHỮ TỰ ĐỘNG HIỆN RA NGAY LẬP TỨC
   recognition.onresult = function(event) {
-    if (!event.results || !event.results[0]) return;
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+    }
     
-    // Lấy nguyên văn chữ thu được
-    const spokenText = event.results[0][0].transcript;
-    
-    // In ra màn hình chữ vừa nhận diện được
-    statusDiv.innerHTML = `🗣️ <b>Nghe được:</b> "${spokenText}"`;
+    // In chữ ra ngay lập tức khi bạn vừa cất lời
+    statusDiv.innerHTML = `🗣️ <b>Nghe được:</b> "${transcript}"`;
     statusDiv.className = "speech-status correct";
   };
 
-  // Dọn dẹp phiên khi kết thúc
   recognition.onend = function() {
     globalRecognition = null;
   };
