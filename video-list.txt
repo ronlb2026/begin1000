@@ -94,6 +94,6 @@
   "You make me sick - Bạn làm tôi phát bệnh, Ghen tị thật đó.mp4",
   "You re excused - Bạn được phép đi.mp4",
   "You rock - Đỉnh thật.mp4",
-  "You stood me up - Bạn cho tôi leo cây.mp4"
+  "You stood me up - Bạn cho tôi leo cây.mp4",
   "Adverb - Trạng từ cơ bản - 20 từ.mp4"
 ]
