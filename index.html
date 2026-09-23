@@ -2135,7 +2135,7 @@ function checkSpeech(targetText, statusId) {
 
   // BƯỚC 1: BẤM NÚT -> MỞ MIC THU ÂM
   recognition.onstart = function() {
-    statusDiv.innerHTML = `🎙️ <b>Đang nghe... Nói đi bạn!</b>`;
+    statusDiv.innerHTML = `🎙️ <b>Listening... Nói đi bạn!</b>`;
     statusDiv.className = "speech-status listening";
   };
 
