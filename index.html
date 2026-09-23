@@ -2110,15 +2110,15 @@ function cleanText(str) {
 let globalRecognition = null;
 
 function checkSpeech(targetText, statusId) {
-  // 1. Tắt âm thanh/Video để tránh nhiễu
+  // 1. Tắt âm thanh/Video để không lọt tiếng vào Mic
   if (window.speechSynthesis) window.speechSynthesis.cancel();
   const mainVideo = document.getElementById('mainVideoPlayer');
   if (mainVideo) mainVideo.pause();
 
   const statusDiv = document.getElementById(statusId);
-  if (!statusDiv) return;
+  if (!statusDiv || !targetText) return;
 
-  // 2. Hủy phiên ghi âm cũ nếu bấm liên tục
+  // 2. Hủy phiên ghi âm cũ nếu người dùng bấm nút liên tục
   if (globalRecognition) {
     try { globalRecognition.abort(); } catch (e) {}
   }
@@ -2129,35 +2129,47 @@ function checkSpeech(targetText, statusId) {
   const recognition = new SpeechRecognition();
   globalRecognition = recognition;
 
-  // Cấu hình thu âm liên tục & hiển thị tức thì
   recognition.lang = 'en-US';
-  recognition.interimResults = true; 
+  recognition.interimResults = true; // Hiện chữ nháp real-time
   recognition.maxAlternatives = 1;
 
-  // BẤM NÚT -> MỞ MIC
+  let finalTranscript = '';
+
+  // 1. BẤM NÚT -> MỞ MIC
   recognition.onstart = function() {
-    statusDiv.innerHTML = `🎙️ <b>Listening... (Hãy nói hoặc phát âm thanh)</b>`;
+    statusDiv.innerHTML = `🎙️ <b>Đang nghe... Read: "${targetText}"</b>`;
     statusDiv.className = "speech-status listening";
   };
 
-  // NHẬN ÂM THANH -> IN RA CHỮ TỨC THÌ
+  // 2. THU ÂM & VIẾT RA CHỮ THEO THỜI GIAN THỰC
   recognition.onresult = function(event) {
     let currentText = '';
     
-    // Duyệt qua toàn bộ danh sách từ nghe được
     for (let i = 0; i < event.results.length; i++) {
       currentText += event.results[i][0].transcript;
     }
 
-    // Nếu bắt được chữ, in ra màn hình ngay lập tức
-    if (currentText.trim() !== '') {
-      statusDiv.innerHTML = `🗣️ <b>Nghe được:</b> "${currentText}"`;
-      statusDiv.className = "speech-status correct";
-    }
+    finalTranscript = currentText;
+
+    // Hiển thị chữ đang thu được ngay lập tức
+    statusDiv.innerHTML = `🎙️ <b>Đang nghe:</b> "${currentText}"`;
+    statusDiv.className = "speech-status listening";
   };
 
+  // 3. KHI DỪNG NÓI (MIC TẮT) -> TIẾN HÀNH SO SÁNH
   recognition.onend = function() {
     globalRecognition = null;
+
+    if (!finalTranscript.trim()) return; // Nếu không nói gì thì giữ nguyên/không xử lý
+
+    // So sánh câu thu được với câu mẫu
+    if (cleanText(finalTranscript) === cleanText(targetText)) {
+      statusDiv.innerHTML = `🎉 <b>CHÚC MỪNG!</b><br><small>Nghe được: "${finalTranscript}"</small>`;
+      statusDiv.className = "speech-status correct";
+    } else {
+      statusDiv.innerHTML = `❌ <b>ĐỌC CHƯA ĐÚNG!</b><br><small>Nghe được: "${finalTranscript}"</small>`;
+      statusDiv.className = "speech-status wrong";
+    }
   };
 
   try {
