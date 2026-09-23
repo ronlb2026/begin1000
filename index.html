@@ -164,8 +164,8 @@ button.speak:hover {
 }
 
 .mic {
-  background-color: #ff9800;
-  color: white;
+  background-color: #ffeb3b;
+  color: #123d7a;
   border: none;
   padding: 6px 12px;
   cursor: pointer;
@@ -2026,7 +2026,7 @@ function render(id, data, topicIdx){
       <div class="sentence">${x[3]}</div>
       <button class="speak" onclick="speakWord('${esc(x[0])}')">🔊 Đọc từ</button>
       <button class="speak" onclick="speakWord('${esc(x[3])}')">🔊 Đọc câu</button>
-      <button class="mic" onclick="checkSpeech('${esc(x[0])}', '${statusId}')">🎤 Kiểm tra đọc</button>
+      <button class="mic" onclick="checkSpeech('${esc(x[0])}', '${statusId}')">🎤 Kiểm tra</button>
       <div id="${statusId}" class="speech-status"></div>
     </div>`;
   }).join('');
