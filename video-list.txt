@@ -95,7 +95,6 @@
   "Thats on you - Đó là lỗi của bạn.mp4",
   "Thats the good sign - Đó là tín hiệu tốt.mp4",
   "The sooner the better - Càng sớm càng tốt.mp4",
-  "viesnap.vn_tiktok_7685399431658720532.mp4",
   "Way to go - Làm tốt lắm.mp4",
   "What can i do for you - Tôi có thể làm gì cho bạn.mp4",
   "Whats on your mind - Bạn đang nghĩ gì vậy.mp4",
