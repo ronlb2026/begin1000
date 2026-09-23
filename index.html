@@ -2154,13 +2154,13 @@ function checkSpeech(targetText, statusId) {
     statusDiv.className = "speech-status listening";
 
     // BỘ ĐẾM 5 GIÂY: Nếu quá 5 giây không phản hồi ➔ Ép báo lỗi ngay!
-    recognitionTimeout = setTimeout(() => {
-      if (!hasResult) {
-        try { recognition.stop(); } catch(e){}
-        statusDiv.innerHTML = "❌ Không nghe được gì! (Hãy kiểm tra lại Micro hoặc đọc to hơn)";
-        statusDiv.className = "speech-status wrong";
-      }
-    }, 5000); 
+    //recognitionTimeout = setTimeout(() => {
+    //  if (!hasResult) {
+    //    try { recognition.stop(); } catch(e){}
+    //    statusDiv.innerHTML = "❌ Không nghe được gì! (Hãy kiểm tra lại Micro hoặc đọc to hơn)";
+    //    statusDiv.className = "speech-status wrong";
+    //  }
+    //}, 5000); 
   };
 
   // Khi nghe được và có kết quả
