@@ -2070,11 +2070,18 @@ const voiceSelect = document.getElementById('voice');
 function loadVoices(){
   const voices = speechSynthesis.getVoices();
   voiceSelect.innerHTML = '';
-  voices.filter(v => /^en(-|_)/i.test(v.lang)).sort((a, b) => {
-    const au = /US|GB|AU|CA|IE|NZ/i.test(a.lang) ? 0 : 1;
-    const bu = /US|GB|AU|CA|IE|NZ/i.test(b.lang) ? 0 : 1;
-    return au - bu;
-  }).forEach((v, i) => {
+
+  //Chỉ giữ lại các giọng đọc thuộc mã ngôn ngữ tiếng Anh (bắt đầu bằng en- hoặc en_, ví dụ: en-US, en-GB, en_AU).
+  //voices.filter(v => /^en(-|_)/i.test(v.lang)).sort((a, b) => {
+  //  const au = /US|GB|AU|CA|IE|NZ/i.test(a.lang) ? 0 : 1;
+  //  const bu = /US|GB|AU|CA|IE|NZ/i.test(b.lang) ? 0 : 1;
+  //  return au - bu;
+  //}).forEach((v, i) => {
+	
+  // Chỉ lọc lấy giọng en-US, en_US, en-GB, en_GB
+  voices
+    .filter(v => /^en[-_](us|gb)$/i.test(v.lang))
+    .forEach((v, i) => {
     const o = document.createElement('option');
     o.value = i;
     o.textContent = v.name + ' — ' + v.lang;
