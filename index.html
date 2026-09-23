@@ -2107,12 +2107,10 @@ function cleanText(str) {
 }
 
 // 2. Hàm Kiểm tra đọc (Nhận trực tiếp câu tiếng Anh & ID khung trạng thái duy nhất)
-// Khai báo biến toàn cục ở ngoài hàm để quản lý phiên ghi âm
 let globalRecognition = null;
-let recognitionTimeout = null; // Bộ đếm thời gian tự động ngắt nếu im lặng
 
 function checkSpeech(targetText, statusId) {
-  // 1. Tắt âm thanh & Video để tránh lọt tiếng vào Mic
+  // 1. Tắt âm thanh/Video để không bị lẫn tiếng vào Mic
   if (window.speechSynthesis) window.speechSynthesis.cancel();
   const mainVideo = document.getElementById('mainVideoPlayer');
   if (mainVideo) mainVideo.pause();
@@ -2120,24 +2118,13 @@ function checkSpeech(targetText, statusId) {
   const statusDiv = document.getElementById(statusId);
   if (!statusDiv) return;
 
-  if (!targetText) {
-    statusDiv.innerHTML = "❌ Không tìm thấy câu mẫu để so sánh!";
-    statusDiv.className = "speech-status wrong";
-    return;
-  }
-
-  // 2. Dừng phiên ghi âm cũ và xóa bộ đếm cũ (nếu có)
+  // 2. Hủy phiên cũ nếu người dùng bấm nút liên tục
   if (globalRecognition) {
     try { globalRecognition.abort(); } catch (e) {}
   }
-  if (recognitionTimeout) clearTimeout(recognitionTimeout);
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    statusDiv.innerHTML = "❌ Trình duyệt không hỗ trợ Web Speech API!";
-    statusDiv.className = "speech-status wrong";
-    return;
-  }
+  if (!SpeechRecognition) return;
 
   const recognition = new SpeechRecognition();
   globalRecognition = recognition;
@@ -2146,77 +2133,36 @@ function checkSpeech(targetText, statusId) {
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
-  let hasResult = false; // Biến kiểm tra xem đã nhận được kết quả chưa
-
-  // Bắt đầu bật Micro
+  // BƯỚC 1: BẤM NÚT -> MỞ MIC THU ÂM
   recognition.onstart = function() {
-    statusDiv.innerHTML = `🎙️ <b>Đang nghe... Nói ngay nhé! "${targetText}"</b>`;
+    statusDiv.innerHTML = `🎙️ <b>Đang nghe... Nói đi bạn!</b>`;
     statusDiv.className = "speech-status listening";
-
-    // BỘ ĐẾM 5 GIÂY: Nếu quá 5 giây không phản hồi ➔ Ép báo lỗi ngay!
-    //recognitionTimeout = setTimeout(() => {
-    //  if (!hasResult) {
-    //    try { recognition.stop(); } catch(e){}
-    //    statusDiv.innerHTML = "❌ Không nghe được gì! (Hãy kiểm tra lại Micro hoặc đọc to hơn)";
-    //    statusDiv.className = "speech-status wrong";
-    //  }
-    //}, 5000); 
   };
 
-  // Khi nghe được và có kết quả
+  // BƯỚC 2 & 3: CHUYỂN ÂM THANH THÀNH CHỮ VÀ IN RA MÀN HÌNH
   recognition.onresult = function(event) {
-    hasResult = true;
-    if (recognitionTimeout) clearTimeout(recognitionTimeout); // Hủy bộ đếm
-
     if (!event.results || !event.results[0]) return;
     
+    // Lấy nguyên văn chữ thu được
     const spokenText = event.results[0][0].transcript;
     
-    if (cleanText(spokenText) === cleanText(targetText)) {
-      statusDiv.innerHTML = `🎉 <b>CHÚC MỪNG!</b><br><small>Nghe được: "${spokenText}"</small>`;
-      statusDiv.className = "speech-status correct";
-    } else {
-      statusDiv.innerHTML = `❌ <b>ĐỌC CHƯA ĐÚNG!</b><br><small>Nghe được: "${spokenText}"</small>`;
-      statusDiv.className = "speech-status wrong";
-    }
+    // In ra màn hình chữ vừa nhận diện được
+    statusDiv.innerHTML = `🗣️ <b>Nghe được:</b> "${spokenText}"`;
+    statusDiv.className = "speech-status correct";
   };
 
-  // Bắt lỗi hệ thống từ trình duyệt
-  recognition.onerror = function(event) {
-    hasResult = true;
-    if (recognitionTimeout) clearTimeout(recognitionTimeout);
-
-    if (event.error === 'aborted') return;
-    
-    if (event.error === 'no-speech') {
-      statusDiv.innerHTML = "❌ Chưa nghe thấy tiếng! Bấm nút và đọc lại nhé.";
-    } else if (event.error === 'not-allowed') {
-      statusDiv.innerHTML = "❌ Bị chặn Micro! Hãy kiểm tra quyền trên thanh địa chỉ.";
-    } else {
-      statusDiv.innerHTML = `❌ Lỗi Micro (${event.error}) - Hãy kiểm tra kết nối Mic.`;
-    }
-    statusDiv.className = "speech-status wrong";
-  };
-
-  // Sự kiện khi Micro tắt hẳn
+  // Dọn dẹp phiên khi kết thúc
   recognition.onend = function() {
     globalRecognition = null;
-    // Nếu kết thúc mà chưa có kết quả và chưa báo lỗi ➔ Báo ngắt kết nối
-    if (!hasResult && statusDiv.className.includes('listening')) {
-      statusDiv.innerHTML = "❌ Micro đã tự động tắt. Vui lòng bấm và đọc lại!";
-      statusDiv.className = "speech-status wrong";
-    }
   };
 
   try {
     recognition.start();
   } catch (err) {
-    console.error("Lỗi khởi chạy:", err);
-    statusDiv.innerHTML = "❌ Không thể mở Micro!";
-    statusDiv.className = "speech-status wrong";
+    console.error(err);
   }
 }
-
+	
 function stopSpeech(){ speechSynthesis.cancel(); }
 
 document.getElementById('rate').oninput = function(){
