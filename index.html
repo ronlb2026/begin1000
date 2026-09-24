@@ -195,6 +195,7 @@ button.speak:hover {
   	<button class="tab active" onclick="showTopic(21,this)">TOPIC A — VERB 100</button>
 	<button class="tab" onclick="showTopic(22,this)">TOPIC B — ADJECTIVE 100</button>
 	<button class="tab" onclick="showTopic(23,this)">TOPIC C — ADVERB 100</button>
+	<button class="tab" onclick="showTopic(24,this)">TOPIC D — PHRASAL VERBS 100</button>
 	<button class="tab" onclick="showTopic(30,this)">VIDEO</button>
     <button class="tab" onclick="showTopic(1,this)">TOPIC 1 — FAMILY & RELATIONSHIPS</button>
     <button class="tab" onclick="showTopic(2,this)">TOPIC 2 — WORK & OFFICE</button>
@@ -350,6 +351,11 @@ button.speak:hover {
   <section id="topic23" class="topic">
     <div class="topic-title"><b>TOPIC C — ADVERB 100</b><br>Trạng từ</div>
     <div class="grid" id="grid23"></div>
+  </section>
+
+  <section id="topic24" class="topic">
+    <div class="topic-title"><b>TOPIC D — PHRASAL VERBS 100</b><br>Trạng từ</div>
+    <div class="grid" id="grid24"></div>
   </section>
   
   <!-- SECTION VIDEO ĐÃ ĐƯỢC THIẾT KẾ GIAO DIỆN -->
@@ -2005,12 +2011,115 @@ const data23 = [
 ["Obviously","/ˈɑːbviəsli/","rõ ràng là","She is obviously lying. (Rõ ràng là cô ấy đang nói dối.)"],
 ["Naturally","/ˈnætʃrəli/","tự nhiên, tất nhiên","Naturally, he was happy to win. (Tất nhiên, anh ấy rất vui khi chiến thắng.)"]
 ];
+
+const data24 = [
+["Wake up","/weɪk ʌp/","Thức giấc","I usually wake up at 6 AM. (Tôi thường thức giấc lúc 6 giờ sáng.)"],
+["Get up","/ɡet ʌp/","Rời giường","He wakes up early but doesn't get up until 7 AM. (Anh ấy thức giấc sớm nhưng không rời giường cho đến 7 giờ.)"],
+["Turn on","/tɜːn ɒn/","Bật (thiết bị)","Can you turn on the light? (Bạn bật đèn lên được không?)"],
+["Turn off","/tɜːn ɒf/","Tắt (thiết bị)","Remember to turn off the TV before bed. (Hãy nhớ tắt TV trước khi đi ngủ.)"],
+["Put on","/pʊt ɒn/","Mặc vào, xỏ vào","Put on your coat, it's cold outside. (Mặc áo khoác vào đi, ngoài trời lạnh lắm.)"],
+["Take off","/teɪk ɒf/","Cởi ra / Cất cánh","Please take off your shoes. (Vui lòng cởi giày của bạn ra.)"],
+["Dress up","/dres ʌp/","Mặc đẹp, diện đồ","You don't need to dress up for the party. (Bạn không cần phải diện đồ quá cầu kỳ cho bữa tiệc đâu.)"],
+["Wash up","/wɒʃ ʌp/","Rửa bát đĩa","It's your turn to wash up tonight. (Tối nay đến lượt bạn rửa bát đấy.)"],
+["Clean up","/kliːn ʌp/","Dọn dẹp sạch sẽ","We need to clean up the kitchen. (Chúng ta cần dọn dẹp sạch sẽ nhà bếp.)"],
+["Tidy up","/ˈtaɪdi ʌp/","Sắp xếp ngăn nắp","Please tidy up your room. (Hãy sắp xếp ngăn nắp phòng của con đi.)"],
+["Go out","/ɡəʊ aʊt/","Đi ra ngoài, đi chơi","Do you want to go out tonight? (Bạn có muốn đi chơi tối nay không?)"],
+["Come back","/kʌm bæk/","Quay trở lại","When will you come back? (Khi nào bạn sẽ quay trở lại?)"],
+["Get back","/ɡet bæk/","Trở về nhà","I just get back from work. (Tôi vừa mới đi làm về nhà.)"],
+["Lock up","/lɒk ʌp/","Khóa toàn bộ cửa","Don't forget to lock up before leaving. (Đừng quên khóa toàn bộ cửa trước khi rời đi.)"],
+["Get along (with)","/ɡet əˈlɒŋ/","Hòa hợp với ai","I get along well with my coworkers. (Tôi hòa hợp tốt với các đồng nghiệp của mình.)"],
+["Hang out (with)","/hæŋ aʊt/","Đi chơi, tụ tập","I love to hang out with my friends on weekends. (Tôi thích đi chơi với bạn bè vào cuối tuần.)"],
+["Ask out","/ɑːsk aʊt/","Hẹn hò, mời đi chơi","He finally asked her out. (Cuối cùng anh ấy cũng đã mời cô ấy đi chơi.)"],
+["Break up (with)","/breɪk ʌp/","Chia tay","They decided to break up after 3 years. (Họ quyết định chia tay sau 3 năm.)"],
+["Make up","/meɪk ʌp/","Làm hòa / Trang điểm","They often fight but make up quickly. (Họ thường cãi nhau nhưng làm hòa rất nhanh.)"],
+["Cheat on","/tʃiːt ɒn/","Cắm sừng, phản bội","She caught him cheating on her. (Cô ấy đã bắt quả tang anh ấy phản bội mình.)"],
+["Run into","/rʌn ˈɪntuː/","Vô tình gặp ai","I ran into my old friend at the supermarket. (Tôi vô tình gặp lại người bạn cũ ở siêu thị.)"],
+["Bump into","/bʌmp ˈɪntuː/","Tình cờ đụng mặt","Guess who I bumped into today? (Đoán xem hôm nay tôi tình cờ đụng mặt ai nào?)"],
+["Catch up (with)","/kætʃ ʌp/","Hàn huyên, bắt kịp","Let's coffee to catch up. (Đi cà phê hàn huyên chút đi.)"],
+["Let down","/let daʊt/","Làm thất vọng","I promise I won't let you down. (Tôi hứa là tôi sẽ không làm bạn thất vọng đâu.)"],
+["Grow up","/ɡrəʊ ʌp/","Trưởng thành, lớn lên","I grew up in a small town. (Tôi lớn lên ở một thị trấn nhỏ.)"],
+["Bring up","/brɪŋ ʌp/","Nuôi nấng / Đề cập","She brought up three children on her own. (Một mình cô ấy đã nuôi nấng ba đứa con.)"],
+["Look up to","/lʊk ʌp tuː/","Ngưỡng mộ","I always look up to my father. (Tôi luôn luôn ngưỡng mộ bố tôi.)"],
+["Look down on","/lʊk daʊn ɒn/","Coi thường","Never look down on anyone. (Đừng bao giờ coi thường bất cứ ai.)"],
+["Fall out (with)","/fɔːl aʊt/","Cãi nhau, nghỉ chơi","He fell out with his best friend. (Anh ấy đã cãi nhau và nghỉ chơi với người bạn thân nhất rồi.)"],
+["Call off","/kɔːl ɒf/","Hủy bỏ","They had to call off the meeting. (Họ đã phải hủy bỏ cuộc họp.)"],
+["Put off","/pʊt ɒf/","Trì hoãn","Never put off until tomorrow what you can do today. (Đừng bao giờ trì hoãn việc hôm nay đến ngày mai.)"],
+["Fill out","/fɪl aʊt/","Điền vào mẫu đơn","Please fill out this form. (Vui lòng điền vào mẫu đơn này.)"],
+["Hand in","/hænd ɪn/","Nộp bài/báo cáo","You must hand in the essay by Friday. (Bạn phải nộp bài luận trước thứ Sáu.)"],
+["Copy in","/ˈkɒpi ɪn/","Gửi bản sao (CC)","Please copy me in on that email. (Vui lòng gửi bản sao email đó cho tôi với.)"],
+["Look into","/lʊk ˈɪntuː/","Điều tra, nghiên cứu","The manager is looking into the problem. (Trưởng phòng đang điều tra vấn đề này.)"],
+["Figure out","/ˈfɪɡər aʊt/","Tìm ra giải pháp","I can't figure out how to use this app. (Tôi không thể tìm ra cách sử dụng ứng dụng này.)"],
+["Work out","/wɜːk aʊt/","Giải quyết / Tập thể dục","Don't worry, everything will work out. (Đừng lo, mọi chuyện rồi sẽ được giải quyết ổn thỏa thôi.)"],
+["Take over","/teɪk ˈəʊvə/","Tiếp quản","She will take over the company next month. (Cô ấy sẽ tiếp quản công ty vào tháng tới.)"],
+["Carry out","/ˈkæri aʊt/","Thực hiện","They carried out the plan successfully. (Họ đã thực hiện kế hoạch thành công.)"],
+["Write down","/raɪt daʊn/","Ghi chú lại","Write down my phone number. (Hãy ghi chú lại số điện thoại của tôi.)"],
+["Jot down","/dʒɒt daʊn/","Viết nhanh","Let me jot down your address. (Để tôi viết nhanh lại địa chỉ của bạn.)"],
+["Burn out","/bɜːn aʊt/","Kiệt sức do quá tải","If you work too hard, you will burn out. (Nếu bạn làm việc quá chăm chỉ, bạn sẽ kiệt sức đấy.)"],
+["Sign up","/saɪn ʌp/","Đăng ký tham gia","I decided to sign up for an English course. (Tôi đã quyết định đăng ký tham gia một khóa học tiếng Anh.)"],
+["Drop out","/drɒp aʊt/","Bỏ học giữa chừng","He dropped out of college to start a business. (Anh ấy đã bỏ học đại học giữa chừng để khởi nghiệp.)"],
+["Check in","/tʃek ɪn/","Làm thủ tục nhận","You need to check in two hours before the flight. (Bạn cần làm thủ tục trước chuyến bay hai tiếng.)"],
+["Check out","/tʃek aʊt/","Trả phòng / Xem thử","We must check out before 11 AM. (Chúng ta phải trả phòng trước 11 giờ sáng.)"],
+["Drop off","/drɒp ɒf/","Thả xuống xe / Gửi đồ","Can you drop me off at the station? (Bạn có thể thả tôi xuống ở nhà ga không?)"],
+["Pick up","/pɪk ʌp/","Đón ai / Nhặt lên","I will pick you up at 7 PM. (Tôi sẽ đón bạn vào lúc 7 giờ tối.)"],
+["See off","/siː ɒf/","Tiễn ai đó","My parents came to the airport to see me off. (Bố mẹ đã đến sân bay để tiễn tôi.)"],
+["Set off","/set ɒf/","Khởi hành","We should set off early to avoid traffic. (Chúng ta nên khởi hành sớm để tránh kẹt xe.)"],
+["Speed up","/spiːd ʌp/","Tăng tốc độ","The car speeded up on the highway. (Chiếc xe đã tăng tốc độ trên đường cao tốc.)"],
+["Slow down","/sləʊ daʊn/","Chậm lại","Please slow down, you are driving too fast. (Vui lòng đi chậm lại, bạn đang lái xe quá nhanh đấy.)"],
+["Hold on","/həʊld ɒn/","Đợi một chút","Hold on a minute, I'm almost ready. (Đợi một chút, tôi gần xong rồi.)"],
+["Hold up","/həʊld ʌp/","Làm trì hoãn, kẹt","I was held up in traffic. (Tôi đã bị kẹt trong đám kẹt xe.)"],
+["Pull over","/pʊl ˈəʊvə/","Tấp xe vào lề","The police signaled him to pull over. (Cảnh sát đã ra hiệu cho anh ấy tấp xe vào lề.)"],
+["Get on","/ɡet ɒn/","Lên (xe buýt, tàu)","We got on the wrong bus. (Chúng tôi đã lên nhầm chuyến xe buýt.)"],
+["Get off","/ɡet ɒf/","Xuống (xe buýt, tàu)","I need to get off at the next stop. (Tôi cần xuống ở trạm tiếp theo.)"],
+["Get in","/ɡet ɪn/","Lên (xe hơi, taxi)","Get in the car, it's raining. (Lên xe đi, trời đang mưa kìa.)"],
+["Get out (of)","/ɡet aʊt/","Xuống (xe hơi) / Rời","Get out of my room! (Hãy rời khỏi phòng của tôi ngay!)"],
+["Eat out","/iːt aʊt/","Đi ăn tiệm","Let's eat out tonight. (Tối nay đi ăn tiệm đi.)"],
+["Try on","/traɪ ɒn/","Thử quần áo","Can I try this shirt on? (Tôi có thể thử chiếc áo sơ mi này được không?)"],
+["Shop around","/ʃɒp əˈraʊnd/","Khảo giá khắp nơi","You should shop around before buying a car. (Bạn nên khảo giá khắp nơi trước khi mua một chiếc ô tô.)"],
+["Sell out","/sel aʊt/","Bán hết sạch","The tickets sold out in 10 minutes. (Vé đã bán hết sạch trong vòng 10 phút.)"],
+["Pick out","/pɪk aʊt/","Lựa chọn ra","She helped me pick out a dress. (Cô ấy đã giúp tôi lựa chọn ra một chiếc váy.)"],
+["Pay back","/peɪ bæk/","Trả lại tiền","I will pay you back tomorrow. (Tôi sẽ trả lại tiền cho bạn vào ngày mai.)"],
+["Give away","/ɡɪv əˈweɪ/","Tặng miễn phí","They are giving away free samples. (Họ đang tặng miễn phí các mẫu thử.)"],
+["Bring back","/brɪŋ bæk/","Mang trả lại","If it doesn't fit, bring it back. (Nếu không vừa thì cứ mang trả lại.)"],
+["Run out (of)","/rʌn aʊt/","Hết sạch","We have run out of milk. (Chúng ta đã hết sạch sữa rồi.)"],
+["Calm down","/kɑːm daʊn/","Bình tĩnh lại","Please calm down and tell me what happened. (Vui lòng bình tĩnh lại và nói cho tôi biết chuyện gì đã xảy ra.)"],
+["Cheer up","/tʃɪər ʌp/","Vui lên nào","Cheer up! Everything will be fine. (Vui lên nào! Mọi chuyện rồi sẽ ổn thôi.)"],
+["Chill out","/tʃɪl aʊt/","Thư giãn, xả stress","We just want to chill out at home. (Chúng tôi chỉ muốn thư giãn ở nhà.)"],
+["Freak out","/friːk aʊt/","Hoảng loạn","Don't freak out, it's just a spider. (Đừng hoảng loạn, chỉ là một con nhện thôi mà.)"],
+["Show off","/ʃəʊ ɒf/","Khoe khoang","He loves to show off his new car. (Anh ấy rất thích khoe khoang chiếc xe mới của mình.)"],
+["Face up to","/feɪs ʌp tuː/","Đối mặt với","You have to face up to the truth. (Bạn phải đối mặt với sự thật.)"],
+["Give up","/ɡɪv ʌp/","Từ bỏ","Never give up on your dreams. (Đừng bao giờ từ bỏ ước mơ của bạn.)"],
+["Give in","/ɡɪv ɪn/","Nhượng bộ","The government won't give in to terrorists. (Chính phủ sẽ không nhượng bộ bọn khủng bố.)"],
+["Count on","/kaʊnt ɒn/","Tin tưởng, dựa vào","You can always count on me. (Bạn luôn luôn có thể tin tưởng vào tôi.)"],
+["Look for","/lʊk fɔː/","Tìm kiếm","What are you looking for? (Bạn đang tìm kiếm cái gì thế?)"],
+["Look after","/lʊk ˈɑːftə/","Chăm sóc","Who will look after the dog? (Ai sẽ chăm sóc chú chó thế?)"],
+["Find out","/faɪnd aʊt/","Phát hiện, tìm ra","How did you find out the truth? (Làm sao bạn phát hiện ra sự thật vậy?)"],
+["Keep up (with)","/kiːp ʌp/","Theo kịp, bắt kịp","Slow down, I can't keep up with you. (Đi chậm lại đi, tôi không theo kịp bạn đâu.)"],
+["Keep on","/kiːp ɒn/","Tiếp tục làm gì","He kept on talking even though no one listened. (Anh ấy vẫn tiếp tục nói dù chẳng ai thèm nghe.)"],
+["Go on","/ɡəʊ ɒf/","Tiếp tục diễn ra","Please go on with your story. (Vui lòng tiếp tục câu chuyện của bạn đi.)"],
+["Carry on","/ˈkæri ɒn/","Tiếp tục việc dang dở","Carry on with your work. (Hãy tiếp tục công việc của bạn đi.)"],
+["Come up with","/kʌm ʌp wɪð/","Nảy ra ý tưởng","She came up with a great idea. (Cô ấy đã nảy ra một ý tưởng tuyệt vời.)"],
+["Pass out","/pɑːs aʊt/","Ngất xỉu","It was so hot that he passed out. (Trời nóng đến mức anh ấy đã ngất xỉu.)"],
+["Pass away","/pɑːs əˈweɪ/","Qua đời","His grandfather passed away last night. (Ông nội của anh ấy đã qua đời đêm qua.)"],
+["Watch out","/wɒtʃ aʊt/","Cẩn thận, coi chừng","Watch out! There is a car coming. (Coi chừng! Có một chiếc xe đang lao đến kìa.)"],
+["Look out","/lʊk aʊt/","Chú ý, coi chừng","Look out! The floor is slippery. (Coi chừng! Sàn nhà trơn lắm đấy.)"],
+["Take care of","/teɪk keər ɒv/","Chăm sóc, giải quyết","Don't worry, I'll take care of everything. (Đừng lo, tôi sẽ giải quyết mọi việc.)"],
+["Run away","/rʌn əˈweɪ/","Chạy trốn","The thief ran away when the alarm went off. (Tên trộm đã chạy trốn khi chuông báo động vang lên.)"],
+["Throw away","/θrəʊ əˈweɪ/","Vứt đi, ném đi","Don't throw away that paper. (Đừng vứt tờ giấy đó đi.)"],
+["Hang up","/hæŋ ʌp/","Cúp máy điện thoại","Don't hang up on me! (Đừng cúp máy với tôi chứ!)"],
+["Speak up","/spiːk ʌp/","Nói to lên","Could you speak up, please? (Bạn có thể nói to lên một chút được không?)"],
+["Back up","/bæk ʌp/","Sao lưu / Ủng hộ","Remember to back up your files. (Hãy nhớ sao lưu các tệp tin của bạn.)"],
+["Break down","/breɪk daʊn/","Bị hỏng / Suy sụp","My car broke down on the way to work. (Xe của tôi đã bị hỏng trên đường đi làm.)"],
+["Bring about","/brɪŋ əˈbaʊt/","Mang lại, dẫn đến","The new law will bring about many changes. (Luật mới sẽ mang lại nhiều sự thay đổi.)"],
+["Call back","/cɔːl bæk/","Gọi điện thoại lại","I'll call you back in 10 minutes. (Tôi sẽ gọi lại cho bạn sau 10 phút nữa.)"],
+["End up","/end ʌp/","Kết cục là","We got lost and ended up in the wrong town. (Chúng tôi bị lạc và kết cục là đến nhầm thị trấn.)"],
+];
+	
 // Mảng chứa dữ liệu các chủ đề
 
 const allData = [
 	data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
 	data11, data12, data13, data14, data15, data16, data17, data18, data19, data20,
-	data21, data22, data23
+	data21, data22, data23, data24
 ];
 
 // 1. Hàm render giao diện (Đã sửa ID status không trùng lặp & truyền chuỗi an toàn)
