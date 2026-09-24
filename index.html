@@ -2284,7 +2284,15 @@ function checkSpeech(targetText, statusId) {
     if (!finalTranscript.trim()) return; // Nếu không nói gì thì giữ nguyên/không xử lý
 
     // So sánh câu thu được với câu mẫu
-    if (cleanText(finalTranscript) === cleanText(targetText)) {
+    //if (cleanText(finalTranscript) === cleanText(targetText)) {
+
+	// Chuyển cả hai về chuỗi sạch (viết thường, xóa dấu câu...) để so sánh
+	const cleanedTranscript = cleanText(finalTranscript);
+	const cleanedTarget = cleanText(targetText);
+
+    // Kiểm tra xem câu đọc có chứa từ vựng mẫu hay không
+	//if (cleanText(finalTranscript).includes(cleanText(targetText))) {
+	if (cleanedTranscript.includes(cleanedTarget)) {
       statusDiv.innerHTML = `🎉 <b>CHÚC MỪNG!</b><br><small>Nghe được: "${finalTranscript}"</small>`;
       statusDiv.className = "speech-status correct";
     } else {
