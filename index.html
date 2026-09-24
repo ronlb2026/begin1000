@@ -384,7 +384,8 @@ button.speak:hover {
 
       <!-- Khung Danh sách Video bên phải -->
       <div style="flex: 1; min-width: 260px; max-height: 380px; overflow-y: auto; border: 1px solid #e1e8ed; border-radius: 8px; padding: 12px; background: #fafbfc;">
-        <div style="font-weight: bold; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #123d7a; display: flex; justify-content: space-between;">
+		//<!-- Thêm position: sticky và background để tiêu đề dính trên cùng khi cuộn (; position: sticky; top: 0; background: #fafbfc; z-index: 1; padding-top: 2px )--> 		   
+        <div style="font-weight: bold; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #123d7a; display: flex; justify-content: space-between; position: sticky; top: 0; background: #fafbfc; z-index: 1; padding-top: 2px;">
           <span>Danh sách Video:</span>
           <span id="videoCount" style="color: #123d7a; font-weight: normal; font-size: 13px;">(0 video)</span>
         </div>
