@@ -382,17 +382,19 @@ button.speak:hover {
         </div>
       </div>
 
-      <!-- Khung Danh sách Video bên phải -->
-      <div style="flex: 1; min-width: 260px; max-height: 380px; overflow-y: auto; border: 1px solid #e1e8ed; border-radius: 8px; padding: 12px; background: #fafbfc;">
-		//<!-- Thêm position: sticky và background để tiêu đề dính trên cùng khi cuộn (; position: sticky; top: 0; background: #fafbfc; z-index: 1; padding-top: 2px )--> 		   
-        <div style="font-weight: bold; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #123d7a; display: flex; justify-content: space-between; position: sticky; top: 0; background: #fafbfc; z-index: 1; padding-top: 2px;">
-          <span>Danh sách Video:</span>
-          <span id="videoCount" style="color: #123d7a; font-weight: normal; font-size: 13px;">(0 video)</span>
-        </div>
-        <div id="videoList" style="display: flex; flex-direction: column; gap: 8px;">
-          <div style="color: #777; font-size: 13px; padding: 10px 0;">Đang nạp danh sách...</div>
-        </div>
-      </div>
+      	<!-- Khung Danh sách Video bên phải -->
+		<div style="flex: 1; min-width: 260px; height: 380px; border: 1px solid #e1e8ed; border-radius: 8px; padding: 12px; background: #fafbfc; display: flex; flex-direction: column;">
+  				<!-- Tiêu đề cố định ở trên cùng -->
+  			<div style="font-weight: bold; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #123d7a; display: flex; justify-content: space-between; flex-shrink: 0;">
+    			<span>Danh sách Video:</span>
+    			<span id="videoCount" style="color: #123d7a; font-weight: normal; font-size: 13px;">(0 video)</span>
+  			</div>
+  
+  			<!-- Chỉ phần danh sách bên dưới mới cuộn -->
+  			<div id="videoList" style="display: flex; flex-direction: column; gap: 8px; overflow-y: auto; flex: 1; padding-right: 4px;">
+    			<div style="color: #777; font-size: 13px; padding: 10px 0;">Đang nạp danh sách...</div>
+  			</div>
+		</div>
     </div>
   </section>
 
