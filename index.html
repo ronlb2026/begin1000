@@ -196,6 +196,7 @@ button.speak:hover {
 	<button class="tab" onclick="showTopic(22,this)">TOPIC B — ADJECTIVE 100</button>
 	<button class="tab" onclick="showTopic(23,this)">TOPIC C — ADVERB 100</button>
 	<button class="tab" onclick="showTopic(24,this)">TOPIC D — PHRASAL VERBS 100</button>
+	<button class="tab" onclick="showTopic(25,this)">BABY AND MOM TALK</button>
 	<button class="tab" onclick="showTopic(30,this)">VIDEO</button>
     <button class="tab" onclick="showTopic(1,this)">TOPIC 1 — FAMILY & RELATIONSHIPS</button>
     <button class="tab" onclick="showTopic(2,this)">TOPIC 2 — WORK & OFFICE</button>
@@ -356,6 +357,11 @@ button.speak:hover {
   <section id="topic24" class="topic">
     <div class="topic-title"><b>TOPIC D — PHRASAL VERBS 100</b><br>Cụm động từ</div>
     <div class="grid" id="grid24"></div>
+  </section>
+
+  <section id="topic25" class="topic">
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>100 CÂU NGẮN GỌN</div>
+    <div class="grid" id="grid25"></div>
   </section>
   
   <!-- SECTION VIDEO ĐÃ ĐƯỢC THIẾT KẾ GIAO DIỆN -->
@@ -2115,13 +2121,117 @@ const data24 = [
 ["Call back","/cɔːl bæk/","Gọi điện thoại lại","I'll call you back in 10 minutes. (Tôi sẽ gọi lại cho bạn sau 10 phút nữa.)"],
 ["End up","/end ʌp/","Kết cục là","We got lost and ended up in the wrong town. (Chúng tôi bị lạc và kết cục là đến nhầm thị trấn.)"],
 ];
+
+
+const data25 = [
+["Hurry up!","/ˈhʌri ʌp/","Nhanh lên con!","Okay, Mom. (Vâng ạ mẹ.)"],
+["Move it!","/muːv ɪt/","Nhanh chân lên!","I'm moving! (Con đang đi đây!)"],
+["Time's up!","/taɪmz ʌp/","Hết giờ rồi!","Five more minutes? (Thêm 5 phút nữa được không ạ?)"],
+["Let’s go!","/lets ɡəʊ/","Đi thôi nào!","Wait for me. (Đợi con với.)"],
+["Wake up!","/weɪk ʌp/","Dậy đi con!","I'm awake. (Con tỉnh rồi.)"],
+["Get up!","/ɡet ʌp/","Rời giường đi!","Too tired. (Mệt quá ạ.)"],
+["Not yet.","/nɒt jet/","Chưa đâu.","Why not? (Sao lại chưa ạ?)"],
+["Too late!","/tuː leɪt/","Muộn quá rồi!","Oh no! (Ôi không!)"],
+["Right now!","/raɪt naʊ/","Ngay bây giờ!","Yes, ma'am. (Vâng thưa mẹ.)"],
+["One minute.","/wʌn ˈmɪnɪt/","Chờ một phút nhé.","Be quick! (Nhanh lên nhé!)"],
+["Slow down!","/sləʊ daʊn/","Chậm lại con!","Okay, sorry. (Dạ, con xin lỗi.)"],
+["Go ahead.","/ɡəʊ əˈhed/","Cứ làm đi / Đi trước đi.","Thank you. (Con cảm ơn.)"],
+["Come on!","/kʌm ɒn/","Thôi nào / Nhanh lên!","I'm coming. (Con đang đến đây.)"],
+["Be quick!","/biː kwɪk/","Nhanh lên chút!","Almost done. (Sắp xong rồi ạ.)"],
+["Stop it!","/stɒp ɪt/","Dừng lại đi!","Okay, I will. (Dạ, con sẽ dừng.)"],
+["Hold on.","/həʊld ɒn/","Chờ một chút.","No problem. (Không sao ạ.)"],
+["Watch out!","/wɒtʃ aʊt/","Coi chừng / Cẩn thận!","I see it. (Con thấy rồi.)"],
+["Be careful!","/biː ˈkeəfl/","Cẩn thận nhé!","I will. (Con sẽ cẩn thận ạ.)"],
+["Look here.","/lʊk hɪər/","Nhìn vào đây này.","What's that? (Cái gì thế ạ?)"],
+["Listen up!","/ˈlɪsn ʌp/","Nghe mẹ nói này!","I'm listening. (Con đang nghe đây.)"],
+["Clean up!","/kliːn ʌp/","Dọn dẹp đi con!","Help me, please. (Giúp con với ạ.)"],
+["Put away!","/pʊt əˈweɪ/","Cất đồ đi!","Where to? (Cất vào đâu ạ?)"],
+["Pick up!","/pɪk ʌp/","Nhặt lên đi!","I got it. (Con nhặt rồi ạ.)"],
+["Wash hands!","/wɒʃ hændz/","Rửa tay đi con!","With soap? (Có dùng xà phòng không ạ?)"],
+["Brush teeth!","/brʌʃ tiːθ/","Đánh răng đi!","I did it. (Con đánh răng rồi.)"],
+["Take bath!","/teɪk bɑːθ/","Đi tắm đi!","Not now. (Không phải bây giờ đâu ạ.)"],
+["Sit down.","/sɪt daʊn/","Ngồi xuống đi.","Here? (Ngồi đây ạ?)"],
+["Stand up.","/stænd ʌp/","Đứng dậy nào.","Ready. (Sẵn sàng rồi.)"],
+["Be quiet!","/biː ˈkwaɪət/","Trật tự nào!","Shh! (Suỵt!)"],
+["No shouting!","/nəʊ ˈʃaʊtɪŋ/","Không la hét!","My bad. (Lỗi của con ạ.)"],
+["Don't touch!","/dəʊnt tʌtʃ/","Đừng chạm vào!","Just looking. (Con chỉ nhìn thôi.)"],
+["Give me.","/ɡɪv miː/","Đưa cho mẹ.","Here you are. (Của mẹ đây ạ.)"],
+["Take this.","/teɪk ðɪs/","Cầm lấy cái này.","What is it? (Cái gì đây ạ?)"],
+["Throw away!","/θrəʊ əˈweɪ/","Vứt vào thùng rác đi!","In the bin? (Vứt vào thùng rác ạ?)"],
+["Close door.","/kləʊz dɔːr/","Đóng cửa lại con.","All done. (Xong rồi ạ.)"],
+["Open window.","/ˈəʊpən ˈwɪndəʊ/","Mở cửa sổ ra.","It's hard. (Nó bị kẹt/khó mở quá.)"],
+["Spit out!","/spɪt aʊt/","Nhổ ra đi!","Yuck! (Eo ôi!)"],
+["Put on.","/pʊt ɒn/","Mặc vào đi / Xỏ giày đi.","Help me. (Mẹ mặc giúp con.)"],
+["Take off.","/teɪk ɒf/","Cởi ra đi.","Too hot. (Nóng quá ạ.)"],
+["Line up!","/laɪn ʌp/","Xếp hàng nào!","Me first! (Con trước!)"],
+["I'm hungry.","/aɪm ˈhʌŋɡri/","Mẹ/Con đói rồi.","Let's eat! (Ăn thôi nào!)"],
+["I'm thirsty.","/aɪm ˈθɜːsti/","Mẹ/Con khát nước.","Here is water. (Nước đây ạ.)"],
+["I'm full.","/aɪm fʊl/","Mẹ/Con no rồi.","Good job. (Ngoan lắm/Tốt lắm.)"],
+["Eat up!","/iːt ʌp/","Ăn hết đi con!","No more, please. (Con không ăn nổi nữa.)"],
+["Drink up!","/drɪŋk ʌp/","Uống hết đi con!","Yummy! (Ngon quá!)"],
+["Try this.","/traɪ ðɪs/","Ăn thử cái này đi.","No, thank you. (Con không ăn đâu ạ.)"],
+["Delicious!","/dɪˈlɪʃəs/","Ngon quá!","More, please. (Cho con xin thêm ạ.)"],
+["Too hot!","/tuː hɒt/","Nóng quá!","Blow on it. (Thổi hộ con với.)"],
+["It’s cold.","/ɪts kəʊld/","Nguội rồi / Lạnh rồi.","Warm it up. (Hâm nóng lại đi ạ.)"],
+["All gone!","/ɔːl ɡɒn/","Hết sạch rồi!","Oh no! (Ôi không!)"],
+["More milk?","/mɔː r mɪlk/","Uống thêm sữa không?","Yes, please. (Dạ, cho con xin ạ.)"],
+["Sit properly.","/sɪt ˈprɒpəli/","Ngồi hẳn hoi vào con.","Like this? (Thế này ạ?)"],
+["Don't spill!","/dəʊnt spíl/","Đừng làm đổ!","I'm careful. (Con đang cẩn thận mà.)"],
+["Chew well.","/tʃuː wel/","Nhai kỹ vào.","Okay, Mom. (Dạ mẹ.)"],
+["Sweet dreams.","/swiːt driːmz/","Chúc con ngủ ngon.","You too. (Mẹ cũng ngủ ngon nhé.)"],
+["Go sleep.","/ɡəʊ sliːp/","Đi ngủ đi con.","One story? (Kể một câu chuyện đã ạ?)"],
+["So tired.","/səʊ ˈtaɪəd/","Mệt quá đi.","Go rest. (Đi nghỉ đi ạ.)"],
+["Need water.","/niːd ˈwɔːtər/","Cần uống nước.","Get it yourself. (Con tự đi lấy đi.)"],
+["No snacks!","/nəʊ snæks/","Không ăn vặt nhé!","Please? (Đi mà mẹ?)"],
+["Wipe mouth.","/waɪp maʊθ/","Lau miệng đi con.","Where's tissue? (Khăn giấy đâu rồi ạ?)"],
+["Good job!","/ɡʊd dʒɒb/","Con làm tốt lắm!","Thank you, Mom. (Con cảm ơn mẹ.)"],
+["Well done!","/wel dʌn/","Tuyệt vời lắm!","I tried hard. (Con đã cố gắng lắm đó.)"],
+["Good boy!","/ɡʊd bɔɪ/","Cậu bé ngoan!","Yay! (Tuyệt quá!)"],
+["Good girl!","/ɡʊd ɡɜːl/","Cô bé ngoan!","Thank you, Mom! (Con cảm ơn mẹ! - kèm nụ cười tươi hoặc ôm mẹ)"],
+["Love you.","/lʌv juː/","Yêu con.","Love you more. (Yêu mẹ nhiều hơn.)"],
+["Hug me.","/hʌɡ miː/","Ôm mẹ nào.","Come here. (Lại đây nào.)"],
+["Kiss me.","/kɪs miː/","Hôn mẹ nào.","Muah! (Chụt!)"],
+["So proud!","/səʊ praʊd/","Tự hào quá!","Really? (Thật không ạ?)"],
+["High five!","/haɪ faɪv/","Đập tay nào!","Yay! We did it! (Yeah! Chúng ta làm được rồi! - kèm hành động đập tay)"],
+["Keep trying!","/kiːp ˈtraɪɪŋ/","Cố gắng lên con!","I won't give up. (Con không bỏ cuộc đâu.)"],
+["You can!","/juː kæn/","Con làm được mà!","I'll try. (Con sẽ thử ạ.)"],
+["So smart!","/səʊ smɑːt/","Thông minh quá!","Like daddy. (Giống bố con đó.)"],
+["So beautiful!","/səʊ ˈbjuːtɪfl/","Đẹp quá / Xinh quá!","Like mommy. (Giống mẹ đó ạ.)"],
+["Nice work!","/naɪs wɜːk/","Làm tốt lắm!","Thanks. (Cảm ơn ạ.)"],
+["Perfect!","/ˈpɜːfɪkt/","Hoàn hảo luôn!","I love it. (Con thích nó lắm.)"],
+["Great idea!","/ɡreɪt aɪˈdɪə/","Ý tưởng hay đó!","Let's do it. (Làm thôi nào.)"],
+["My turn.","/maɪ tɜːn/","Đến lượt mẹ.","Here you go. (Của mẹ đây.)"],
+["Your turn.","/jɔː r tɜːn/","Đến lượt con.","My turn! (Đến lượt con!)"],
+["Share please.","/ʃeər pliːz/","Chia sẻ với nhau nào.","Here, take half. (Đây, cho bạn một nửa này.)"],
+["Thank you.","/θæŋk juː/","Cảm ơn con.","You're welcome. (Không có gì đâu ạ.)"],
+["What's this?","/wɒts ðɪs/","Cái gì đây?","A toy. (Một món đồ chơi ạ.)"],
+["Who’s that?","/huːz ðæt/","Ai kia?","That's daddy. (Bố kìa ạ.)"],
+["Why not?","/waɪ nɒt/","Sao lại không?","Because I say so. (Vì mẹ bảo thế.)"],
+["Ready yet?","/ˈredi jet/","Sẵn sàng chưa?","Not yet. (Vẫn chưa ạ.)"],
+["Everything okay?","/ˈevriθɪŋ əʊˈkeɪ/","Mọi thứ ổn chứ?","Yes, it is. (Dạ, ổn ạ.)"],
+["You like?","/juː laɪk/","Con thích không?","Love it! (Thích lắm ạ!)"],
+["Are you sure?","/ɑː r juː ʃɔːr/","Con chắc không?","One hundred percent. (Chắc chắn 100% ạ.)"],
+["What happened?","/wɒt ˈhæpənd/","Có chuyện gì thế?","I fell down. (Con bị ngã ạ.)"],
+["Where is it?","/weər ɪz ɪt/","Nó ở đâu rồi?","Over there. (Ở đằng kia kìa.)"],
+["Me too.","/miː tuː/","Mẹ/Con cũng vậy.","High five! (Đập tay cái nào!)"],
+["Of course.","/əv kɔːs/","Dĩ nhiên rồi.","Cool. (Tuyệt quá.)"],
+["No way!","/nəʊ weɪ/","Không đời nào!","Please? (Đi mà mẹ?)"],
+["I see.","/aɪ siː/","Mẹ hiểu rồi.","Good. (Tốt rồi ạ.)"],
+["I know.","/aɪ nəʊ/","Mẹ biết rồi.","Don't forget. (Đừng quên nhé.)"],
+["Don't know.","/dəʊnt nəʊ/","Mẹ/Con không biết.","Ask daddy. (Đi hỏi bố đi con.)"],
+["Forget it.","/fəˈɡet ɪt/","Quên đi / Bỏ qua đi.","Never mind. (Thôi bỏ đi.)"],
+["Pardon me?","/ˈhɑːdn miː/","Con nói gì cơ?","Nothing. (Không có gì đâu ạ.)"],
+["Really?","/ˈrɪəli/","Thật á?","Yes, really. (Vâng, thật mà.)"],
+["Is it?","/ɪz ɪt/","Thế á? / Phải không?","I think so. (Con nghĩ vậy.)"],
+["All done!","/ɔːl dʌn/","Xong hết rồi!","Time to play! (Đến giờ đi chơi rồi!)"]
+];
 	
 // Mảng chứa dữ liệu các chủ đề
 
 const allData = [
 	data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
 	data11, data12, data13, data14, data15, data16, data17, data18, data19, data20,
-	data21, data22, data23, data24
+	data21, data22, data23, data24, data25
 ];
 
 // 1. Hàm render giao diện (Đã sửa ID status không trùng lặp & truyền chuỗi an toàn)
