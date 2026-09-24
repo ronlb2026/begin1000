@@ -2322,9 +2322,6 @@ function speakWord(text){
   stopSpeech();
   const match = text.match(/^[^.?]*[.?]/);
   const cleanTextStr = match ? match[0] : text;
-
-  // 2. Loại bỏ toàn bộ phần nằm trong ngoặc đơn (ví dụ: "(Nhanh lên nhé!)")
-  //cleanTextStr = cleanTextStr.replace(/\([^)]*\)/g, '').trim();
 	
   const u = new SpeechSynthesisUtterance(cleanTextStr);
   const voices = speechSynthesis.getVoices().filter(v => /^en(-|_)/i.test(v.lang));
