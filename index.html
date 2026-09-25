@@ -197,6 +197,7 @@ button.speak:hover {
 	<button class="tab" onclick="showTopic(23,this)">TOPIC C — ADVERB 100</button>
 	<button class="tab" onclick="showTopic(24,this)">TOPIC D — PHRASAL VERBS 100</button>
 	<button class="tab" onclick="showTopic(25,this)">BABY AND MOM TALK</button>
+	<button class="tab" onclick="showTopic(26,this)">INFORMAL CONTRACTIONS</button>
 	<button class="tab" onclick="showTopic(30,this)">VIDEO</button>
     <button class="tab" onclick="showTopic(1,this)">TOPIC 1 — FAMILY & RELATIONSHIPS</button>
     <button class="tab" onclick="showTopic(2,this)">TOPIC 2 — WORK & OFFICE</button>
@@ -363,7 +364,12 @@ button.speak:hover {
     <div class="topic-title"><b>BABAY AND MOM TALK</b><br>100 CÂU NGẮN GỌN</div>
     <div class="grid" id="grid25"></div>
   </section>
-  
+
+  <section id="topic26" class="topic">
+    <div class="topic-title"><b>INFORMAL CONTRACTIONS</b><br>ĐỌC VIẾT TẮT</div>
+    <div class="grid" id="grid26"></div>
+  </section>
+	
   <!-- SECTION VIDEO ĐÃ ĐƯỢC THIẾT KẾ GIAO DIỆN -->
   <section id="topic30" class="topic" style="max-width: 900px; margin: 0 auto;">
     <div style="font-size: 20px; font-weight: bold; margin-bottom: 12px; color: #123d7a; display: flex; align-items: center; justify-content: space-between;">
@@ -2225,13 +2231,34 @@ const data25 = [
 ["Is it?","/ɪz ɪt/","Thế á? / Phải không?","I think so. (Con nghĩ vậy.)"],
 ["All done!","/ɔːl dʌn/","Xong hết rồi!","Time to play! (Đến giờ đi chơi rồi!)"]
 ];
-	
+
+const data26 = [
+["Gonna (Going to)","/ˈɡɒn.ə/","Sẽ làm gì","I'm gonna text him. (Tôi sẽ nhắn tin cho anh ấy.)"],
+["Imma / Ima (I am going to)","/ˈaɪm.ə/","Tôi sẽ làm gì","Imma head out now. (Tôi sẽ đi ra ngoài bây giờ đây.)"],
+["Gotta (Got to / Have to)","/ˈɡɒt.ə/","Phải làm gì","I gotta go to work. (Tôi phải đi làm rồi.)"],
+["Wanna (Want to)","/ˈwɒn.ə/","Muốn làm gì","Do you wanna grab a coffee? (Bạn có muốn đi uống cà phê không?)"],
+["Hafda (Have to)","/ˈhæf.də/","Phải làm gì","We hafda study for the exam. (Chúng ta phải học bài cho kỳ thi thôi.)"],
+["Hasta (Has to)","/ˈhæs.də/","Phải làm gì (ngôi thứ 3)","He hasta do his laundry. (Anh ấy phải giặt quần áo của mình.)"],
+["Outta (Out of)","/ˈaʊt.ə/","Ra khỏi cái gì / Hết cái gì","Get outta my room! (Ra khỏi phòng tôi mau!)"],
+["Whatcha (What are you / do you)","/ˈwɒtʃ.ə/","Bạn đang... / Bạn làm...","Whatcha looking at? (Bạn đang nhìn cái gì thế?)"],
+["Gotcha (Got you)","/ˈɡɒtʃ.ə/","Đã hiểu / Đã bắt được","Oh, gotcha! Thanks for explaining. (Ồ, tôi hiểu rồi! Cảm ơn vì đã giải thích.)"],
+["Betcha (Bet you)","/ˈbetʃ.ə/","Cá là, chắc chắn là","I betcha they will win. (Tôi cá là họ sẽ thắng.)"],
+["Doncha (Don't you)","/ˈdəʊn.tʃə/","Chẳng phải bạn... sao?","Doncha love this song? (Chẳng phải bạn rất thích bài hát này sao?)"],
+["Kinda (Kind of)","/ˈkaɪn.də/","Hơi hơi, đại loại là","I'm kinda tired today. (Hôm nay tôi hơi mệt một chút.)"],
+["Sorta (Sort of)","/ˈsɔː.tə/","Hơi hơi, kiểu như","It's sorta weird. (Nó kiểu như hơi kỳ lạ ấy.)"],
+["Shoulda (Should have)","/ˈʃʊd.ə/","Đáng lẽ ra nên làm","You shoulda called me. (Đáng lẽ ra bạn nên gọi cho tôi.)"],
+["Coulda (Could have)","/ˈkʊd.ə/","Đã có thể làm","We coulda won. (Chúng ta đã có thể chiến thắng rồi.)"],
+["Woulda (Would have)","/ˈwʊd.ə/","Đã định làm nhưng không","I woulda come, but I was busy. (Tôi đã định đến rồi, nhưng tôi lại bận.)"],
+["Gimme (Give me)","/ˈɡɪm.i/","Đưa cho tôi","Gimme that phone. (Đưa cho tôi cái điện thoại đó nào.)"],
+["Lemme (Let me)","/ˈlem.i/","Để tôi","Lemme think about it. (Để tôi suy nghĩ về việc đó đã.)"],
+["Ain't (Am/Is/Are/Has/Have not)","/eɪnt/","Không (phủ định mọi ngôi)","I ain't doing that. (Tôi không làm việc đó đâu.)"]
+];
 // Mảng chứa dữ liệu các chủ đề
 
 const allData = [
 	data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
 	data11, data12, data13, data14, data15, data16, data17, data18, data19, data20,
-	data21, data22, data23, data24, data25
+	data21, data22, data23, data24, data25, data26
 ];
 
 // 1. Hàm render giao diện (Đã sửa ID status không trùng lặp & truyền chuỗi an toàn)
