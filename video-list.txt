@@ -125,5 +125,15 @@
 "You re one to talk - Bạn giỏi nói lắm.mp4",
 "You read my mind - Bạn hiểu ý tôi quá.mp4",
 "You rock - Đỉnh thật.mp4",
-"You stood me up - Bạn cho tôi leo cây.mp4"
+"You stood me up - Bạn cho tôi leo cây.mp4",
+"Actions Verbs we use daily v2.mp4",
+"Daily activities in the morning.mp4",
+"Actions Verbs we use daily v1.mp4",
+"In the kitchen.mp4",
+"Favorite activities.mp4",
+"Some phrases you can use with Make.mp4",
+"Informal Contractions Gotta.mp4",
+"Phrasal Verbs with Pick - Cụm động từ với Pick.mp4",
+"Phrasal Verbs with Get - Cụm động từ với Get.mp4",
+"Phrasal Verbs with Wipe - Cụm động từ với Wipe.mp4"
 ]
