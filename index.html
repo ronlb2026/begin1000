@@ -197,8 +197,15 @@ button.speak:hover {
 	<button class="tab" onclick="showTopic(23,this)">TOPIC C — ADVERB 100</button>
 	<button class="tab" onclick="showTopic(24,this)">TOPIC D — PHRASAL VERBS 100</button>
 	<button class="tab" onclick="showTopic(25,this)">BABY AND MOM TALK</button>
-	<button class="tab" onclick="showTopic(26,this)">INFORMAL CONTRACTIONS</button>
-	<button class="tab" onclick="showTopic(30,this)">VIDEO</button>
+	<button class="tab" onclick="showTopic(26,this)">☀️ CHỦ ĐỀ 1: THỨ DẬY & VỆ SINH BUỔI SÁNG</button>
+	<button class="tab" onclick="showTopic(27,this)">🍽️ CHỦ ĐỀ 2: BỮA ĂN GIA ĐÌNH & DINH DƯỠNG</button>
+	<button class="tab" onclick="showTopic(28,this)">🎒 CHỦ ĐỀ 3: CHUẨN BỊ ĐI HỌC & RA NGOÀI</button>
+	<button class="tab" onclick="showTopic(29,this)">📚 CHỦ ĐỀ 4: HỌC TẬP & ĐỌC SÁCH Ở NHÀ</button>
+	<button class="tab" onclick="showTopic(30,this)">🧸 CHỦ ĐỀ 5: GIỜ CHƠI & KHEN NGỢI TẠO ĐỘNG LỰC</button>
+	<button class="tab" onclick="showTopic(31,this)">🧹 CHỦ ĐỀ 6: GIÚP ĐỠ VIỆC NHÀ & ỨNG XỬ</button>
+	<button class="tab" onclick="showTopic(32,this)">🌙 CHỦ ĐỀ 7: BUỔI TỐI TÂM SỰ & ĐI NGỦ</button>
+	<button class="tab" onclick="showTopic(40,this)">INFORMAL CONTRACTIONS</button>
+	<button class="tab" onclick="showTopic(33,this)">VIDEO</button>
     <button class="tab" onclick="showTopic(1,this)">TOPIC 1 — FAMILY & RELATIONSHIPS</button>
     <button class="tab" onclick="showTopic(2,this)">TOPIC 2 — WORK & OFFICE</button>
     <button class="tab" onclick="showTopic(3,this)">TOPIC 3 — TRAVEL & TRANSPORATION</button>
@@ -366,12 +373,47 @@ button.speak:hover {
   </section>
 
   <section id="topic26" class="topic">
-    <div class="topic-title"><b>INFORMAL CONTRACTIONS</b><br>ĐỌC VIẾT TẮT</div>
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>☀️ CHỦ ĐỀ 1: THỨ DẬY & VỆ SINH BUỔI SÁNG</div>
     <div class="grid" id="grid26"></div>
+  </section>
+
+  <section id="topic27" class="topic">
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>🍽️ CHỦ ĐỀ 2: BỮA ĂN GIA ĐÌNH & DINH DƯỠNG</div>
+    <div class="grid" id="grid27"></div>
+  </section>
+  
+  <section id="topic28" class="topic active">
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>🎒 CHỦ ĐỀ 3: CHUẨN BỊ ĐI HỌC & RA NGOÀI</div>
+    <div class="grid" id="grid28"></div>
+  </section>
+  
+  <section id="topic29" class="topic">
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>📚 CHỦ ĐỀ 4: HỌC TẬP & ĐỌC SÁCH Ở NHÀ</div>
+    <div class="grid" id="grid29"></div>
+  </section>
+  
+  <section id="topic30" class="topic">
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>🧸 CHỦ ĐỀ 5: GIỜ CHƠI & KHEN NGỢI TẠO ĐỘNG LỰC</div>
+    <div class="grid" id="grid30"></div>
+  </section>
+
+  <section id="topic31" class="topic">
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>🧹 CHỦ ĐỀ 6: GIÚP ĐỠ VIỆC NHÀ & ỨNG XỬ</div>
+    <div class="grid" id="grid31"></div>
+  </section>
+
+  <section id="topic32" class="topic">
+    <div class="topic-title"><b>BABAY AND MOM TALK</b><br>🌙 CHỦ ĐỀ 7: BUỔI TỐI TÂM SỰ & ĐI NGỦ</div>
+    <div class="grid" id="grid32"></div>
+  </section>
+
+  <section id="topic40" class="topic">
+    <div class="topic-title"><b>INFORMAL CONTRACTIONS</b><br>ĐỌC VIẾT TẮT</div>
+    <div class="grid" id="grid40"></div>
   </section>
 	
   <!-- SECTION VIDEO ĐÃ ĐƯỢC THIẾT KẾ GIAO DIỆN -->
-  <section id="topic30" class="topic" style="max-width: 900px; margin: 0 auto;">
+  <section id="topic33" class="topic" style="max-width: 900px; margin: 0 auto;">
     <div style="font-size: 20px; font-weight: bold; margin-bottom: 12px; color: #123d7a; display: flex; align-items: center; justify-content: space-between;">
       <span>📹 VIDEO LESSONS</span>
       <span id="modeBadge" style="font-size: 13px; font-weight: normal; padding: 4px 10px; border-radius: 12px;">⏳ Đang kiểm tra...</span>
@@ -2232,7 +2274,7 @@ const data25 = [
 ["All done!","/ɔːl dʌn/","Xong hết rồi!","Time to play! (Đến giờ đi chơi rồi!)"]
 ];
 
-const data26 = [
+const data40 = [
 ["Gonna (Going to)","/ˈɡɒn.ə/","Sẽ làm gì","I'm gonna text him. (Tôi sẽ nhắn tin cho anh ấy.)"],
 ["Imma / Ima (I am going to)","/ˈaɪm.ə/","Tôi sẽ làm gì","Imma head out now. (Tôi sẽ đi ra ngoài bây giờ đây.)"],
 ["Gotta (Got to / Have to)","/ˈɡɒt.ə/","Phải làm gì","I gotta go to work. (Tôi phải đi làm rồi.)"],
@@ -2253,12 +2295,335 @@ const data26 = [
 ["Lemme (Let me)","/ˈlem.i/","Để tôi","Lemme think about it. (Để tôi suy nghĩ về việc đó đã.)"],
 ["Ain't (Am/Is/Are/Has/Have not)","/eɪnt/","Không (phủ định mọi ngôi)","I ain't doing that. (Tôi không làm việc đó đâu.)"]
 ];
+
+const data26 = [
+["Wake up, sunshine!","/weɪk ʌp, ˈsʌnʃaɪn/","Thức dậy thôi mặt trời nhỏ!","I am awake! (Con tỉnh giấc rồi ạ!)"],
+["Time to get up.","/taɪm tuː ɡet ʌp/","Đến giờ rời giường rồi con.","Five more minutes, please. (Cho con thêm năm phút nữa thôi.)"],
+["Open your eyes.","/ˈəʊpən jɔː(r) aɪz/","Mở mắt ra nào con yêu.","The light is too bright. (Ánh sáng chói mắt quá mẹ ơi.)"],
+["Stretch your arms.","/stretʃ jɔː(r) ɑː(r)mz/","Vươn vai một cái nào.","Ah, that feels so good! (Oa, cảm giác dễ chịu quá!)"],
+["Make your bed.","/meɪk jɔː(r) bed/","Gấp chăn màn đi con.","I will fold the blanket. (Con sẽ gấp chăn lại ngay ạ.)"],
+["Go to the bathroom.","/ɡəʊ tuː ðə ˈbɑːθruːm/","Vào nhà vệ sinh đi con.","I am going right now. (Con đang đi vào đây ạ.)"],
+["Wash your face.","/wɒʃ jɔː(r) feɪs/","Rửa mặt cho tỉnh táo đi con.","The water is so cold. (Nước lạnh quá mẹ ơi.)"],
+["Brush your teeth.","/brʌʃ jɔː(r) tiːθ/","Đánh răng đi nào con.","I am brushing them now. (Con đang đánh răng đây ạ.)"],
+["Use the toothpaste.","/juːz ðə ˈtuːθpeɪst/","Lấy kem đánh răng đi con.","Just a little bit, please. (Lấy một chút xíu thôi ạ.)"],
+["Rinse your mouth.","/rɪns jɔː(r) maʊθ/","Súc miệng sạch sẽ đi con.","All done, look at me! (Xong xuôi rồi, mẹ nhìn con này!)"],
+["Comb your hair.","/kəʊm jɔː(r) heə(r)/","Chải đầu tóc lại đi con.","Can you help me, Mom? (Mẹ chải hộ con được không ạ?)"],
+["Get dressed, please.","/ɡet drest, pliːz/","Thay quần áo đi học đi con.","Which shirt should I wear? (Con nên mặc chiếc áo nào đây?)"],
+["Put on your socks.","/pʊt ɒn jɔː(r) sɒks/","Đi tất/vớ vào đi con.","I cannot find them. (Con không tìm thấy tất ở đâu.)"],
+["Button your shirt.","/ˈbʌtn jɔː(r) ʃɜː(r)t/","Cài cúc áo vào đi con.","This button is hard. (Cái cúc này hơi khó cài ạ.)"],
+["You look sharp today!","/juː lʊk ʃɑː(r)p təˈdeɪ/","Hôm nay con bảnh bao quá!","Thank you, Mom! (Con cảm ơn mẹ yêu!)"],
+["Go take a shower.","/ɡəʊ teɪk ə ˈʃaʊə(r)/","Con đi tắm cho sạch sẽ nhé.","Is the water warm? (Nước có ấm không hả mẹ?)"],
+["Don't splash the water.","/dəʊnt splæʃ ðə ˈwɔːtə(r)/","Đừng nghịch làm bắn nước con.","Sorry, it is just fun. (Con xin lỗi, tại vui quá ạ.)"],
+["Wash your hair well.","/wɒʃ jɔː(r) heə(r) wel/","Gội đầu thật sạch nhé con.","The soap got in my eyes! (Xà phòng vào mắt con rồi!)"],
+["Dry yourself with a towel.","/draɪ jɔːˈself wɪð ə ˈtaʊəl/","Lau khô người bằng khăn đi.","Where is my towel? (Khăn lau của con đâu rồi ạ?)"],
+["Blow-dry your hair.","/bləʊ draɪ jɔː(r) heə(r)/","Sấy khô tóc đi con.","It is too hot, Mom. (Máy sấy nóng quá mẹ ơi.)"],
+["Put on your slippers.","/pʊt ɒn jɔː(r) ˈslɪpəz/","Đi dép trong nhà vào con.","I have them on already. (Con đã đi dép vào rồi ạ.)"],
+["Don't walk barefoot.","/dəʊnt wɔːk ˈbeəfʊt/","Đừng đi chân đất con nhé.","Okay, I will wear them. (Vâng ạ, con sẽ đi vào ngay.)"],
+["Is the water too hot?","/ɪz ðə ˈwɔːtə(r) tuː hɒt/","Nước có bị nóng quá không?","No, it is perfect. (Dạ không, vừa vặn lắm ạ.)"],
+["Clean up your mess.","/kliːn ʌp jɔː(r) mes/","Dọn bừa bộn của con đi.","I will do it now. (Con sẽ dọn dẹp ngay đây ạ.)"],
+["Hurry up, please!","/ˈhʌri ʌp, pliːz/","Nhanh chân lên con ơi!","I am rushing! (Con đang cuống quýt đây ạ!)"],
+["Did you wash your hands?","/dɪd juː wɒʃ jɔː(r) hændz/","Con đã rửa tay chưa đấy?","Yes, I washed them. (Dạ con rửa rồi ạ.)"],
+["Use the hand towel.","/juːz ðə hænd ˈtaʊəl/","Dùng khăn lau tay đi con.","Where is it hanging? (Nó đang treo ở đâu thế mẹ?)"],
+["Put the cap back on.","/pʊt ðə kæp bæk ɒn/","Đóng nắp lại đi con.","The toothpaste cap? (Nắp kem đánh răng hả mẹ?)"],
+["Turn off the tap.","/tɜː(r)n ɒf ðə tæp/","Tắt vòi nước đi con.","Oh, I forgot. Sorry! (Ôi con quên mất. Con xin lỗi!)"],
+["Your hair is messy.","/jɔː(r) heə(r) ɪz ˈmesi/","Tóc con rối bù xù kìa.","Let me check the mirror. (Để con soi gương xem nào.)"],
+["Look in the mirror.","/lʊk ɪn ðə ˈmɪrə(r)/","Nhìn vào gương kìa con.","Wow, I look funny. (Oa, trông con buồn cười quá.)"],
+["Are you ready?","/ɑː(r) juː ˈredi/","Con đã sẵn sàng chưa?","I am almost ready! (Con sắp sửa xong rồi ạ!)"],
+["Change your pants.","/tʃeɪndʒ jɔː(r) pænts/","Thay cái quần khác đi con.","This one is dirty. (Cái quần này bị bẩn rồi ạ.)"],
+["Zipper up your jacket.","/ˈzɪpər ʌp jɔː(r) ˈdʒækɪt/","Kéo khóa áo khoác lên con.","It is stuck, Mom. (Nó bị kẹt rồi mẹ ơi.)"],
+["Tuck in your shirt.","/tʌk ɪn jɔː(r) ʃɜː(r)t/","Bỏ áo vào quần gọn gàng đi.","Like this, Mom? (Như thế này hả mẹ?)"],
+["Where are your clothes?","/weə(r) ɑː(r) jɔː(r) kləʊðz/","Quần áo của con đâu rồi?","They are on the bed. (Chúng ở trên giường ạ.)"],
+["Put them in the hamper.","/pʊt ðəm ɪn ðə ˈhæmpə(r)/","Bỏ chúng vào giỏ đồ bẩn đi.","Okay, I will do it. (Vâng, con sẽ bỏ vào.)"],
+["Don't forget the lotion.","/dəʊnt fəˈɡet ðə ˈləʊʃn/","Đừng quên bôi kem dưỡng nhé.","My skin is so dry. (Da của con bị khô quá.)"],
+["Clip your nails.","/klɪp jɔː(r) neɪlz/","Cắt móng tay đi con.","They are too long. (Móng tay dài quá rồi ạ.)"],
+["Don't bite your nails.","/dəʊnt baɪt jɔː(r) neɪlz/","Đừng cắn móng tay con nhé.","I will stop it. (Con sẽ dừng lại ạ.)"],
+["Your face is clean now.","/jɔː(r) feɪs ɪz kliên naʊ/","Mặt con sạch sẽ rồi đấy.","Thanks to the soap. (Nhờ xà phòng đấy ạ.)"],
+["Stand on the mat.","/stænd ɒn ðə mæt/","Đứng lên tấm thảm đi con.","It feels so soft. (Thảm cảm giác mềm mại quá.)"],
+["Keep the bathroom dry.","/kiːp ðə ˈbɑːθruːm draɪ/","Giữ nhà tắm khô ráo nhé con.","I will wipe the floor. (Con sẽ lau sàn ạ.)"],
+["Time is running out!","/taɪm ɪz ˈrʌnɪŋ aʊt/","Sắp hết thời gian rồi con!","I am moving fast! (Con đang đi rất nhanh đây!)"],
+["Have a bright morning!","/hæv ə braɪt ˈmɔː(r)nɪŋ/","Chúc con buổi sáng tốt lành!","You too, Mom! (Mẹ cũng thế nhé ạ!)"]	
+];
+
+const data27 = [
+["Breakfast is ready!","/ˈbrekfəst ɪz ˈredi/","Bữa sáng sẵn sàng rồi!","I am coming! (Con xuống liền đây!)"],
+["Wash your hands first.","/wɒʃ jɔː(r) hændz fɜː(r)st/","Rửa tay trước đã con.","I am washing with soap. (Con đang rửa bằng xà phòng.)"],
+["Sit at the table.","/sɪt æt ðə ˈteɪbl/","Ngồi vào bàn ăn đi con.","What are we having? (Hôm nay mình ăn món gì ạ?)"],
+["Wanna eat now?","/ˈwɒnə iːt naʊ/","Muốn ăn luôn chưa con?","Yes, I am starving! (Vâng, con đói rã rời rồi!)"],
+["Be careful, it is hot.","/biː ˈkeəfl, ɪt ɪz hɒt/","Cẩn thận, đồ ăn nóng đấy.","Okay, I will blow on it. (Vâng, con sẽ thổi ạ.)"],
+["Use your spoon.","/juːz jɔː(r) spuːn/","Dùng thìa đi con.","Can I use chopsticks? (Con dùng đũa được không?)"],
+["Don't spill your food.","/dəʊnt spɪl jɔː(r) fuːd/","Đừng làm đổ thức ăn con.","I will be careful. (Con sẽ cẩn thận ạ.)"],
+["Eat your veggies.","/iːt jɔː(r) ˈvedʒiz/","Ăn rau vào đi con.","Just a little bit, please. (Cho con ăn ít thôi nhé.)"],
+["How does it taste?","/haʊ dʌz ɪt teɪst/","Đồ ăn vị thế nào con?","It is delicious! (Ngon tuyệt cú mèo ạ!)"],
+["Chew your food well.","/tʃuː jɔː(r) fuːd wel/","Nhai kỹ thức ăn đi con.","Okay, Mom. (Vâng ạ mẹ.)"],
+["Drink some water.","/drɪŋk sʌm ˈwɔːtə(r)/","Uống chút nước đi con.","Thank you. (Con cảm ơn.)"],
+["Are you full?","/ɑː(r) juː fʊl/","Con no bụng chưa?","Yes, I am full now. (Vâng, con no rồi ạ.)"],
+["Wipe your mouth.","/waɪp jɔː(r) maʊθ/","Lau miệng đi con.","Can you give me a tissue? (Mẹ đưa con tờ giấy ăn với.)"],
+["Help me clear the table.","/help miː klɪə(r) ðə ˈteɪbl/","Giúp mẹ dọn bàn ăn nhé.","I will take the bowls. (Con sẽ mang bát đi cất ạ.)"],
+["Thank you for helping.","/ˈθæŋk juː fɔː(r) ˈhelpɪŋ/","Cảm ơn con đã giúp mẹ.","You are welcome. (Không có gì đâu ạ.)"],
+["Don't talk with your mouth full.","/dəʊnt tɔːk wɪð jɔː(r) maʊθ fʊl/","Đừng vừa nhai đầy mồm vừa nói chuyện con nhé.","Oops, sorry Mom. (Úi, con xin lỗi mẹ.)"],
+["Finish your rice, please.","/ˈfɪnɪʃ jɔː(r) raɪs, pliːz/","Ăn cho hết bát cơm đi con.","I will eat it all. (Con sẽ ăn hết sạch ạ.)"],
+["Wanna have some snacks?","/ˈwɒnə hæv sʌm snæks/","Con muốn ăn vặt chút không?","Yes! Can I have chips? (Có ạ! Con ăn bim bim nhé?)"],
+["No sweets before dinner.","/nəʊ swiːts bɪˈfɔː(r) ˈdɪnə(r)/","Không ăn kẹo trước bữa tối.","Just one candy, please? (Một chiếc kẹo thôi được không?)"],
+["Drink your juice slowly.","/drɪŋk jɔː(r) dʒuːs ˈsləʊli/","Uống nước trái cây từ từ thôi.","It tastes so sweet. (Nước ngọt ngon quá ạ.)"],
+["Do you want an apple?","/duː juː wɒnt ən ˈæpl/","Con có muốn ăn táo không?","Yes, please cut it up. (Vâng, mẹ cắt ra hộ con.)"],
+["Sit properly, please.","/sɪt ˈprɒpəli, pliːz/","Con ngồi ngay ngắn đàng hoàng.","Okay, I will sit up. (Vâng, con ngồi thẳng lên.)"],
+["Don't play with your food.","/dəʊnt pleɪ wɪð jɔː(r) fuːd/","Đừng nghịch đồ ăn con nhé.","I am just arranging it. (Con chỉ đang xếp hình thôi mà.)"],
+["Is it too salty?","/ɪz ɪt tuː ˈsɔːlti/","Món này có bị mặn quá không?","No, it is just right. (Dạ không, vừa vặn lắm ạ.)"],
+["Try a bite of this.","/traɪ ə baɪt ɒv ðɪs/","Ăn thử một miếng này đi con.","What is it? (Món gì đây hả mẹ?)"],
+["It is fish. It is healthy.","/ɪt ɪz fɪʃ. ɪt ɪz ˈhelθi/","Cá đấy. Rất tốt cho sức khỏe.","Okay, I will try it. (Vâng, con sẽ thử.)"],
+["Pass me the salt, please.","/pɑːs miː ðə sɔːlt, pliːz/","Đưa hộ mẹ lọ muối với con.","Here it is, Mom. (Của mẹ đây ạ.)"],
+["Don't make noise while eating.","/dəʊnt meɪk nɔɪz waɪl ˈiːtɪŋ/","Đừng nhai nhóp nhép phát tiếng.","I will chew quietly. (Con sẽ nhai thật khẽ ạ.)"],
+["Would you like some soup?","/wʊd juː laɪk sʌm suːp/","Con có muốn húp tí canh không?","Yes, a small bowl please. (Vâng, cho con một bát nhỏ.)"],
+["Leave some room for dessert.","/liːv sʌm ruːm fɔː(r) dɪˈzɜː(r)t/","Để bụng ăn tráng miệng nữa.","What is for dessert? (Tráng miệng có món gì ạ?)"],
+["We have ice cream.","/wiː hæv aɪs kriːm/","Mình có kem đấy con.","Yay! My favorite! (Yeah! Món khoái khẩu của con!)"],
+["Don't drink soda.","/dəʊnt drɪŋk ˈsəʊdə/","Đừng uống nước ngọt có ga.","Can I have water instead? (Con uống nước lọc thay thế nhé?)"],
+["Eat slowly, no rush.","/iːt ˈsləʊli, nəʊ rʌʃ/","Ăn chậm thôi, không phải vội.","I have a soccer match. (Tại con có trận đá bóng mà.)"],
+["You need to grow big.","/juː niːd tuː ɡrəʊ bɪɡ/","Con cần ăn để mau lớn.","I want to be tall. (Con muốn cao lớn cơ.)"],
+["Milk makes your bones strong.","/mɪlk meɪks jɔː(r) bəʊnz strɒŋ/","Sữa giúp cho xương của con chắc khỏe đấy.","I will drink a big glass. (Con sẽ uống một ly lớn.)"],
+["Don't skip breakfast.","/dəʊnt skɪp ˈbrekfəst/","Đừng bỏ bữa sáng con nhé.","I never skip it. (Con không bao giờ bỏ đâu.)"],
+["Wanna help me cook?","/ˈwɒnə help miː kʊk/","Muốn giúp mẹ nấu ăn không?","Can I wash the rice? (Con vo gạo được không ạ?)"],
+["Be careful with the knife.","/biː ˈkeəfl wɪð ðə naɪf/","Cẩn thận với con dao con nhé.","I will not touch it. (Con sẽ không chạm vào đâu.)"],
+["Set the napkins.","/set ðə ˈnæpkɪnz/","Xếp khăn ăn ra đi con.","One for everyone? (Mỗi người một cái ạ?)"],
+["The food smells good.","/ðə fuːd smelz ɡʊd/","Thức ăn mùi thơm quá.","I helped make it! (Con đã phụ làm đấy nhé!)"],
+["Don't eat too fast.","/dəʊnt iːt tuː fɑːst/","Đừng ăn quá nhanh con.","My stomach will hurt. (Bụng con sẽ bị đau mất.)"],
+["Put the leftovers away.","/pʊt ðə ˈleftəʊvəz əˈweɪ/","Cất đồ ăn thừa đi con.","Into the fridge? (Cho vào tủ lạnh hả mẹ?)"],
+["Wipe the table, please.","/waɪp ðə ˈteɪbl, pliːz/","Lau bàn giúp mẹ nhé con.","I will get the cloth. (Con đi lấy cái khăn lau.)"],
+["Are your hands clean now?","/ɑː(r) jɔː(r) hændz kliːn naʊ/","Tay con sạch sẽ chưa?","Smell them, they smell nice. (Mẹ ngửi đi, thơm lắm.)"],
+["No television while eating.","/nəʊ ˈtelɪvɪʒn waɪl ˈiːtɪŋ/","Không được xem tivi khi ăn.","Okay, I will turn it off. (Vâng, con tắt đây ạ.)"],
+["You ate very well today.","/juː eɪt ˈveri wel təˈdeɪ/","Hôm nay con ăn ngoan lắm.","I loved the chicken. (Con cực thích món gà.)"],
+["Drink your soup from the bowl.","/drɪŋk jɔː(r) suːp frɒm ðə bəʊl/","Con cứ bưng bát lên húp nước canh đi cho dễ.","It is easier this way. (Húp thế này dễ hơn ạ.)"],
+["Don't lean back on the chair.","/dəʊnt liːn bæk ɒn ðə tʃeə(r)/","Đừng ngửa người ra sau ghế.","Oops, I almost tipped over. (Úi, con tí nữa thì ngã ngửa.)"],
+["Here is some warm water.","/hɪər ɪz sʌm wɔː(r)m ˈwɔːtə(r)/","Nước ấm của con đây này.","Perfect for winter. (Nước ấm của con đây.)"],
+["Let us have dinner together.","/let ʌs hæv ˈdɪnə(r) təˈɡeðə(r)/","Nhà mình cùng ngồi ăn tối với nhau nào.","I love family dinners. (Nhà mình cùng ăn tối nào.)"]	
+];
+
+const data28 = [
+["Check your backpack.","/tʃek jɔː(r) ˈbækpæk/","Kiểm tra lại ba lô đi con.","I have all my books. (Con mang đủ sách rồi ạ.)"],
+["Don't forget your hat.","/dəʊnt fəˈɡet jɔː(r) hæt/","Đừng quên đội mũ nhé.","Where is it? (Mũ của con đâu rồi ta?)"],
+["Put on your shoes.","/pʊt ɒn jɔː(r) ʃuːz/","Đi giày vào đi con.","Can you help me tie it? (Mẹ buộc dây giày giúp con với.)"],
+["Is your water bottle full?","/ɪz jɔː(r) ˈwɔːtə(r) ˈbɒtl fʊl/","Bình nước đổ đầy chưa con?","Yes, I filled it up. (Vâng, con đổ đầy rồi ạ.)"],
+["Let us go to school.","/let ʌs ɡəʊ tuː skuːl/","Mình đi học thôi nào.","I am ready! (Con sẵn sàng rồi!)"],
+["Hold my hand.","/həʊld maɪ hænd/","Nắm lấy tay mẹ/bố nào.","Okay, let us cross the street. (Vâng, mình qua đường thôi.)"],
+["Be careful on the road.","/biː ˈkeəfl ɒn ðə rəʊd/","Đi đường cẩn thận con nhé.","Yes, I will look both ways. (Vâng, con sẽ ngó nghiêng ạ.)"],
+["We are here.","/wiː ɑː(r) hɪə(r)/","Đến nơi rồi con nhé.","Have a good day at work! (Bố/mẹ đi làm vui vẻ nhé!)"],
+["Have a nice day!","/hæv ə naɪs deɪ/","Chúc con một ngày vui vẻ!","Thank you, Mom! (Con cảm ơn mẹ!)"],
+["Goodbye! See you later.","/ˌɡʊdˈbaɪ! siː juː ˈleɪtə(r)/","Tạm biệt con! Hẹn gặp lại nhé.","Bye! See you this afternoon. (Tạm biệt! Hẹn gặp chiều nay.)"],
+["It is raining. Take an umbrella.","/ɪt ɪz ˈreɪnɪŋ. teɪk ən ʌmˈbrelə/","Trời đang mưa đấy, con cầm theo một chiếc ô đi.","I will put it in my bag. (Trời mưa rồi. Cầm ô đi con.)"],
+["Put on your raincoat.","/pʊt ɒn jɔː(r) ˈreɪnkəʊt/","Mặc áo mưa vào đi con.","It is a bit tight. (Áo hơi bị chật một chút.)"],
+["Watch your step!","/wɒtʃ jɔː(r) step/","Nhìn đường, cẩn thận bước đi!","Whoops, I almost fell. (Úi, con tí nữa thì ngã.)"],
+["It is very hot outside.","/ɪt ɪz ˈveri hɒt ˌaʊtˈsaɪd/","Ngoài trời nóng lắm đấy.","I need to wear my cap. (Con cần đội mũ lưỡi trai.)"],
+["Fasten your seatbelt.","/ˈfɑːsn jɔː(r) ˈsiːtbelt/","Thắt dây an toàn vào con.","I got it. (Con làm được rồi ạ.)"],
+["Do you have your lunchbox?","/duː juː hæv jɔː(r) ˈlʌntʃbɒks/","Con đã mang theo hộp cơm trưa chưa nhỉ?","Yes, it is inside my bag. (Con mang hộp cơm trưa chưa?)"],
+["Tie your shoelaces.","/taɪ jɔː(r) ˈʃuːleɪsɪz/","Buộc lại dây giày đi con.","They keep coming undone. (Dây giày cứ bị tuột suốt thôi.)"],
+["Don't run on the stairs.","/dəʊnt rʌn ɒn ðə steə(r)z/","Đừng chạy trên cầu thang con.","I will walk slowly. (Con sẽ đi bộ chậm rãi.)"],
+["Wait for the green light.","/weɪt fɔː(r) ðə ɡriːn laɪt/","Chờ đèn xanh đã con nhé.","It is red right now. (Hiện tại đang đèn đỏ ạ.)"],
+["Stay close to me.","/steɪ kləʊz tuː miː/","Đi sát vào bên cạnh mẹ.","I am holding your bag. (Con đang nắm túi mẹ đây.)"],
+["Did you lock the door?","/dɪd juː lɒk ðə dɔː(r)/","Con đã khóa cửa chưa?","Yes, I checked it twice. (Vâng, con kiểm tra hai lần rồi.)"],
+["It is windy today.","/ɪt ɪz ˈwɪndi təˈdeɪ/","Hôm nay trời nhiều gió lắm.","My hair is flying everywhere. (Tóc con bay tung tóe luôn.)"],
+["Wear your jacket.","/weə(r) jɔː(r) ˈdʒækɪt/","Mặc áo khoác vào đi con.","I am warm enough. (Con đủ ấm rồi mà mẹ.)"],
+["Look out for cars.","/lʊk aʊt fɔː(r) kɑː(r)z/","Cẩn thận ngó xe ô tô con.","I see a white one. (Con thấy một chiếc màu trắng.)"],
+["Is your teacher nice?","/ɪz jɔː(r) ˈtiːtʃə(r) naɪs/","Cô giáo con có hiền không?","Yes, she smiles a lot. (Vâng, cô cười nhiều lắm ạ.)"],
+["Listen to your teacher.","/ˈlɪsn tuː jɔː(r) ˈtiːtʃə(r)/","Nhớ nghe lời cô giáo nhé.","I will pay attention. (Con sẽ tập trung chú ý ạ.)"],
+["Make new friends today.","/meɪk njuː frendz təˈdeɪ/","Hôm nay kết thêm bạn mới nhé.","I will talk to the new boy. (Con sẽ bắt chuyện với bạn mới.)"],
+["Don't push anyone.","/dəʊnt pʊʃ ˈeniwʌn/","Đừng đẩy bạn nào nhé con.","We just play gently. (Chúng con chỉ chơi nhẹ nhàng.)"],
+["Do you have your student ID?","/duː juː hæv jɔː(r) ˈstjuːdnt ˌaɪˈdiː/","Con mang theo thẻ học sinh chưa đấy?","It is around my neck. (Con mang thẻ học sinh chưa?)"],
+["Be polite to everyone.","/biː pəˈlaɪt tuː ˈevriwʌn/","Hãy lịch sự với mọi người.","I always say thank you. (Con luôn nói cảm ơn mà.)"],
+["Time to board the bus.","/taɪm tuː bɔː(r)d ðə bʌs/","Đến giờ lên xe buýt rồi.","Let me find a seat. (Để con tìm chỗ ngồi ạ.)"],
+["Sit down immediately.","/sɪt daʊn ɪˈmiːdiətli/","Ngồi xuống ngay lập tức con.","Okay, I am sitting. (Vâng, con đang ngồi đây.)"],
+["Don't look out the window.","/dəʊnt lʊk aʊt ðə ˈwɪndəʊ/","Đừng thò đầu/nhìn ra cửa sổ.","But the view is beautiful. (Nhưng phong cảnh đẹp quá.)"],
+["Keep your hands inside.","/kiːp jɔː(r) hændz ɪnˈsaɪd/","Để tay ở phía trong xe con.","I will keep them on my lap. (Con sẽ đặt tay trên đùi ạ.)"],
+["We are almost there.","/wiː ɑː(r) ˈɔːlməʊst ðeə(r)/","Mình gần đến nơi rồi đấy.","I can see the school gate. (Con thấy cổng trường rồi.)"],
+["Get your things ready.","/ɡet jɔː(r) θɪŋz ˈredi/","Chuẩn bị sẵn đồ đạc đi con.","My bag is zipped. (Ba lô con kéo khóa rồi ạ.)"],
+["Step down carefully.","/step daʊn ˈkeəfəli/","Bước xuống cẩn thiện con.","The step is so high. (Bậc thang cao quá ạ.)"],
+["Say hello to the guard.","/seɪ həˈləʊ tuː ðə ɡɑː(r)d/","Chào bác bảo vệ đi con.","Good morning, sir! (Con chào bác ạ!)"],
+["Go straight to your class.","/ɡəʊ streɪt tuː jɔː(r) klɑːs/","Đi thẳng vào lớp đi con nhé.","Class 3A, right? (Lớp 3A đúng không mẹ?)"],
+["Don't play in the mud.","/dəʊnt pleɪ ɪn ðə mʌd/","Đừng nghịch dưới bùn đất con.","My shoes will get dirty. (Giày con sẽ bị bẩn mất.)"],
+["The sun is coming out.","/ðə sʌn ɪz ˈkʌmɪŋ aʊt/","Mặt trời ló rạng rồi kìa.","It is getting warm. (Trời đang ấm lên rồi ạ.)"],
+["It is a beautiful day.","/ɪt ɪz ə ˈbjuːtɪfl deɪ/","Hôm nay là một ngày đẹp trời.","Perfect for playing soccer. (Quá hợp để đá bóng luôn.)"],
+["Put your trash in the bin.","/pʊt jɔː(r) træʃ ɪn ðə bɪn/","Bỏ rác vào thùng nhé con.","I see a green bin over there. (Con thấy thùng rác xanh đằng kia.)"],
+["Don't talk to strangers.","/dəʊnt tɔːk tuː ˈstreɪndʒəz/","Đừng nói chuyện với người lạ.","I will only talk to teachers. (Con chỉ nói chuyện với thầy cô.)"],
+["Call me if you need anything.","/kɔːl miː ɪf juː niːd ˈeniθɪŋ/","Gọi cho mẹ nếu cần gì nhé.","I will ask the teacher. (Con sẽ hỏi cô giáo ạ.)"],
+["Do your best today!","/duː jɔː(r) best təˈdeɪ/","Hôm nay cố gắng hết sức nhé!","I will win a star! (Con sẽ giành được ngôi sao!)"],
+["Remember your manners.","/rɪˈmembə(r) jɔː(r) ˈmænəz/","Nhớ cư xử ngoan ngoãn nhé.","Yes, be nice and polite. (Vâng, ngoan ngoãn và lịch sự.)"],
+["I will pick you up at four.","/aɪ wɪl pɪk juː ʌp æt fɔː(r)/","Mẹ sẽ đón con lúc 4 giờ.","Don't be late, Mom! (Mẹ đừng đến muộn nhé!)"],
+["Give me a goodbye kiss.","/ɡɪv miː ə ˌɡʊdˈbaɪ kɪs/","Hôn tạm biệt mẹ một cái.","Here you go! Mua! (Đây ạ! Chụt!)"],
+["Run along now!","/rʌn əˈlɒŋ naʊ/","Chạy vào trường đi con!","Bye bye, Mom! (Tạm biệt mẹ yêu!)"]	
+];
+
+const data29 = [
+["How was school today?","/haʊ wɒz skuːl təˈdeɪ/","Hôm nay ở trường thế nào con?","It was great, Mom! (Vui lắm luôn mẹ ơi!)"],
+["Did you get a good mark?","/dɪd juː ɡet ə ɡʊd mɑː(r)k/","Hôm nay con được điểm tốt không?","Yes, I got a ten! (Vâng, con được điểm 10 luôn!)"],
+["Time to do homework.","/taɪm tuː duː ˈhəʊmwɜː(r)k/","Đến giờ làm bài tập rồi.","Let me get my notebook. (Để con đi lấy quyển vở ạ.)"],
+["Sit up straight.","/sɪt ʌp streɪt/","Ngồi thẳng lưng lên con.","Like this, Mom? (Như thế này hả mẹ?)"],
+["Turn on the lamp.","/tɜː(r)n ɒn ðə læmp/","Bật đèn bàn lên đi con.","It is much brighter now. (Giờ sáng sủa hẳn rồi ạ.)"],
+["Do you need help?","/duː juː niːd help/","Con có cần giúp một tay không?","Yes, this math problem is hard. (Vâng, bài toán này khó quá.)"],
+["Focus on your work.","/ˈfəʊkəs ɒn jɔː(r) wɜː(r)k/","Tập trung làm bài đi con.","Okay, I will stop playing. (Vâng, con không nghịch nữa.)"],
+["Keep your desk clean.","/kiːp jɔː(r) desk kliːn/","Giữ bàn học gọn gàng nhé.","I will arrange my pens. (Con sẽ xếp lại bút gọn gàng.)"],
+["Let us read a book.","/let ʌs riːd ə bʊk/","Mình cùng đọc sách nào.","I want to read a comic book. (Con muốn đọc truyện tranh ạ.)"],
+["Read it out loud.","/riːd ɪt aʊt laʊd/","Đọc to rõ ràng lên con.","Once upon a time... (Ngày xửa ngày xưa...)"],
+["Sharpen your pencil.","/ˈʃɑː(r)pən jɔː(r) ˈpensl/","Gọt bút chì đi con.","The tip is broken. (Đầu ngòi bị gãy rồi ạ.)"],
+["Pack your schoolbag.","/pæk jɔː(r) ˈskuːlbæk/","Soạn sách vở đi con.","I will do it right now. (Con sẽ soạn ngay bây giờ.)"],
+["Write nicely, please.","/raɪt ˈnaɪsli, pliːz/","Viết chữ đẹp đẽ vào con.","I am trying my best. (Con đang cố gắng hết sức.)"],
+["Can you count to twenty?","/kæn juː kaʊnt tuː ˈtwenti/","Con đếm đến 20 được không?","One, two, three... (Một, hai, ba...)"],
+["Take a short break.","/teɪk ə ʃɔː(r)t breɪk/","Nghỉ giải lao một chút đi.","Yay! Time to stretch! (Yeah! Đến lúc vươn vai rồi!)"],
+["Where is your eraser?","/weə(r) ɪz jɔː(r) ɪˈreɪsə(r)/","Cục tẩy của con đâu rồi?","It rolled under the table. (Nó lăn xuống gầm bàn rồi.)"],
+["Open your textbook.","/ˈəʊpən jɔː(r) ˈtekstbʊk/","Mở sách giáo khoa ra con.","Which page, Mom? (Trang bao nhiêu hả mẹ?)"],
+["Turn to page ten.","/tɜː(r)n tuː peɪdʒ ten/","Lật sang trang số 10 con.","I found it already! (Con tìm thấy rồi ạ!)"],
+["Read the instructions.","/riːd ðɪ ɪnˈstrʌkʃnz/","Đọc kỹ hướng dẫn đề bài.","It says "draw a circle". (Đề bảo là "vẽ một hình tròn".)"],
+["Use your ruler.","/juːz jɔː(r) ˈruːlə(r)/","Dùng thước kẻ đi con.","To draw a straight line. (Để kẻ một đường thẳng ạ.)"],
+["Don't draw on the desk.","/dəʊnt drɔː ɒn ðə desk/","Đừng vẽ bậy lên bàn con.","I will use paper instead. (Con sẽ vẽ lên giấy thay thế.)"],
+["Your handwriting is beautiful.","/jɔː(r) ˈhændˌraɪtɪŋ ɪz ˈbjuːtɪfl/","Chữ viết tay của con đẹp nét nào ra nét đấy luôn.","Thank you, I practiced a lot. (Chữ viết tay của con đẹp quá.)"],
+["Close your notebook.","/kləʊz jɔː(r) ˈnəʊtbʊk/","Đóng vở lại đi con.","I finished all exercises. (Con làm xong hết bài tập rồi.)"],
+["Put your crayons away.","/pʊt jɔː(r) ˈkreɪənz əˈweɪ/","Cất bút màu sáp đi con.","Into the plastic box? (Cho vào hộp nhựa hả mẹ?)"],
+["Do you have homework tomorrow?","/duː juː hæv ˈhəʊmwɜːk təˈmɒrəʊ/","Ngày mai con có bài tập về nhà không?","No, tomorrow is Saturday. (Mai con có bài tập không?)"],
+["Let us practice English.","/let ʌs ˈpræktɪs ˈɪŋɡlɪʃ/","Mình cùng luyện tiếng Anh.","Can we learn new words? (Mình học từ mới được không?)"],
+["Spell the word "CAT".","/spel ðə wɜː(r)d kæt/","Đánh vần từ "CAT" xem nào.","C - A - T, cat! (C - A - T, con mèo!)"],
+["What does "DOG" mean?","/wɒt dʌz dɒɡ miːn/","Từ "DOG" nghĩa là gì con?","It means "con chó". (Nghĩa là "con chó" ạ.)"],
+["You are doing great.","/juː ɑː(r) ˈduːɪŋ ɡreɪt/","Con đang làm rất tốt.","I want to learn more. (Con muốn học thêm nữa ạ.)"],
+["Don't look at the answer.","/dəʊnt lʊk æt ðɪ ˈɑːnsə(r)/","Đừng nhìn vào phần đáp án.","I want to think by myself. (Con muốn tự mình suy nghĩ.)"],
+["Think carefully.","/θɪŋk ˈkeəfəli/","Suy nghĩ kỹ càng vào con.","Ah, I know the answer now! (À, con biết đáp án rồi!)"],
+["Is math your favorite subject?","/ɪz mæθ jɔː(r) ˈfeɪvərɪt ˈsʌbdʒɪkt/","Môn Toán có phải môn học yêu thích nhất của con không?","Yes, I like numbers. (Toán là môn yêu thích của con hả?)"],
+["What about science?","/wɒt əˈbaʊt ˈsaɪəns/","Còn môn khoa học thì sao?","It is very interesting too. (Nó cũng thú vị lắm ạ.)"],
+["You need a new pencil.","/juː niːd ə njuː ˈpensl/","Con cần một chiếc bút chì mới.","This one is too short. (Chiếc này ngắn quá rồi ạ.)"],
+["Let us go to the bookstore.","/let ʌs ɡəʊ tuː ðə ˈbʊkstɔː(r)/","Lát nữa nhà mình cùng ra hiệu sách chơi nhé.","Can I buy a comic book? (Mình ra hiệu sách đi con.)"],
+["Put your books on the shelf.","/pʊt jɔː(r) bʊks ɒn ðə ʃelf/","Xếp sách lên kệ đi con.","I will stack them up. (Con sẽ xếp chồng chúng lên.)"],
+["Don't bend the pages.","/dəʊnt bend ðə peɪdʒɪz/","Đừng làm gập mép trang sách.","I will use a bookmark. (Con sẽ dùng thẻ kẹp sách.)"],
+["This book is heavy.","/ðɪs bʊk ɪz ˈhevi/","Cuốn sách này nặng thật.","It has many pictures. (Nó có rất nhiều hình ảnh.)"],
+["Tell me about this story.","/tel miː əˈbaʊt ðɪs ˈstɔːri/","Kể mẹ nghe về câu chuyện này.","It is about a smart rabbit. (Kể về một chú thỏ thông minh.)"],
+["Who is the main character?","/huː ɪz ðə meɪn ˈkærəktə(r)/","Nhân vật chính là ai thế?","The brave hero! (Người anh hùng dũng cảm ạ!)"],
+["Don't lean too close to paper.","/dəʊnt liːn tuː kləʊz tuː ˈpeɪpə/","Đừng cúi mặt sát vào trang giấy quá con ơi.","My eyes will get bad. (Đừng cúi mặt sát giấy quá.)"],
+["Keep a safe distance.","/kiːp ə seɪf ˈdɪstəns/","Giữ khoảng cách an toàn.","One arm length, right? (Cách một sải tay đúng không mẹ?)"],
+["Your hands are dirty with ink.","/jɔː(r) hændz ɑː(r) ˈdɜːti wɪð ɪŋk/","Tay con dính bẩn hết mực bút máy kìa.","I will wash them now. (Tay con bị dính bẩn mực kìa.)"],
+["Close the glue bottle.","/kləʊz ðə ɡluː ˈbɒtl/","Đóng nắp chai hồ dán lại.","It will dry out. (Nó sẽ bị khô khốc mất.)"],
+["Throw the paper scraps away.","/θrəʊ ðə ˈpeɪpə(r) skræps əˈweɪ/","Con nhặt mấy mẩu giấy vụn đem vứt đi nhé.","Into the small bin. (Vứt vụn giấy vụn đi con.)"],
+["You worked hard today.","/juː wɜː(r)kt hɑː(r)d təˈdeɪ/","Hôm nay con học chăm chỉ rồi.","I want to play now. (Giờ con muốn chơi cơ ạ.)"],
+["Clean your desk after studying.","/kliːn jɔː(r) desk ˈɑːftə(r) ˈstʌdiɪŋ/","Học xong nhớ dọn dẹp bàn học cho ngăn nắp nha.","I will wipe it down. (Lau dọn bàn sau khi học xong.)"],
+["Where is your school timetable?","/weə(r) ɪz jɔː(r) skuːl ˈtaɪmˌteɪbl/","Thời khóa biểu đi học của con để đâu rồi?","It is on the wall. (Thời khóa biểu của con đâu?)"],
+["Tomorrow is a test.","/təˈmɒrəʊ ɪz ə test/","Ngày mai có bài kiểm tra đấy.","I am not scared. (Con không sợ đâu ạ.)"],
+["Knowledge is power.","/ˈnɒlɪdʒ ɪz ˈpaʊə(r)/","Kiến thức là sức mạnh.","I want to be powerful! (Con muốn mạnh mẽ đầy quyền lực!)"]	
+];
+
+const data30 = [
+["Wanna play a game?","/ˈwɒnə pleɪ ə ɡeɪm/","Muốn chơi trò chơi không con?","Sure! What game? (Có chứ ạ! Trò gì thế mẹ?)"],
+["Gimme five!","/ˈɡɪmi faɪv/","Đập tay cái nào con!","Yeah! We did it! (Yeah! Mình làm được rồi!)"],
+["Good job! / Well done!","/ɡʊd dʒɒb / wel dʌn/","Con làm tốt lắm!","Thank you! (Con cảm ơn bố mẹ ạ!)"],
+["You can do it!","/juː kæn duː ɪt/","Con tự làm được mà!","I will try my best. (Con sẽ cố gắng hết sức.)"],
+["Don't give up.","/dəʊnt ɡɪv ʌp/","Đừng bỏ cuộc giữa chừng nhé.","I will try one more time. (Con sẽ thử lại một lần nữa.)"],
+["You are so smart!","/juː ɑː(r) səʊ smɑː(r)t/","Con thông minh quá đi mất!","Hehe, thank you. (Hê hê, con cảm ơn ạ.)"],
+["Time to turn off the TV.","/taɪm tuː tɜː(r)n ɒf ðə ˌtiːˈviː/","Đến giờ tắt tivi rồi con.","Can I watch five more minutes? "],
+["Put the iPad away.","/pʊt ðə ˈaɪpæd əˈweɪ/","Cất máy tính bảng đi thôi con.","Okay, I am locking it. (Vâng, con đang khóa máy đây.)"],
+["Let us go to the park.","/let ʌs ɡəʊ tuː ðə pɑː(r)k/","Mình ra công viên chơi đi.","Can I ride my bicycle? (Con đạp xe đạp theo nhé?)"],
+["Don't go too far.","/dəʊnt ɡəʊ tuː fɑː(r)/","Đừng đi chơi xa quá nhé.","I will stay close to you. (Con sẽ ở gần mẹ thôi.)"],
+["Play nicely with others.","/pleɪ ˈnaɪsli wɪð ˈʌðə(r)z/","Chơi hòa đồng với các bạn nhé.","Yes, I will share my ball. (Vâng, con sẽ chia sẻ bóng.)"],
+["Time to go home now.","/taɪm tuː ɡəʊ həʊm naʊ/","Đến giờ phải về nhà rồi.","Oh, just a bit longer? (Ồ, thêm một tí nữa thôi mẹ?)"],
+["Are you white tired?","/ɑː(r) juː ˈtaɪə(r)d/","Con có mệt không?","A little bit, I am thirsty. (Hơi mệt ạ, con đang khát.)"],
+["Where are your toys?","/weə(r) ɑː(r) jɔː(r) tɔɪz/","Đồ chơi của con đâu rồi?","They are in the living room. (Chúng ở phòng khách ạ.)"],
+["Let us build a Lego tower.","/let ʌs bɪld ə ˈleɡəʊ ˈtaʊə(r)/","Hai mẹ con/bố con mình cùng xếp tháp Lego đi.","I want to build a tall one. (Mình cùng xếp tháp Lego đi.)"],
+["Give me a blue block.","/ɡɪv miː ə bluː blɒk/","Đưa mẹ khối màu xanh nào.","Here is a big one. (Đây là khối lớn nè mẹ.)"],
+["Don't step on Legos.","/dəʊnt step ɒn ˈleɡəʊz/","Đừng giẫm lên Lego con nhé.","It hurts my feet so much. (Đau chân lắm luôn á mẹ.)"],
+["Do you want to color?","/duː juː wɒnt tuː ˈkʌlə(r)/","Con có muốn tô màu không?","I want to draw a dragon. (Con muốn vẽ một con rồng.)"],
+["Stay inside the lines.","/steɪ ɪnˈsaɪd ðə laɪnz/","Tô màu bên trong nét vẽ nhé.","I am trying to be neat. (Con đang cố tô thật gọn gàng.)"],
+["Great imagination!","/ɡreɪt ɪˌmædʒɪˈneɪʃn/","Trí tưởng tượng tuyệt vời!","I imagined a flying car. (Con tưởng tượng chiếc xe bay.)"],
+["Let us play hide and seek.","/let ʌs pleɪ haɪd ænd siːk/","Chơi trốn tìm đi con.","I will hide first! (Con sẽ trốn trước nhé!)"],
+["Count to ten, Mom.","/kaʊnt tuː ten, mɒm/","Mẹ đếm đến 10 đi ạ.","One, two, three... ready or not! (Một, hai, ba... trốn kỹ chưa!)"],
+["I found you!","/aɪ faʊnd juː/","Mẹ tìm thấy con rồi nhé!","Oh, you are so fast! (Ồ, mẹ tìm nhanh quá đi!)"],
+["Your turn to count.","/jɔː(r) tɜː(r)n tuː kaʊnt/","Đến lượt con đếm đấy.","I will close my eyes tightly. (Con sẽ nhắm chặt mắt vào.)"],
+["Don't hide in the closet.","/dəʊnt haɪd ɪn ðə ˈklɒzɪt/","Đừng trốn vào tủ quần áo con.","It is too dark inside. (Trong đó tối tăm lắm ạ.)"],
+["Wanna play puzzles?","/ˈwɒnə pleɪ ˈpʌzlz/","Muốn chơi xếp hình ghép tranh?","This puzzle has a hundred pieces. (Bức tranh này có 100 mảnh.)"],
+["Where does this piece go?","/weə(r) dʌz ðɪs piːs ɡəʊ/","Mảnh này lắp vào đâu nhỉ?","It matches the corner. (Nó khớp với góc này nè mẹ.)"],
+["Look at the picture.","/lʊk æt ðə ˈpɪktʃə(r)/","Nhìn vào bức tranh mẫu xem con.","Ah, it is a green tree. (À, nó là cái cây màu xanh.)"],
+["We finished the puzzle!","/wiː ˈfɪnɪʃt ðə ˈpʌzl/","Mình xếp xong bức tranh rồi!","We make a good team. (Chúng mình là một đội tốt.)"],
+["Let us go outside.","/let ʌs ɡəʊ ˌaʊtˈsaɪd/","Mình ra ngoài chơi đi con.","Can I blow bubbles? (Con thổi bong bóng nhé?)"],
+["The bubbles are huge!","/ðə ˈbʌblz ɑː(r) hjuːd/","Bong bóng to đùng luôn kìa!","Look at this giant one! (Nhìn cái bong bóng khổng lồ nè!)"],
+["Don't pop them near my face.","/dəʊnt pɒp ðəm nɪə(r) maɪ feɪs/","Đừng làm vỡ bóng nổ sát mặt mẹ/bố nha con.","Sorry, I will pop them high. (Đừng làm vỡ nó gần mặt mẹ.)"],
+["Wanna jump rope?","/ˈwɒnə dʒʌmp rəʊp/","Muốn nhảy dây không con?","I can jump ten times. (Con có thể nhảy mười lần liên tục.)"],
+["Keep jumping!","/kiːp ˈdʒʌmpɪŋ/","Cứ tiếp tục nhảy đi con!","One, two, three... whew! (Một, hai, ba... phù! Mệt quá.)"],
+["You have good balance.","/juː hæv ɡʊd ˈbæləns/","Con giữ thăng bằng tốt đấy.","Look, I am standing on one foot. (Nhìn nè, con đứng một chân.)"],
+["Let us kick the ball.","/let ʌs kɪk ðə bɔːl/","Mình cùng đá bóng nào.","Pass it to me, Dad! (Chuyền bóng cho con đi bố!)"],
+["Kick it hard!","/kɪk ɪt hɑː(r)d/","Đá mạnh lên con!","Goal! I scored! (Vào rồi! Con ghi bàn rồi!)"],
+["You are a champion.","/juː ɑː(r) ə ˈtʃæmpiən/","Con đúng là một nhà vô địch.","Like Ronaldo! (Giống như chú Ronaldo ấy bố!)"],
+["Time to cool down.","/taɪm tuː kuːl daʊn/","Đến lúc nghỉ cho mát rồi.","Let us sit under the tree. (Mình ngồi dưới gốc cây đi ạ.)"],
+["You did a wonderful job.","/juː dɪd ə ˈwʌndə(r)fl dʒɒb/","Con đã làm một việc tuyệt vời.","I feel so happy. (Con cảm thấy hạnh phúc lắm.)"],
+["I love your creativity.","/aɪ lʌv jɔː(r) ˌkriːeɪˈtɪvəti/","Mẹ yêu sự sáng tạo của con.","I made this for you. (Con tự tay làm cái này tặng mẹ.)"],
+["You are so kind.","/juː ɑː(r) səʊ kaɪnd/","Con thật là tốt bụng.","Sharing is caring, right? (Chia sẻ là quan tâm, đúng không ạ?)"],
+["Don't be afraid to try.","/dəʊnt biː əˈfreɪd tuː traɪ/","Đừng sợ hãi khi thử cái mới.","I am brave! (Con dũng cảm mà mẹ!)"],
+["Mistakes help you learn.","/mɪsˈteɪks help juː lɜː(r)n/","Sai lầm giúp con học hỏi.","I will fix it next time. (Con sẽ sửa chữa vào lần tới ạ.)"],
+["You are a good listener.","/juː ɑː(r) ə ɡʊd ˈlɪsnə(r)/","Con là đứa trẻ biết lắng nghe.","I always hear you, Mom. (Con luôn luôn nghe lời mẹ mà.)"],
+["Believe in yourself.","/bɪˈliːv ɪn jɔː(r)ˈself/","Hãy tin tưởng vào chính mình.","I can do anything! (Con có thể làm được mọi thứ!)"],
+["You are special to me.","/juː ɑː(r) ˈspeʃl tuː miː/","Con là điều đặc biệt với mẹ.","You are special too, Mom. (Mẹ cũng là điều đặc biệt ạ.)"],
+["Keep up the good work.","/kiːp ʌp ðə ɡʊd wɜː(r)k/","Cứ phát huy phong độ nhé.","I will not stop. (Con sẽ không dừng lại đâu ạ.)"],
+["You make me smile.","/juː meɪk miː smaɪl/","Con làm mẹ mỉm cười vui vẻ.","Seeing you happy makes me happy. (Thấy mẹ vui con cũng vui ạ.)"],
+["Hooray for you!","/huˈreɪ fɔː(r) juː/","Hoan hô con yêu nào!","Let us celebrate! (Chúng mình cùng ăn mừng đi!)"]	
+];
+
+const data31 = [
+["Pick up your toys.","/pɪk ʌp jɔː(r) tɔɪz/","Dọn dẹp đồ chơi đi con.","I will put them in the box. (Con sẽ cất chúng vào hộp ạ.)"],
+["Lemme help you.","/ˈlemi help juː/","Để bố mẹ giúp con một tay.","Thanks, Dad. (Con cảm ơn bố nhiều.)"],
+["Throw this in the trash.","/θrəʊ ðɪs ɪn ðə træʃ/","Vứt cái này vào thùng rác con.","Where is the trash can? (Thùng rác ở đâu thế ạ?)"],
+["Clean the table, please.","/kliːn ðə ˈteɪbl, pliːz/","Lau bàn giúp mẹ/bố nhé.","Give me the cloth. (Mẹ đưa con cái khăn lau với.)"],
+["Say thank you to the lady.","/seɪ θæŋk juː tuː ðə ˈleɪdi/","Con khoanh tay cảm ơn cô đi.","Thank you very much. (Con cảm ơn cô nhiều ạ.)"],
+["Don't run in the house.","/dəʊnt rʌn ɪn ðə haʊs/","Đừng chạy loăng quăng ở nhà.","Sorry, I will walk. (Con xin lỗi, con sẽ đi bộ ạ.)"],
+["Share your toys with him.","/ʃeə(r) jɔː(r) tɔɪz wɪð hɪm/","Chia sẻ đồ chơi với bạn đi.","Here you go, let us play! (Của bạn đây, mình cùng chơi!)"],
+["Hang up your jacket.","/hæŋ ʌp jɔː(r) ˈdʒækɪt/","Treo áo khoác lên đi con.","Where is the hanger? (Móc treo đồ ở đâu ạ?)"],
+["Put your shoes on the rack.","/pʊt jɔː(r) ʃuːz ɒn ðə ræk/","Cất giày lên giá đi con.","I will line them up. (Con sẽ xếp ngay ngắn ạ.)"],
+["Close the door, please.","/kləʊz ðə dɔː(r), pliːz/","Đóng cửa vào giúp mẹ.","I closed it tightly. (Con đóng chặt rồi ạ.)"],
+["Turn off the lights.","/tɜː(r)n ɒn ðə laɪts/","Tắt đèn đi con.","Done! It is dark now. (Xong! Giờ tối rồi ạ.)"],
+["Can you sweep the floor?","/kæn juː swiːp ðə flɔː(r)/","Con quét nhà giúp mẹ được không?","Where is the broom? (Cây chổi quét nhà ở đâu ạ?)"],
+["Don't spill the water.","/dəʊnt spɪl ðə ˈwɔːtə(r)/","Đừng làm tràn nước ra ngoài con.","I am carrying it slowly. (Con đang bê đi rất chậm đây.)"],
+["Open the window, please.","/ˈəʊpən ðə ˈwɪndəʊ, pliːz/","Mở cửa sổ ra giúp mẹ nhé.","Let some fresh air in. (Cho không khí trong lành vào.)"],
+["Lock the gate, please.","/lɒk ðə ɡeɪt, pliːz/","Khóa cổng ngoài lại giùm mẹ.","I will push the bolt. (Con sẽ cài then chốt lại ạ.)"],
+["Don't slam the door.","/dəʊnt slæm ðə dɔː(r)/","Đừng đóng sầm cửa mạnh thế con.","Sorry, the wind blew it. (Con xin lỗi, tại gió thổi ấy.)"],
+["Water the plants, please.","/ˈwɔːtə(r) ðə plɑːnts, pliːz/","Tưới cây giúp bố mẹ nhé.","I will use the watering can. (Con sẽ dùng cái bình tưới.)"],
+["The flowers look beautiful.","/ðə ˈflaʊəz lʊk ˈbjuːtɪfl/","Những bông hoa trông đẹp quá.","They smell nice too. (Mùi chúng cũng thơm nữa ạ.)"],
+["Wipe the dust off.","/waɪp ðə dʌst ɒf/","Lau sạch lớp bụi bám đi con.","On this wooden chair? (Trên cái ghế gỗ này hả mẹ?)"],
+["Be polite to seniors.","/biː pəˈlaɪt tuː ˈsiːniəz/","Phải lễ phép với người lớn tuổi.","I always bow my head. (Con luôn cúi đầu chào mà.)"],
+["Don't interrupt me.","/dəʊnt ˌbɪntəˈrʌpt miː/","Đừng nói leo/ngắt lời mẹ con.","Sorry, I will wait. (Con xin lỗi, con sẽ chờ ạ.)"],
+["Wait for your turn.","/weɪt fɔː(r) jɔː(r) tɜː(r)n/","Hãy chờ đến lượt của con.","I am standing in line. (Con đang đứng xếp hàng đây.)"],
+["Say excuse me, please.","/seɪ ɪkˈskjuːz miː, pliːz/","Nhớ nói "xin lỗi" lịch sự nhé.","Excuse me, can I pass? (Xin lỗi, cho con đi qua với?)"],
+["Help your grandma.","/help jɔː(r) ˈɡrænmɑː/","Giúp bà một tay đi con.","I will hold her arm. (Con sẽ đỡ tay bà bước đi ạ.)"],
+["Don't make a loud noise.","/dəʊnt meɪk ə laʊd nɔɪz/","Đừng làm ồn ào quá lớn con.","The baby is sleeping? (Em bé đang ngủ hả mẹ?)"],
+["Yes, please be quiet.","/jes, pliːz biː ˈkwaɪət/","Đúng rồi, hãy giữ yên lặng.","I will whisper. (Con sẽ nói thầm thôi ạ.)"],
+["Tidy up your room.","/ˈtaɪdi ʌp jɔː(r) ruːm/","Dọn dẹp phòng của con đi.","It looks neat now. (Giờ trông nó gọn gàng rồi.)"],
+["Put the book back.","/pʊt ðə bʊk bæk/","Đặt cuốn sách trở lại chỗ cũ.","On the top shelf. (Trên ngăn kệ cao nhất ạ.)"],
+["Don't waste paper.","/dəʊnt weɪst ˈpeɪpə(r)/","Đừng lãng phí giấy vẽ con nhé.","I will use both sides. (Con sẽ dùng cả hai mặt giấy.)"],
+["You are a helpful child.","/juː ɑː(r) ə ˈhelpfʊl tʃaɪld/","Con đúng là một đứa trẻ ngoan.","I love helping my family. (Con yêu việc giúp đỡ nhà mình.)"]	
+];
+
+const data32 = [
+["Time for bed.","/taɪm fɔː(r) bed/","Đến giờ đi ngủ rồi con ơi.","Let me go pee first. (Để con đi vệ sinh trước đã.)"],
+["Put on your pajamas.","/pʊt ɒn jɔː(r) pəˈdʒɑːməz/","Mặc đồ ngủ vào đi con.","I love this blue pajamas. (Con thích bộ đồ ngủ màu xanh.)"],
+["Get under the blanket.","/ɡet ˈʌndə(r) ðə ˈblæŋkɪt/","Chui vào trong chăn ấm nào.","It is so warm. (Trong này ấm áp quá mẹ ạ.)"],
+["Give me a hug.","/ɡiv miː ə hʌɡ/","Ôm bố/mẹ một cái nào.","Big hug! (Ôm thật chặt luôn nha bố mẹ!)"],
+["Good night, sweet dreams.","/ɡʊd naɪt, swiːt driːmz/","Chúc con ngủ ngon, mơ đẹp.","Good night, Mom and Dad. (Chúc bố mẹ ngủ ngon ạ.)"],
+["Tell me about your day.","/tel miː əˈbaʊt jɔː(r) deɪ/","Kể mẹ nghe hôm nay thế nào.","I played soccer at school. (Con đã đá bóng ở trường.)"],
+["What made you happy today?","/wɒt meɪd juː ˈhæpi təˈdeɪ/","Hôm nay điều gì làm con vui?","Eating ice cream with you. (Được ăn kem cùng mẹ ạ.)"],
+["I am proud of you.","/aɪ æm praʊd ɒv juː/","Mẹ rất tự hào về con.","Thank you for saying that. (Con cảm ơn mẹ vì đã nói thế.)"],
+["I love you to the moon and back.","/aɪ lʌv juː tuː ðə muːn ænd bæk/","Bố mẹ yêu con nhiều vô bờ bến (rộng lớn như vũ trụ).","I love you more! (Mẹ yêu con nhiều vô bờ bến.)"],
+["Is the pillow soft?","/ɪz ðə ˈpɪləʊ sɒft/","Gối đầu có mềm không con?","Yes, it feels like a cloud. (Vâng, cảm giác như đám mây.)"],
+["Did you set the alarm?","/dɪd juː set ðə əˈlɑː(r)m/","Con đặt chuông báo thức chưa?","Yes, it is set for six AM. Con cài đặt lúc 6 giờ sáng."],
+["Turn off the bedside lamp.","/tɜː(r)n ɒf ðə ˈbedˌsaɪd læmp/","Con tắt chiếc đèn ở đầu giường đi để chuẩn bị ngủ nhé.","It is time to sleep. (Tắt đèn ngủ đầu giường đi con.)"],
+["Close your eyes now.","/kləʊz jɔː(r) aɪz naʊ/","Nhắm mắt lại ngủ thôi con.","I am closing them. (Con đang nhắm mắt lại đây.)"],
+["Sleep tight, my little angel.","/sliːp taɪt, maɪ ˈlɪtl ˈeɪndʒl/","Ngủ thật ngon giấc nhé, thiên thần nhỏ của mẹ/bố.","See you in the morning. (Ngủ ngon nhé thiên thần nhỏ.)"],
+["Are you warm enough?","/ɑː(r) juː wɔː(r)m ɪˈnʌf/","Con có đủ ấm không?","Yes, the blanket is thick. (Vâng, chăn dày dặn lắm ạ.)"],
+["Don't stay up late.","/dəʊnt steɪ ʌp leɪt/","Đừng thức khuya quá con.","I will sleep right now. (Con sẽ đi ngủ ngay lập tức.)"],
+["Let me tuck you in.","/let miː tʌk juː ɪn/","Để mẹ đắp chăn cẩn thận cho.","Thank you, Mom. Good night. (Con cảm ơn mẹ. Chúc mẹ ngủ ngon.)"],
+["Tomorrow will be fun.","/təˈmɒrəʊ wɪl biː fʌn/","Ngày mai sẽ vui lắm đây.","What are we doing tomorrow? (Ngày mai mình sẽ làm gì ạ?)"],
+["We will go to the zoo.","/wiː wɪl ɡəʊ tuː ðə zuː/","Mình sẽ đi chơi vườn bách thú.","Awesome! I want to see monkeys. (Tuyệt cú mèo! Con muốn xem khỉ.)"],
+["Now, close your mouth.","/naʊ, kləʊz jɔː(r) maʊθ/","Bây giờ thì im lặng ngủ thôi.","Shh, quiet now. (Suỵt, giữ yên lặng ngủ thôi.)"],
+["Dream of flying.","/driːm ɒv ˈflaɪɪŋ/","Mơ thấy mình đang bay lượn nhé.","Like a superhero! (Giống như siêu anh hùng ấy mẹ!)"],
+["I will be right here.","/aɪ wɪl biː raɪt hɪə(r)/","Mẹ sẽ ở ngay bên cạnh con.","I am not scared of the dark. (Con không sợ bóng tối đâu ạ.)"],
+["You are safe.","/juː ɑː(r) seɪf/","Con luôn được an toàn.","Thank you, Daddy. (Con cảm ơn bố yêu nhiều.)"],
+["Rest well, my child.","/rest wel, maɪ tʃaɪld/","Nghỉ ngơi tốt nhé con yêu.","Goodbye today. (Tạm biệt ngày hôm nay ạ.)"],
+["See you tomorrow!","/siː juː təˈmɒrəʊ/","Hẹn gặp con vào ngày mai nhé!","See you, Mom and Dad! (Hẹn gặp lại bố mẹ ạ!)"]	
+];
+
 // Mảng chứa dữ liệu các chủ đề
 
 const allData = [
 	data1, data2, data3, data4, data5, data6, data7, data8, data9, data10,
 	data11, data12, data13, data14, data15, data16, data17, data18, data19, data20,
-	data21, data22, data23, data24, data25, data26
+	data21, data22, data23, data24, data25, data26, data27, data28, data29, data30,
+	data31, data32, data40
 ];
 
 // 1. Hàm render giao diện (Đã sửa ID status không trùng lặp & truyền chuỗi an toàn)
