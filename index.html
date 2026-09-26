@@ -2712,7 +2712,7 @@ loadVoices();
 
 function speakWord(text){
   stopSpeech();
-  const match = text.match(/^[^.?]*[.?]/);
+  const match = text.match(/^[^.?!]*[.?!]/);
   const cleanTextStr = match ? match[0] : text;
 	
   const u = new SpeechSynthesisUtterance(cleanTextStr);
