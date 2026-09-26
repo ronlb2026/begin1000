@@ -2712,9 +2712,16 @@ loadVoices();
 
 function speakWord(text){
   stopSpeech();
-  const match = text.match(/^[^.?!]*[.?!]/);
-  const cleanTextStr = match ? match[0] : text;
-	
+  //const match = text.match(/^[^.?!]*[.?!]/);
+  //const cleanTextStr = match ? match[0] : text;
+
+  // Khớp phần chữ từ đầu cho đến khi gặp . ? ! hoặc " ("
+  // Phần nằm trong dấu ngoặc (...) phía sau sẽ bị loại bỏ
+  const match = text.match(/^[^.?!]+?(?=\s*\(|[.?!]|$)/);
+  const cleanTextStr = match ? match[0].trim() : text.trim();
+
+  if (!cleanTextStr) return; // Nếu chuỗi rỗng thì bỏ qua
+  
   const u = new SpeechSynthesisUtterance(cleanTextStr);
   const voices = speechSynthesis.getVoices().filter(v => /^en(-|_)/i.test(v.lang));
   const selected = voices[voiceSelect.selectedIndex];
