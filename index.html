@@ -2715,10 +2715,8 @@ function speakWord(text){
   //const match = text.match(/^[^.?!]*[.?!]/);
   //const cleanTextStr = match ? match[0] : text;
 
-  // Khớp phần chữ từ đầu cho đến khi gặp . ? ! hoặc " ("
-  // Phần nằm trong dấu ngoặc (...) phía sau sẽ bị loại bỏ
-  const match = text.match(/^[^.?!]+?(?=\s*\(|[.?!]|$)/);
-  const cleanTextStr = match ? match[0].trim() : text.trim();
+  // Bỏ phần nằm trong ngoặc (...) và xóa khoảng trắng thừa ở 2 đầu
+  const cleanTextStr = text.replace(/\s*\([^)]*\)/g, '').trim();
 
   if (!cleanTextStr) return; // Nếu chuỗi rỗng thì bỏ qua
   
